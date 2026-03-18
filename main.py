@@ -45,7 +45,8 @@ def contrastive_plan_comparison(
     try:
         original_result = optic.solve_files(domain_path, problem_path, up_problem)
         constrained_result = optic.solve_files(
-            constrained_domain_file, constrained_problem_file, up_problem
+            constrained_domain_file, constrained_problem_file, up_problem,
+            anytime=False,
         )
     finally:
         Path(constrained_domain_file).unlink(missing_ok=True)

@@ -71,13 +71,19 @@ class OpticImpl(up.engines.Engine, up.engines.mixins.OneshotPlannerMixin):
         problem_path: str,
         up_problem: 'up.model.Problem',
         timeout: float | None = None,
+        anytime: bool = True,
     ) -> 'PlanGenerationResult':
         """
         Run OPTIC directly on the provided PDDL files.
         up_problem is used only for action/object lookup when parsing the plan output.
         This bypasses PDDLWriter so the planner sees the original PDDL syntax unchanged.
+
+        anytime=True  — no -N flag; OPTIC keeps improving until it proves optimality.
+        anytime=False — adds -N flag; OPTIC stops at the first valid plan (faster, not
+                        guaranteed optimal). Use for constrained problems where the added
+                        permit predicate can cause the LP initialisation to hang.
         """
-        cmd = [self.executable_path, domain_path, problem_path]
+        cmd = [self.executable_path] + ([] if anytime else ['-N']) + [domain_path, problem_path]
         return self._run_optic(cmd, up_problem, timeout)
 
     # ------------------------------------------------------------------
