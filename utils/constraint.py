@@ -1,68 +1,111 @@
 from unified_planning.model import Problem, DurativeAction, InstantaneousAction
-from unified_planning.shortcuts import Fluent, And, Equals, StartTiming, EndTiming
 
 
-def enforce_goal(
-    problem: Problem,
-    fluent_name: str,
-    object_names: list[str]
-):
-    """
-    Enforces that a specific fluent with specific objects is part of the goal.
+# ---------------------------------------------------------------------------
+# PDDL text-manipulation helpers
+# ---------------------------------------------------------------------------
 
-    :param problem: The planning problem to modify.
-    :param fluent_name: The name of the fluent to add to the goal.
-    :param object_names: The names of the objects that parameterize the fluent.
-    """
-    try:
-        fluent_to_add = problem.fluent(fluent_name)
-        objects = [problem.object(name) for name in object_names]
-        problem.add_goal(fluent_to_add(*objects))
-        print(f"INFO: Added goal '{fluent_name}({', '.join(object_names)})'")
-    except Exception as e:
-        print(f"ERROR: Could not add goal constraint: {e}")
+def _find_matching_close(text: str, open_idx: int) -> int:
+    depth = 0
+    for i in range(open_idx, len(text)):
+        if text[i] == '(':
+            depth += 1
+        elif text[i] == ')':
+            depth -= 1
+            if depth == 0:
+                return i
+    return -1
 
+
+def _insert_before_section_close(text: str, section_keyword: str, insertion: str) -> str:
+    """Find (:section_keyword ...) and insert text before its closing paren."""
+    kw_idx = text.find(section_keyword)
+    if kw_idx == -1:
+        return text
+    open_idx = text.rfind('(', 0, kw_idx)
+    close_idx = _find_matching_close(text, open_idx)
+    if close_idx == -1:
+        return text
+    return text[:close_idx] + f'\n    {insertion}' + text[close_idx:]
+
+
+def _add_to_action_section_and(
+    domain_text: str, action_name: str, section_keyword: str, addition: str
+) -> str:
+    """Add a clause inside a durative-action's :condition or :effect (and ...) block."""
+    marker = f':durative-action {action_name}'
+    kw_idx = domain_text.find(marker)
+    if kw_idx == -1:
+        return domain_text
+    action_open = domain_text.rfind('(', 0, kw_idx)
+    action_close = _find_matching_close(domain_text, action_open)
+    section_idx = domain_text.find(section_keyword, action_open, action_close)
+    if section_idx == -1:
+        return domain_text
+    and_idx = domain_text.find('(and', section_idx, action_close)
+    if and_idx == -1:
+        return domain_text
+    and_close = _find_matching_close(domain_text, and_idx)
+    return domain_text[:and_close] + f'\n                  {addition}' + domain_text[and_close:]
+
+
+def _add_to_goal_and(problem_text: str, goal_fact: str) -> str:
+    """Add a fact inside (:goal (and ...))."""
+    kw_idx = problem_text.find(':goal')
+    if kw_idx == -1:
+        return problem_text
+    goal_open = problem_text.rfind('(', 0, kw_idx)
+    goal_close = _find_matching_close(problem_text, goal_open)
+    and_idx = problem_text.find('(and', goal_open, goal_close)
+    if and_idx == -1:
+        return problem_text
+    and_close = _find_matching_close(problem_text, and_idx)
+    return problem_text[:and_close] + f'\n        {goal_fact}' + problem_text[and_close:]
+
+
+def _add_requirement(domain_text: str, requirement: str) -> str:
+    return _insert_before_section_close(domain_text, ':requirements', requirement)
+
+
+# ---------------------------------------------------------------------------
+# Constraint classes
+# ---------------------------------------------------------------------------
 
 class ProhibitedAction:
     def __init__(self, action_name: str, param_object_names: list[str]):
         self.action_name = action_name
         self.param_object_names = param_object_names
 
-    def prohibit_action(
+    def apply_to_pddl(
         self,
+        domain_text: str,
+        problem_text: str,
         problem: Problem,
-    ):
+    ) -> tuple[str, str]:
         """
-        Prohibits a specific action instance by adding a guard precondition.
-
-        :param problem: The planning problem to modify.
-        :param action_name: The name of the action to prohibit.
-        :param param_object_names: The object names that define the specific action instance.
+        Prohibit a specific action instance by adding a 'blocked' predicate.
+        Uses text edits on the original PDDL so the planner sees unmodified syntax.
         """
-        try:
-            action_to_modify = problem.action(self.action_name)
-            guard_fluent_name = f"permit_{self.action_name}"
+        action = problem.action(self.action_name)
+        blocked_pred = f"blocked_{self.action_name}"
+        params_with_types = " ".join(
+            f"?{p.name} - {p.type.name}" for p in action.parameters
+        )
+        params = " ".join(f"?{p.name}" for p in action.parameters)
+        args = " ".join(self.param_object_names)
 
-            # 1. Create the guard fluent if it doesn't exist
-            if not problem.has_fluent(guard_fluent_name):
-                guard_fluent = Fluent(guard_fluent_name, **{p.name: p.type for p in action_to_modify.parameters})
-                problem.add_fluent(guard_fluent, default_initial_value=True)
-                # 2. Add the guard fluent as a precondition/condition to the action
-                guard_expression = guard_fluent(*action_to_modify.parameters)
-                if isinstance(action_to_modify, DurativeAction):
-                    action_to_modify.add_condition(StartTiming(), guard_expression)
-                else: # InstantaneousAction
-                    action_to_modify.add_precondition(guard_expression)
-
-            # 3. Set the initial state of the guard to False for the specific instance
-            guard_fluent = problem.fluent(guard_fluent_name)
-            objects = [problem.object(name) for name in self.param_object_names]
-            problem.set_initial_value(guard_fluent(*objects), False)
-            print(f"INFO: Prohibited action '{self.action_name}({', '.join(self.param_object_names)})'")
-            return problem
-        except Exception as e:
-            print(f"ERROR: Could not prohibit action: {e}")
-            return problem
+        domain_text = _insert_before_section_close(
+            domain_text, ':predicates', f"({blocked_pred} {params_with_types})"
+        )
+        domain_text = _add_to_action_section_and(
+            domain_text, self.action_name, ':condition',
+            f"(at start (not ({blocked_pred} {params})))"
+        )
+        problem_text = _insert_before_section_close(
+            problem_text, ':init', f"({blocked_pred} {args})"
+        )
+        print(f"INFO: Prohibited action '{self.action_name}({', '.join(self.param_object_names)})'")
+        return domain_text, problem_text
 
 
 class EnforcedAction:
@@ -70,37 +113,31 @@ class EnforcedAction:
         self.action_name = action_name
         self.param_object_names = param_object_names
 
-    def enforce_action(
+    def apply_to_pddl(
         self,
-        problem: Problem
-    ):
+        domain_text: str,
+        problem_text: str,
+        problem: Problem,
+    ) -> tuple[str, str]:
         """
-        Enforces that a specific action instance must be taken by adding a marker effect and goal.
-
-        :param problem: The planning problem to modify.
-        :param action_name: The name of the action to enforce.
-        :param param_object_names: The object names that define the specific action instance.
+        Enforce a specific action instance by adding a marker predicate,
+        a conditional effect, and a goal. Uses text edits on the original PDDL.
         """
-        try:
-            action_to_modify = problem.action(self.action_name)
-            marker_fluent_name = f"did_{self.action_name}_{'_'.join(self.param_object_names)}"
+        action = problem.action(self.action_name)
+        marker_name = f"did_{self.action_name}_{'_'.join(self.param_object_names)}"
+        equalities = " ".join(
+            f"(= ?{p.name} {o})"
+            for p, o in zip(action.parameters, self.param_object_names)
+        )
 
-            # 1. Create a unique marker fluent for this specific action instance
-            if not problem.has_fluent(marker_fluent_name):
-                marker_fluent = Fluent(marker_fluent_name)
-                problem.add_fluent(marker_fluent, default_initial_value=False)
-                # 2. Add the marker as an effect of the action, only when parameters match
-                action_params = action_to_modify.parameters
-                objects = [problem.object(name) for name in self.param_object_names]
-                condition = And(Equals(p, o) for p, o in zip(action_params, objects))
-                if isinstance(action_to_modify, DurativeAction):
-                    action_to_modify.add_effect(EndTiming(), marker_fluent(), True, condition)
-                else: # InstantaneousAction
-                    action_to_modify.add_effect(marker_fluent(), True, condition)
-                # 3. Add the marker fluent to the goal
-                problem.add_goal(marker_fluent)
-                print(f"INFO: Enforced action '{self.action_name}({', '.join(self.param_object_names)})'")
-        except Exception as e:
-            print(f"ERROR: Could not enforce action: {e}")
-        
-        return problem
+        domain_text = _add_requirement(domain_text, ':conditional-effects')
+        domain_text = _insert_before_section_close(
+            domain_text, ':predicates', f"({marker_name})"
+        )
+        domain_text = _add_to_action_section_and(
+            domain_text, self.action_name, ':effect',
+            f"(at end (when (and {equalities}) ({marker_name})))"
+        )
+        problem_text = _add_to_goal_and(problem_text, f"({marker_name})")
+        print(f"INFO: Enforced action '{self.action_name}({', '.join(self.param_object_names)})'")
+        return domain_text, problem_text

@@ -1,13 +1,11 @@
-from unified_planning.environment import get_environment
+from pathlib import Path
+
 from unified_planning.io import PDDLReader
-from unified_planning.shortcuts import OneshotPlanner
 
 from utils.plan_diff import diff_plans, _plan_cost
 from utils.constraint import ProhibitedAction, EnforcedAction
 from utils.optic import OpticImpl
 
-env = get_environment()
-env.factory.add_engine('optic', __name__, 'OpticImpl')
 
 def contrastive_plan_comparison(
         domain_path: str,
@@ -16,28 +14,42 @@ def contrastive_plan_comparison(
         prohibited_actions: list[ProhibitedAction] = [],
         enforced_actions: list[EnforcedAction] = []
     ):
-    reader = PDDLReader()
-    original_problem = reader.parse_problem(
-        domain_path,
-        problem_path
-    )
+    # Parse original problem once — used only for action/object lookup when
+    # interpreting OPTIC's plan output. We never re-serialize it with PDDLWriter.
+    up_problem = PDDLReader().parse_problem(domain_path, problem_path)
 
-    constrained_problem = reader.parse_problem(
-        domain_path,
-        problem_path
-    )
+    # Build constrained PDDL by making targeted text edits to the original files.
+    # This avoids PDDLWriter mangling TILs, metrics, and duration expressions.
+    domain_text = Path(domain_path).read_text()
+    problem_text = Path(problem_path).read_text()
+
+    constrained_domain_text = domain_text
+    constrained_problem_text = problem_text
 
     for action in prohibited_actions:
-        action.prohibit_action(constrained_problem)
+        constrained_domain_text, constrained_problem_text = action.apply_to_pddl(
+            constrained_domain_text, constrained_problem_text, up_problem
+        )
 
     for action in enforced_actions:
-        action.enforce_action(constrained_problem)
+        constrained_domain_text, constrained_problem_text = action.apply_to_pddl(
+            constrained_domain_text, constrained_problem_text, up_problem
+        )
 
+    constrained_domain_file = "domain_constrained_temp.pddl"
+    constrained_problem_file = "problem_constrained_temp.pddl"
+    Path(constrained_domain_file).write_text(constrained_domain_text)
+    Path(constrained_problem_file).write_text(constrained_problem_text)
 
-    with OneshotPlanner(name='optic') as planner:
-        original_result = planner.solve(original_problem)
-        constrained_result = planner.solve(constrained_problem)
-
+    optic = OpticImpl()
+    try:
+        original_result = optic.solve_files(domain_path, problem_path, up_problem)
+        constrained_result = optic.solve_files(
+            constrained_domain_file, constrained_problem_file, up_problem
+        )
+    finally:
+        Path(constrained_domain_file).unlink(missing_ok=True)
+        Path(constrained_problem_file).unlink(missing_ok=True)
 
     if not original_result.plan or not constrained_result.plan:
         print("Could not obtain both plans.")
@@ -67,9 +79,8 @@ def main():
 
     enforced_actions = []
 
-
     contrastive_plan_comparison(
-        domain_path = 'refrigerated_delivery_domain.pddl', 
+        domain_path = 'refrigerated_delivery_domain.pddl',
         problem_path = 'refrigerated_delivery_problem.pddl',
         constraint_question = 'Why did the driver drive from location a to location b?',
         enforced_actions=enforced_actions,
