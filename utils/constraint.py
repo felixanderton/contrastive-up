@@ -185,34 +185,52 @@ class EnforcedAction:
         problem: Problem,
     ) -> tuple[str, str]:
         """
-        Enforce a specific action instance by adding a ground marker action whose
-        preconditions are the at-end positive effects of the enforced grounding.
-        The marker predicate is added as a goal. No conditional effects required —
-        OPTIC rejects (when ...) inside (at end ...) in durative actions.
+        Enforce a specific action instance using a fully parametric marker action.
+        A typed target predicate (set in :init for the specific grounding only) acts
+        as an equality check inside the domain, avoiding ground-object references in
+        action bodies (which OPTIC rejects with INTERNAL_ERROR).
         """
         action = problem.action(self.action_name)
-        marker_name = f"did_{self.action_name}_{'_'.join(self.param_object_names)}"
+        args_str = '_'.join(self.param_object_names)
+        goal_pred = f"did_{self.action_name}_{args_str}"
+        tgt_pred = f"tgt_{self.action_name}_{args_str}"
+        marker_action_name = f"mark_{self.action_name}_{args_str}"
 
-        at_end_atoms = _get_ground_at_end_positive_effects(
-            domain_text, self.action_name,
-            [p.name for p in action.parameters],
-            self.param_object_names,
+        params_with_types = " ".join(
+            f"?{p.name} - {p.type.name}" for p in action.parameters
         )
-        precond = " ".join(f"(at start {a})" for a in at_end_atoms)
+        params_vars = " ".join(f"?{p.name}" for p in action.parameters)
+        args = " ".join(self.param_object_names)
+
+        # Get at-end positive effects parametrically (no substitution)
+        at_end_atoms = _get_ground_at_end_positive_effects(
+            domain_text, self.action_name, [], []
+        )
+        precond_parts = [f"(at start {a})" for a in at_end_atoms]
+        precond_parts.append(f"(at start ({tgt_pred} {params_vars}))")
+        precond = " ".join(precond_parts)
+
         marker_action = (
-            f"\n  (:durative-action {marker_name}\n"
-            f"    :parameters ()\n"
+            f"\n  (:durative-action {marker_action_name}\n"
+            f"    :parameters ({params_with_types})\n"
             f"    :duration (= ?duration 0.01)\n"
             f"    :condition (and {precond})\n"
-            f"    :effect (and (at end ({marker_name})))\n"
+            f"    :effect (and (at end ({goal_pred})))\n"
             f"  )"
         )
 
         domain_text = _insert_before_section_close(
-            domain_text, ':predicates', f"({marker_name})"
+            domain_text, ':predicates', f"({goal_pred})"
+        )
+        domain_text = _insert_before_section_close(
+            domain_text, ':predicates', f"({tgt_pred} {params_with_types})"
         )
         domain_text = _insert_action(domain_text, marker_action)
-        problem_text = _add_to_goal_and(problem_text, f"({marker_name})")
+
+        problem_text = _insert_before_section_close(
+            problem_text, ':init', f"({tgt_pred} {args})"
+        )
+        problem_text = _add_to_goal_and(problem_text, f"({goal_pred})")
         print(f"INFO: Enforced action '{self.action_name}({', '.join(self.param_object_names)})'")
         return domain_text, problem_text
 
@@ -238,9 +256,17 @@ class ActionOrdering:
     ) -> tuple[str, str]:
         """
         Enforce ordering: after_instance can only start once before_instance completes.
-        Uses permit+TIL to block the specific after_instance initially, then a ground
-        release action (gated on before_instance's at-end effects) to re-enable it.
-        No conditional effects — OPTIC rejects (when ...) inside (at end ...).
+
+        Uses the permit+TIL pattern to block the specific after_instance, then a two-step
+        parametric release mechanism:
+          1. A typed target predicate in :init identifies the before grounding.
+          2. A 'set_done' marker action (parametric, typed) sets a propositional done flag
+             once the before-instance's at-end effects hold.
+          3. A 'release' action re-enables the permit for the after_instance once the done
+             flag is set (restricted by a typed target predicate for the after grounding).
+
+        No ground-object references appear in domain action bodies (OPTIC INTERNAL_ERROR).
+        No conditional effects (OPTIC rejects (when ...) inside (at end ...)).
         """
         before_action = problem.action(self.before_name)
         after_action = problem.action(self.after_name)
@@ -251,37 +277,74 @@ class ActionOrdering:
         )
         after_params_vars = " ".join(f"?{p.name}" for p in after_action.parameters)
         after_args = " ".join(self.after_params)
+        before_params_with_types = " ".join(
+            f"?{p.name} - {p.type.name}" for p in before_action.parameters
+        )
+        before_params_vars = " ".join(f"?{p.name}" for p in before_action.parameters)
+        before_args = " ".join(self.before_params)
 
+        # --- permit predicate on after_action ---
         domain_text = _insert_before_section_close(
             domain_text, ':predicates', f"({pred} {after_params_with_types})"
         )
-        # after_action requires the permit at start
         domain_text = _add_to_action_section_and(
             domain_text, self.after_name, ':condition',
             f"(at start ({pred} {after_params_vars}))"
         )
 
-        # Ground release action: fires once before_instance's at-end effects hold,
-        # re-enabling the permit for the specific after_instance.
+        # --- done flag + target predicate for before-instance ---
+        done_flag = f"done_{self.before_name}_{'_'.join(self.before_params)}"
+        tgt_before = f"tgt_{done_flag}"
         before_at_end = _get_ground_at_end_positive_effects(
-            domain_text, self.before_name,
-            [p.name for p in before_action.parameters],
-            self.before_params,
+            domain_text, self.before_name, [], []
         )
+        before_precond_parts = [f"(at start {a})" for a in before_at_end]
+        before_precond_parts.append(f"(at start ({tgt_before} {before_params_vars}))")
+        before_precond = " ".join(before_precond_parts)
+
+        domain_text = _insert_before_section_close(
+            domain_text, ':predicates', f"({done_flag})"
+        )
+        domain_text = _insert_before_section_close(
+            domain_text, ':predicates', f"({tgt_before} {before_params_with_types})"
+        )
+        set_done_action = (
+            f"\n  (:durative-action set_{done_flag}\n"
+            f"    :parameters ({before_params_with_types})\n"
+            f"    :duration (= ?duration 0.01)\n"
+            f"    :condition (and {before_precond})\n"
+            f"    :effect (and (at end ({done_flag})))\n"
+            f"  )"
+        )
+        domain_text = _insert_action(domain_text, set_done_action)
+
+        # --- release action re-enables permit for the specific after_instance ---
+        tgt_after = f"tgt_{pred}"
         release_name = f"release_{pred}"
-        release_precond = " ".join(f"(at start {a})" for a in before_at_end)
+        release_precond = (
+            f"(at start ({done_flag})) (at start ({tgt_after} {after_params_vars}))"
+        )
+        domain_text = _insert_before_section_close(
+            domain_text, ':predicates', f"({tgt_after} {after_params_with_types})"
+        )
         release_action = (
             f"\n  (:durative-action {release_name}\n"
-            f"    :parameters ()\n"
+            f"    :parameters ({after_params_with_types})\n"
             f"    :duration (= ?duration 0.01)\n"
             f"    :condition (and {release_precond})\n"
-            f"    :effect (and (at end ({pred} {after_args})))\n"
+            f"    :effect (and (at end ({pred} {after_params_vars})))\n"
             f"  )"
         )
         domain_text = _insert_action(domain_text, release_action)
 
-        # All groundings start permitted; specific after_instance is removed by TIL
-        # and re-added only when the release action fires.
+        # --- init ---
+        problem_text = _insert_before_section_close(
+            problem_text, ':init', f"({tgt_before} {before_args})"
+        )
+        problem_text = _insert_before_section_close(
+            problem_text, ':init', f"({tgt_after} {after_args})"
+        )
+        # All groundings of after_action start permitted; specific instance removed by TIL
         objects_per_param = [
             [o.name for o in problem.objects(p.type)] for p in after_action.parameters
         ]
