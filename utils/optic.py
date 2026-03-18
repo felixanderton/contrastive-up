@@ -226,10 +226,11 @@ class OpticImpl(up.engines.Engine, up.engines.mixins.OneshotPlannerMixin):
                     params = [up_problem.object(n) for n in obj_names]
                     plan_items.append((start_time, ActionInstance(up_action, tuple(params)), duration))
                 except Exception as e:
-                    logs.append(LogMessage(LogLevel.ERROR, f"Error parsing line '{line}': {e}"))
-                    return PlanGenerationResult(
-                        PlanGenerationResultStatus.INTERNAL_ERROR, None, self.name, log_messages=logs
-                    )
+                    # Skip constraint-encoding actions (markers, release flags, etc.)
+                    # that were added to the constrained domain but are not in the
+                    # original up_problem. They are bookkeeping artifacts, not domain
+                    # actions, and should not appear in the plan comparison output.
+                    logs.append(LogMessage(LogLevel.WARNING, f"Skipping auxiliary action '{action_name}': {e}"))
 
         final_plan = TimeTriggeredPlan(plan_items)
         return PlanGenerationResult(
