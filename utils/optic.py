@@ -125,14 +125,24 @@ class OpticImpl(up.engines.Engine, up.engines.mixins.OneshotPlannerMixin):
 
     def _stream_optic(self, cmd: list[str], timeout: float) -> tuple[str, bool]:
         """Run OPTIC, streaming its stdout to the terminal in real-time.
+        Terminates OPTIC proactively once it signals optimality.
         Returns (full_output, timed_out)."""
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
         lines: list[str] = []
+        last_plan_metric: list[float | None] = [None]
 
         def _read():
             for line in process.stdout:  # type: ignore[union-attr]
                 print(line, end='', flush=True)
                 lines.append(line)
+                m = re.search(r'; Plan found with metric ([\d.]+)', line)
+                if m:
+                    last_plan_metric[0] = float(m.group(1))
+                m2 = re.search(r'\* All goal deadlines now no later than ([\d.]+)', line)
+                if m2 and last_plan_metric[0] is not None:
+                    if float(m2.group(1)) <= last_plan_metric[0] + 0.01:
+                        process.terminate()
+                        break
 
         reader = threading.Thread(target=_read, daemon=True)
         reader.start()
