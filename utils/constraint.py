@@ -104,16 +104,22 @@ class ProhibitedAction:
             f"(at start ({permit_pred} {params}))"
         )
 
-        # Add permit facts for every grounding EXCEPT the prohibited one.
-        prohibited_tuple = tuple(self.param_object_names)
+        # Add ALL groundings to init so the LP sees every precondition as
+        # achievable (avoids the LP-initialisation hang caused by unreachable
+        # preconditions). Then immediately remove the prohibited instance via a
+        # TIL at 0.001 s — before any action sequence can make the drive
+        # applicable (all durative actions have duration >= 0.01 s, so
+        # preconditions like 'boarded' cannot be established before that).
         objects_per_param = [
             [o.name for o in problem.objects(p.type)] for p in action.parameters
         ]
         for combo in iterproduct(*objects_per_param):
-            if combo != prohibited_tuple:
-                problem_text = _insert_before_section_close(
-                    problem_text, ':init', f"({permit_pred} {' '.join(combo)})"
-                )
+            problem_text = _insert_before_section_close(
+                problem_text, ':init', f"({permit_pred} {' '.join(combo)})"
+            )
+        problem_text = _insert_before_section_close(
+            problem_text, ':init', f"(at 0.001 (not ({permit_pred} {args})))"
+        )
 
         print(f"INFO: Prohibited action '{self.action_name}({', '.join(self.param_object_names)})'")
         return domain_text, problem_text
