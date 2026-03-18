@@ -2,6 +2,7 @@ import subprocess
 import threading
 import re
 import os
+import time
 from typing import Callable, IO, Optional
 
 import unified_planning as up
@@ -123,25 +124,54 @@ class OpticImpl(up.engines.Engine, up.engines.mixins.OneshotPlannerMixin):
     # Shared subprocess + plan-parsing logic
     # ------------------------------------------------------------------
 
-    def _stream_optic(self, cmd: list[str], timeout: float) -> tuple[str, bool]:
+    def _stream_optic(
+        self,
+        cmd: list[str],
+        timeout: float,
+        post_plan_timeout: float = 5.0,
+    ) -> tuple[str, bool]:
         """Run OPTIC, streaming its stdout to the terminal in real-time.
-        Returns (full_output, timed_out)."""
+
+        Kills OPTIC post_plan_timeout seconds after the last improving plan is
+        found, rather than waiting for OPTIC to self-terminate (which can take
+        indefinitely on the optimality-proof phase).
+        Returns (full_output, timed_out).
+        """
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
         lines: list[str] = []
+        last_plan_time: list[float | None] = [None]
 
         def _read():
             for line in process.stdout:  # type: ignore[union-attr]
                 print(line, end='', flush=True)
                 lines.append(line)
+                if '; Plan found' in line:
+                    last_plan_time[0] = time.monotonic()
 
         reader = threading.Thread(target=_read, daemon=True)
         reader.start()
+
         timed_out = False
+        deadline = time.monotonic() + timeout
         try:
-            process.wait(timeout=timeout)
-        except subprocess.TimeoutExpired:
+            while True:
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    process.kill()
+                    timed_out = True
+                    break
+                if last_plan_time[0] is not None:
+                    since_plan = time.monotonic() - last_plan_time[0]
+                    if since_plan >= post_plan_timeout:
+                        process.terminate()
+                        break
+                try:
+                    process.wait(timeout=min(0.5, remaining))
+                    break  # exited naturally
+                except subprocess.TimeoutExpired:
+                    pass
+        except Exception:
             process.kill()
-            timed_out = True
         reader.join()
         return ''.join(lines), timed_out
 
