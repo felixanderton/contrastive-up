@@ -4,4 +4,6 @@ __pycache__/
 *.pyo
 domain_optic_temp.pddl
 problem_optic_temp.pddl
+domain_constrained_temp.pddl
+problem_constrained_temp.pddl
 optic-clp-release/
