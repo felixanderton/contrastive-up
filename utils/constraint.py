@@ -95,6 +95,7 @@ class ProhibitedAction:
             f"?{p.name} - {p.type.name}" for p in action.parameters
         )
         params = " ".join(f"?{p.name}" for p in action.parameters)
+        args = " ".join(self.param_object_names)
 
         domain_text = _insert_before_section_close(
             domain_text, ':predicates', f"({permit_pred} {params_with_types})"
