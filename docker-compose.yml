@@ -1,0 +1,10 @@
+services:
+  planning:
+    build: .
+    volumes:
+      # Mount source files so edits on Mac are reflected without rebuilding
+      - .:/app
+    working_dir: /app
+    # Keep container alive for interactive use: docker compose run planning python main.py
+    stdin_open: true
+    tty: true

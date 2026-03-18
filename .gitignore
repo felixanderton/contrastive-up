@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+domain_optic_temp.pddl
+problem_optic_temp.pddl
+optic-clp-release/
