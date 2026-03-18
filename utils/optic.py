@@ -157,7 +157,7 @@ class OpticImpl(up.engines.Engine, up.engines.mixins.OneshotPlannerMixin):
         try:
             output, timed_out = self._stream_optic(cmd, timeout)
             if timed_out:
-                if "Solution Found" not in output:
+                if "; Plan found" not in output:
                     return PlanGenerationResult(
                         PlanGenerationResultStatus.TIMEOUT, None, self.name, log_messages=logs
                     )
@@ -172,13 +172,13 @@ class OpticImpl(up.engines.Engine, up.engines.mixins.OneshotPlannerMixin):
                 log_messages=[LogMessage(LogLevel.ERROR, f"Executable not found at {self.executable_path}")],
             )
 
-        if "Solution Found" not in output:
+        if "; Plan found" not in output:
             return PlanGenerationResult(
                 PlanGenerationResultStatus.UNSOLVABLE_INCOMPLETELY, None, self.name, log_messages=logs
             )
 
         # In anytime mode OPTIC emits multiple improving plans; only the last is optimal.
-        last_plan_block = output.split("Solution Found")[-1]
+        last_plan_block = output.split("; Plan found")[-1]
 
         regex = r"^\s*(\d+(?:\.\d+)?):\s*\(([^)]+)\)\s*\[(\d+(?:\.\d+)?)\]"
         plan_items = []
