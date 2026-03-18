@@ -1,3 +1,4 @@
+from itertools import product as iterproduct
 from unified_planning.model import Problem, DurativeAction, InstantaneousAction
 
 
@@ -83,27 +84,37 @@ class ProhibitedAction:
         problem: Problem,
     ) -> tuple[str, str]:
         """
-        Prohibit a specific action instance by adding a 'blocked' predicate.
-        Uses text edits on the original PDDL so the planner sees unmodified syntax.
+        Prohibit a specific action instance using a positive permit predicate.
+        All instances are permitted in the init except the prohibited one.
+        Positive preconditions are handled cleanly by OPTIC's LP heuristic;
+        negative preconditions on static fluents can cause the LP to loop.
         """
         action = problem.action(self.action_name)
-        blocked_pred = f"blocked_{self.action_name}"
+        permit_pred = f"permit_{self.action_name}"
         params_with_types = " ".join(
             f"?{p.name} - {p.type.name}" for p in action.parameters
         )
         params = " ".join(f"?{p.name}" for p in action.parameters)
-        args = " ".join(self.param_object_names)
 
         domain_text = _insert_before_section_close(
-            domain_text, ':predicates', f"({blocked_pred} {params_with_types})"
+            domain_text, ':predicates', f"({permit_pred} {params_with_types})"
         )
         domain_text = _add_to_action_section_and(
             domain_text, self.action_name, ':condition',
-            f"(at start (not ({blocked_pred} {params})))"
+            f"(at start ({permit_pred} {params}))"
         )
-        problem_text = _insert_before_section_close(
-            problem_text, ':init', f"({blocked_pred} {args})"
-        )
+
+        # Add permit facts for every grounding EXCEPT the prohibited one.
+        prohibited_tuple = tuple(self.param_object_names)
+        objects_per_param = [
+            [o.name for o in problem.objects(p.type)] for p in action.parameters
+        ]
+        for combo in iterproduct(*objects_per_param):
+            if combo != prohibited_tuple:
+                problem_text = _insert_before_section_close(
+                    problem_text, ':init', f"({permit_pred} {' '.join(combo)})"
+                )
+
         print(f"INFO: Prohibited action '{self.action_name}({', '.join(self.param_object_names)})'")
         return domain_text, problem_text
 
