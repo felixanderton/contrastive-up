@@ -1,3 +1,4 @@
+import re
 from itertools import product as iterproduct
 from unified_planning.model import Problem, DurativeAction, InstantaneousAction
 
@@ -158,4 +159,180 @@ class EnforcedAction:
         )
         problem_text = _add_to_goal_and(problem_text, f"({marker_name})")
         print(f"INFO: Enforced action '{self.action_name}({', '.join(self.param_object_names)})'")
+        return domain_text, problem_text
+
+
+class ActionOrdering:
+    def __init__(
+        self,
+        before_name: str,
+        before_params: list[str],
+        after_name: str,
+        after_params: list[str],
+    ):
+        self.before_name = before_name
+        self.before_params = before_params
+        self.after_name = after_name
+        self.after_params = after_params
+
+    def apply_to_pddl(
+        self,
+        domain_text: str,
+        problem_text: str,
+        problem: Problem,
+    ) -> tuple[str, str]:
+        """
+        Enforce ordering: after_instance can only start once before_instance completes.
+        Uses the same permit+TIL pattern as ProhibitedAction, but re-enables the
+        permit via a conditional effect on before_action rather than leaving it removed.
+        Applies only to the specific after_instance; all other groundings of after_action
+        are unrestricted.
+        """
+        before_action = problem.action(self.before_name)
+        after_action = problem.action(self.after_name)
+
+        pred = f"order_{self.after_name}_by_{'_'.join(self.before_params)}"
+        after_params_with_types = " ".join(
+            f"?{p.name} - {p.type.name}" for p in after_action.parameters
+        )
+        after_params_vars = " ".join(f"?{p.name}" for p in after_action.parameters)
+        after_args = " ".join(self.after_params)
+        before_equalities = " ".join(
+            f"(= ?{p.name} {o})"
+            for p, o in zip(before_action.parameters, self.before_params)
+        )
+
+        domain_text = _add_requirement(domain_text, ':conditional-effects')
+        domain_text = _insert_before_section_close(
+            domain_text, ':predicates', f"({pred} {after_params_with_types})"
+        )
+        # after_action requires the permit at start
+        domain_text = _add_to_action_section_and(
+            domain_text, self.after_name, ':condition',
+            f"(at start ({pred} {after_params_vars}))"
+        )
+        # before_action re-enables the specific permit when it fires with before_params
+        domain_text = _add_to_action_section_and(
+            domain_text, self.before_name, ':effect',
+            f"(at end (when (and {before_equalities}) ({pred} {after_args})))"
+        )
+
+        # All groundings start permitted; specific after_instance is removed by TIL
+        # and re-added only when before_instance completes.
+        objects_per_param = [
+            [o.name for o in problem.objects(p.type)] for p in after_action.parameters
+        ]
+        for combo in iterproduct(*objects_per_param):
+            problem_text = _insert_before_section_close(
+                problem_text, ':init', f"({pred} {' '.join(combo)})"
+            )
+        problem_text = _insert_before_section_close(
+            problem_text, ':init', f"(at 0.001 (not ({pred} {after_args})))"
+        )
+
+        print(
+            f"INFO: Ordered '{self.after_name}({', '.join(self.after_params)})'"
+            f" to start after '{self.before_name}({', '.join(self.before_params)})' completes"
+        )
+        return domain_text, problem_text
+
+
+class AtomGoal:
+    def __init__(self, predicate: str, args: list[str]):
+        self.predicate = predicate
+        self.args = args
+
+    def apply_to_pddl(
+        self,
+        domain_text: str,
+        problem_text: str,
+        problem: Problem,
+    ) -> tuple[str, str]:
+        """Add a ground atom to the problem goal."""
+        atom = f"({self.predicate} {' '.join(self.args)})" if self.args else f"({self.predicate})"
+        problem_text = _add_to_goal_and(problem_text, atom)
+        print(f"INFO: Added goal atom '{atom}'")
+        return domain_text, problem_text
+
+
+class FluentChange:
+    def __init__(self, fluent: str, args: list[str], new_value: float | int):
+        self.fluent = fluent
+        self.args = args
+        self.new_value = new_value
+
+    def apply_to_pddl(
+        self,
+        domain_text: str,
+        problem_text: str,
+        problem: Problem,
+    ) -> tuple[str, str]:
+        """Replace an existing numeric fluent assignment in :init, or add it if absent."""
+        fluent_atom = f"({self.fluent} {' '.join(self.args)})" if self.args else f"({self.fluent})"
+        pattern = re.escape(f"(= {fluent_atom}") + r"\s+[^\)]+\)"
+        replacement = f"(= {fluent_atom} {self.new_value})"
+        new_text, n = re.subn(pattern, replacement, problem_text)
+        if n > 0:
+            problem_text = new_text
+        else:
+            problem_text = _insert_before_section_close(problem_text, ':init', replacement)
+        print(f"INFO: Set fluent '{fluent_atom}' to {self.new_value}")
+        return domain_text, problem_text
+
+
+class TimedLiteral:
+    def __init__(self, time: float | int, predicate: str, args: list[str], holds: bool = True):
+        self.time = time
+        self.predicate = predicate
+        self.args = args
+        self.holds = holds
+
+    def apply_to_pddl(
+        self,
+        domain_text: str,
+        problem_text: str,
+        problem: Problem,
+    ) -> tuple[str, str]:
+        """Add a timed initial literal to :init."""
+        atom = f"({self.predicate} {' '.join(self.args)})" if self.args else f"({self.predicate})"
+        til = f"(at {self.time} {atom})" if self.holds else f"(at {self.time} (not {atom}))"
+        problem_text = _insert_before_section_close(problem_text, ':init', til)
+        print(f"INFO: Added timed literal '{til}'")
+        return domain_text, problem_text
+
+
+class ActionCountLimit:
+    def __init__(self, action_name: str, max_uses: int):
+        self.action_name = action_name
+        self.max_uses = max_uses
+
+    def apply_to_pddl(
+        self,
+        domain_text: str,
+        problem_text: str,
+        problem: Problem,
+    ) -> tuple[str, str]:
+        """Limit the number of times an action can fire using a countdown fluent."""
+        counter = f"uses_left_{self.action_name}"
+        domain_text = _add_requirement(domain_text, ':numeric-fluents')
+        if ':functions' in domain_text:
+            domain_text = _insert_before_section_close(
+                domain_text, ':functions', f"({counter})"
+            )
+        else:
+            domain_text = _insert_before_section_close(
+                domain_text, ':predicates', f")\n  (:functions\n    ({counter})"
+            )
+        domain_text = _add_to_action_section_and(
+            domain_text, self.action_name, ':condition',
+            f"(at start (> ({counter}) 0))"
+        )
+        domain_text = _add_to_action_section_and(
+            domain_text, self.action_name, ':effect',
+            f"(at start (decrease ({counter}) 1))"
+        )
+        problem_text = _insert_before_section_close(
+            problem_text, ':init', f"(= ({counter}) {self.max_uses})"
+        )
+        print(f"INFO: Limited action '{self.action_name}' to {self.max_uses} use(s)")
         return domain_text, problem_text

@@ -3,7 +3,10 @@ from pathlib import Path
 from unified_planning.io import PDDLReader
 
 from utils.plan_diff import diff_plans, _plan_cost
-from utils.constraint import ProhibitedAction, EnforcedAction
+from utils.constraint import (
+    ProhibitedAction, EnforcedAction,
+    ActionOrdering, AtomGoal, FluentChange, TimedLiteral, ActionCountLimit,
+)
 from utils.optic import OpticImpl
 
 
@@ -11,8 +14,9 @@ def contrastive_plan_comparison(
         domain_path: str,
         problem_path: str,
         constraint_question: str,
-        prohibited_actions: list[ProhibitedAction] = [],
-        enforced_actions: list[EnforcedAction] = []
+        constraints: list | None = None,
+        prohibited_actions: list[ProhibitedAction] | None = None,
+        enforced_actions: list[EnforcedAction] | None = None,
     ):
     # Parse original problem once — used only for action/object lookup when
     # interpreting OPTIC's plan output. We never re-serialize it with PDDLWriter.
@@ -26,13 +30,9 @@ def contrastive_plan_comparison(
     constrained_domain_text = domain_text
     constrained_problem_text = problem_text
 
-    for action in prohibited_actions:
-        constrained_domain_text, constrained_problem_text = action.apply_to_pddl(
-            constrained_domain_text, constrained_problem_text, up_problem
-        )
-
-    for action in enforced_actions:
-        constrained_domain_text, constrained_problem_text = action.apply_to_pddl(
+    all_constraints = list(constraints or []) + list(prohibited_actions or []) + list(enforced_actions or [])
+    for constraint in all_constraints:
+        constrained_domain_text, constrained_problem_text = constraint.apply_to_pddl(
             constrained_domain_text, constrained_problem_text, up_problem
         )
 
@@ -72,19 +72,13 @@ def contrastive_plan_comparison(
 
 
 def main():
-
-    prohibited_actions = [
-        ProhibitedAction('drive_truck', ['d1', 't1', 'a', 'b']),
-    ]
-
-    enforced_actions = []
-
     contrastive_plan_comparison(
-        domain_path = 'refrigerated_delivery_domain.pddl',
-        problem_path = 'refrigerated_delivery_problem.pddl',
-        constraint_question = 'Why did the driver drive from location a to location b?',
-        enforced_actions=enforced_actions,
-        prohibited_actions=prohibited_actions
+        domain_path='refrigerated_delivery_domain.pddl',
+        problem_path='refrigerated_delivery_problem.pddl',
+        constraint_question='Why did the driver use truck t2 to drive from a to c?',
+        constraints=[
+            ProhibitedAction('drive_truck', ['d1', 't2', 'a', 'c']),
+        ],
     )
 
 if __name__ == "__main__":
