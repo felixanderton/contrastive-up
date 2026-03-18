@@ -1,4 +1,5 @@
 import subprocess
+import threading
 import re
 import os
 from typing import Callable, IO, Optional
@@ -116,6 +117,28 @@ class OpticImpl(up.engines.Engine, up.engines.mixins.OneshotPlannerMixin):
     # Shared subprocess + plan-parsing logic
     # ------------------------------------------------------------------
 
+    def _stream_optic(self, cmd: list[str], timeout: float) -> tuple[str, bool]:
+        """Run OPTIC, streaming its stdout to the terminal in real-time.
+        Returns (full_output, timed_out)."""
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+        lines: list[str] = []
+
+        def _read():
+            for line in process.stdout:  # type: ignore[union-attr]
+                print(line, end='', flush=True)
+                lines.append(line)
+
+        reader = threading.Thread(target=_read, daemon=True)
+        reader.start()
+        timed_out = False
+        try:
+            process.wait(timeout=timeout)
+        except subprocess.TimeoutExpired:
+            process.kill()
+            timed_out = True
+        reader.join()
+        return ''.join(lines), timed_out
+
     def _run_optic(
         self,
         cmd: list[str],
@@ -124,18 +147,17 @@ class OpticImpl(up.engines.Engine, up.engines.mixins.OneshotPlannerMixin):
     ) -> 'PlanGenerationResult':
         timeout = timeout if timeout is not None else 300
         logs = []
+        print(f"Running: {' '.join(cmd)}", flush=True)
         try:
-            res = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
-            output = res.stdout
-            logs.append(LogMessage(LogLevel.INFO, "OPTIC executed successfully"))
-        except subprocess.TimeoutExpired as e:
-            raw = e.stdout or b""
-            output = raw.decode("utf-8", errors="replace") if isinstance(raw, bytes) else raw
-            if "Solution Found" not in output:
-                return PlanGenerationResult(
-                    PlanGenerationResultStatus.TIMEOUT, None, self.name, log_messages=logs
-                )
-            logs.append(LogMessage(LogLevel.INFO, "OPTIC timed out but a solution was found"))
+            output, timed_out = self._stream_optic(cmd, timeout)
+            if timed_out:
+                if "Solution Found" not in output:
+                    return PlanGenerationResult(
+                        PlanGenerationResultStatus.TIMEOUT, None, self.name, log_messages=logs
+                    )
+                logs.append(LogMessage(LogLevel.INFO, "OPTIC timed out but a solution was found"))
+            else:
+                logs.append(LogMessage(LogLevel.INFO, "OPTIC executed successfully"))
         except FileNotFoundError:
             return PlanGenerationResult(
                 PlanGenerationResultStatus.INTERNAL_ERROR,
