@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import re
 from itertools import product as iterproduct
 from unified_planning.model import Problem, DurativeAction, InstantaneousAction
@@ -67,6 +69,50 @@ def _add_to_goal_and(problem_text: str, goal_fact: str) -> str:
 
 def _add_requirement(domain_text: str, requirement: str) -> str:
     return _insert_before_section_close(domain_text, ':requirements', requirement)
+
+
+def _get_ground_at_end_positive_effects(
+    domain_text: str, action_name: str, param_names: list[str], object_names: list[str]
+) -> list[str]:
+    """Extract and ground the at-end positive effects of a durative action from PDDL text."""
+    param_to_obj = {f'?{p}': o for p, o in zip(param_names, object_names)}
+    marker = f':durative-action {action_name}'
+    kw_idx = domain_text.find(marker)
+    if kw_idx == -1:
+        return []
+    action_open = domain_text.rfind('(', 0, kw_idx)
+    action_close = _find_matching_close(domain_text, action_open)
+    action_text = domain_text[action_open:action_close + 1]
+    effect_start = action_text.find(':effect')
+    if effect_start == -1:
+        return []
+    effect_section = action_text[effect_start:]
+    atoms: list[str] = []
+    i = 0
+    while i < len(effect_section):
+        if effect_section[i:i + 8] == '(at end ':
+            close = _find_matching_close(effect_section, i)
+            if close == -1:
+                i += 1
+                continue
+            content = effect_section[i + 8:close].strip()
+            if not content.startswith('(not') and not content.startswith('(when'):
+                grounded = content
+                for param, obj in param_to_obj.items():
+                    grounded = re.sub(re.escape(param) + r'\b', obj, grounded)
+                atoms.append(grounded)
+            i = close + 1
+        else:
+            i += 1
+    return atoms
+
+
+def _insert_action(domain_text: str, action_text: str) -> str:
+    """Append a new action definition before the domain's closing paren."""
+    close_idx = _find_matching_close(domain_text, 0)
+    if close_idx == -1:
+        return domain_text + action_text
+    return domain_text[:close_idx] + action_text + '\n' + domain_text[close_idx:]
 
 
 # ---------------------------------------------------------------------------
@@ -139,25 +185,33 @@ class EnforcedAction:
         problem: Problem,
     ) -> tuple[str, str]:
         """
-        Enforce a specific action instance by adding a marker predicate,
-        a conditional effect, and a goal. Uses text edits on the original PDDL.
+        Enforce a specific action instance by adding a ground marker action whose
+        preconditions are the at-end positive effects of the enforced grounding.
+        The marker predicate is added as a goal. No conditional effects required —
+        OPTIC rejects (when ...) inside (at end ...) in durative actions.
         """
         action = problem.action(self.action_name)
         marker_name = f"did_{self.action_name}_{'_'.join(self.param_object_names)}"
-        equalities = " ".join(
-            f"(= ?{p.name} {o})"
-            for p, o in zip(action.parameters, self.param_object_names)
+
+        at_end_atoms = _get_ground_at_end_positive_effects(
+            domain_text, self.action_name,
+            [p.name for p in action.parameters],
+            self.param_object_names,
+        )
+        precond = " ".join(f"(at start {a})" for a in at_end_atoms)
+        marker_action = (
+            f"\n  (:durative-action {marker_name}\n"
+            f"    :parameters ()\n"
+            f"    :duration (= ?duration 0.01)\n"
+            f"    :condition (and {precond})\n"
+            f"    :effect (and (at end ({marker_name})))\n"
+            f"  )"
         )
 
-        domain_text = _add_requirement(domain_text, ':conditional-effects')
-        domain_text = _add_requirement(domain_text, ':equality')
         domain_text = _insert_before_section_close(
             domain_text, ':predicates', f"({marker_name})"
         )
-        domain_text = _add_to_action_section_and(
-            domain_text, self.action_name, ':effect',
-            f"(at end (when (and {equalities}) ({marker_name})))"
-        )
+        domain_text = _insert_action(domain_text, marker_action)
         problem_text = _add_to_goal_and(problem_text, f"({marker_name})")
         print(f"INFO: Enforced action '{self.action_name}({', '.join(self.param_object_names)})'")
         return domain_text, problem_text
@@ -184,10 +238,9 @@ class ActionOrdering:
     ) -> tuple[str, str]:
         """
         Enforce ordering: after_instance can only start once before_instance completes.
-        Uses the same permit+TIL pattern as ProhibitedAction, but re-enables the
-        permit via a conditional effect on before_action rather than leaving it removed.
-        Applies only to the specific after_instance; all other groundings of after_action
-        are unrestricted.
+        Uses permit+TIL to block the specific after_instance initially, then a ground
+        release action (gated on before_instance's at-end effects) to re-enable it.
+        No conditional effects — OPTIC rejects (when ...) inside (at end ...).
         """
         before_action = problem.action(self.before_name)
         after_action = problem.action(self.after_name)
@@ -198,13 +251,7 @@ class ActionOrdering:
         )
         after_params_vars = " ".join(f"?{p.name}" for p in after_action.parameters)
         after_args = " ".join(self.after_params)
-        before_equalities = " ".join(
-            f"(= ?{p.name} {o})"
-            for p, o in zip(before_action.parameters, self.before_params)
-        )
 
-        domain_text = _add_requirement(domain_text, ':conditional-effects')
-        domain_text = _add_requirement(domain_text, ':equality')
         domain_text = _insert_before_section_close(
             domain_text, ':predicates', f"({pred} {after_params_with_types})"
         )
@@ -213,14 +260,28 @@ class ActionOrdering:
             domain_text, self.after_name, ':condition',
             f"(at start ({pred} {after_params_vars}))"
         )
-        # before_action re-enables the specific permit when it fires with before_params
-        domain_text = _add_to_action_section_and(
-            domain_text, self.before_name, ':effect',
-            f"(at end (when (and {before_equalities}) ({pred} {after_args})))"
+
+        # Ground release action: fires once before_instance's at-end effects hold,
+        # re-enabling the permit for the specific after_instance.
+        before_at_end = _get_ground_at_end_positive_effects(
+            domain_text, self.before_name,
+            [p.name for p in before_action.parameters],
+            self.before_params,
         )
+        release_name = f"release_{pred}"
+        release_precond = " ".join(f"(at start {a})" for a in before_at_end)
+        release_action = (
+            f"\n  (:durative-action {release_name}\n"
+            f"    :parameters ()\n"
+            f"    :duration (= ?duration 0.01)\n"
+            f"    :condition (and {release_precond})\n"
+            f"    :effect (and (at end ({pred} {after_args})))\n"
+            f"  )"
+        )
+        domain_text = _insert_action(domain_text, release_action)
 
         # All groundings start permitted; specific after_instance is removed by TIL
-        # and re-added only when before_instance completes.
+        # and re-added only when the release action fires.
         objects_per_param = [
             [o.name for o in problem.objects(p.type)] for p in after_action.parameters
         ]
