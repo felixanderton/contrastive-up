@@ -150,6 +150,7 @@ class EnforcedAction:
         )
 
         domain_text = _add_requirement(domain_text, ':conditional-effects')
+        domain_text = _add_requirement(domain_text, ':equality')
         domain_text = _insert_before_section_close(
             domain_text, ':predicates', f"({marker_name})"
         )
@@ -203,6 +204,7 @@ class ActionOrdering:
         )
 
         domain_text = _add_requirement(domain_text, ':conditional-effects')
+        domain_text = _add_requirement(domain_text, ':equality')
         domain_text = _insert_before_section_close(
             domain_text, ':predicates', f"({pred} {after_params_with_types})"
         )
