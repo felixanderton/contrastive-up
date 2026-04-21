@@ -15,19 +15,20 @@ from pathlib import Path
 from contextlib import redirect_stdout
 from io import StringIO
 
-DOMAIN = 'refrigerated_delivery_domain.pddl'
-PROBLEM = 'refrigerated_delivery_problem.pddl'
+DOMAIN = 'pddl/correctness_tests/refrigerated_delivery_domain.pddl'
+PROBLEM = 'pddl/correctness_tests/refrigerated_delivery_problem.pddl'
 
-os.chdir(Path(__file__).parent)
-sys.path.insert(0, str(Path(__file__).parent))
+os.chdir(Path(__file__).resolve().parent.parent)
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from main import contrastive_plan_comparison
 from utils.constraint import (
     ProhibitedAction, EnforcedAction,
     ActionOrdering, AtomGoal, FluentChange, TimedLiteral, ActionCountLimit,
+    Preference,
 )
 
-RESULTS_FILE = 'test_results.txt'
+RESULTS_FILE = 'results/test_results.txt'
 
 TEST_CASES = [
     # -------------------------------------------------------------------------
@@ -94,28 +95,47 @@ TEST_CASES = [
     ),
 
     # -------------------------------------------------------------------------
-    # 6. TimedLiteral — re-enable can_deliver(m) at t=23, just after the TIL
-    #    that removes it at t=22.  Gives the planner a second delivery window,
-    #    potentially removing the need for extend_meat_life.
+    # 6. TimedLiteral — t2's refrigeration fails at t=11, just after the 10 s
+    #    a→c drive completes.  extend_meat_life is blocked (requires refrigerated
+    #    truck), so the original TIL expires meat permanently at t=22.  The
+    #    planner must deliver meat first via the direct a→b route (20 s).
     # -------------------------------------------------------------------------
     dict(
-        name='TimedLiteral: can_deliver(m) re-enabled at t=23',
-        question='What if meat could be delivered again after a brief cooling period at t=23?',
+        name="TimedLiteral: t2's refrigeration fails at t=11",
+        question="What if truck t2's refrigeration unit broke down 11 minutes into the journey?",
         constraints=[
-            TimedLiteral(23, 'can_deliver', ['m'], holds=True),
+            TimedLiteral(11, 'refrigerated', ['t2'], holds=False),
         ],
     ),
 
     # -------------------------------------------------------------------------
-    # 7. ActionCountLimit — limit drive_truck to 2 uses (exactly the minimum
-    #    needed by the optimal plan). Confirms the constraint is non-restrictive
-    #    when the limit equals what the optimal plan already uses.
+    # 7. ActionCountLimit — limit drive_truck to 1 use.  The optimal plan needs
+    #    2 drives (a→c then c→b), so the constrained problem is unsolvable.
     # -------------------------------------------------------------------------
     dict(
-        name='ActionCountLimit: drive_truck limited to 2 uses',
-        question='What if the truck could only be driven at most 2 times?',
+        name='ActionCountLimit: drive_truck limited to 1 use (unsolvable)',
+        question='What if the truck could only be driven once?',
         constraints=[
-            ActionCountLimit('drive_truck', 2),
+            ActionCountLimit('drive_truck', 1),
+        ],
+    ),
+
+    # -------------------------------------------------------------------------
+    # 8. Preference — sometime-before: meat at b must precede cereal at c.
+    #    The optimal plan delivers cereal at c (t≈10) before meat at b (t≈25),
+    #    violating this preference.  Penalty 100 >> makespan ≈ 25, so the
+    #    constrained plan reorders: a→b→c (meat first), cost ≈ 35.
+    # -------------------------------------------------------------------------
+    dict(
+        name='Preference: sometime-before — meat at b before cereal at c',
+        question='Why did the planner not deliver meat to b before delivering cereal to c?',
+        constraints=[
+            Preference(
+                name='pref_m_before_ce',
+                formula_type='sometime-before',
+                args=[['at', 'ce', 'c'], ['at', 'm', 'b']],
+                penalty=100,
+            ),
         ],
     ),
 ]

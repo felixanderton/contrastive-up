@@ -1,0 +1,173 @@
+bench_set,domain,problem,constraint_type,plan_found,time_s,cost,time_delta_s,cost_delta,notes
+A,CrewPlanning,instance-1,unconstrained,True,0.019,1440.00,0.000,0.00,
+B,CrewPlanning,instance-1,unconstrained,True,0.035,1440.00,0.000,0.00,
+A,CrewPlanning,instance-1,ProhibitedAction,True,0.116,1560.002,-0.535,120.00,v4: time-windowed allowed_after=900
+A,CrewPlanning,instance-1,EnforcedAction,True,0.034,1695.00,0.015,255.00,
+A,CrewPlanning,instance-1,ActionOrdering,True,0.117,1440.00,0.098,0.00,
+A,CrewPlanning,instance-1,AtomGoal,True,0.018,1695.00,-0.001,255.00,
+A,CrewPlanning,instance-1,FluentChange,False,0.000,N/A,N/A,N/A,N/A: not applicable for CrewPlanning
+A,CrewPlanning,instance-1,TimedLiteral,True,0.018,1440.00,-0.001,0.00,
+A,CrewPlanning,instance-1,ActionCountLimit,False,0.009,N/A,-0.010,N/A,N/A — domain-incompatible; see Appendix B
+A,CrewPlanning,instance-1,Preference,True,0.018,1440.00,-0.001,0.00,
+B,CrewPlanning,instance-1,ProhibitedAction,True,5.507,1560.002,5.473,120.00,v4: time-windowed allowed_after=900
+B,CrewPlanning,instance-1,EnforcedAction,True,0.034,1695.00,-0.001,255.00,
+B,CrewPlanning,instance-1,ActionOrdering,True,0.167,1440.00,0.132,0.00,
+B,CrewPlanning,instance-1,AtomGoal,True,0.034,1695.00,-0.001,255.00,
+B,CrewPlanning,instance-1,FluentChange,False,0.000,N/A,N/A,N/A,N/A: not applicable for CrewPlanning
+B,CrewPlanning,instance-1,TimedLiteral,True,0.034,1440.00,-0.001,0.00,
+B,CrewPlanning,instance-1,ActionCountLimit,False,0.009,N/A,-0.026,N/A,N/A — domain-incompatible; see Appendix B
+B,CrewPlanning,instance-1,Preference,True,5.506,1695.00,5.471,255.00,
+A,CrewPlanning,instance-2,unconstrained,True,0.034,1440.00,0.000,0.00,
+B,CrewPlanning,instance-2,unconstrained,True,0.035,1440.00,0.000,0.00,
+A,CrewPlanning,instance-2,ProhibitedAction,True,0.116,1560.002,0.098,120.00,v4: time-windowed allowed_after=900
+A,CrewPlanning,instance-2,EnforcedAction,True,0.034,1695.00,0.000,255.00,
+A,CrewPlanning,instance-2,ActionOrdering,True,0.167,1440.00,0.133,0.00,
+A,CrewPlanning,instance-2,AtomGoal,True,0.034,1695.00,0.000,255.00,
+A,CrewPlanning,instance-2,FluentChange,False,0.000,N/A,N/A,N/A,N/A: not applicable for CrewPlanning
+A,CrewPlanning,instance-2,TimedLiteral,True,0.035,1440.00,0.001,0.00,
+A,CrewPlanning,instance-2,ActionCountLimit,False,0.017,N/A,-0.017,N/A,N/A — domain-incompatible; see Appendix B
+A,CrewPlanning,instance-2,Preference,True,0.034,1440.00,0.000,0.00,
+B,CrewPlanning,instance-2,ProhibitedAction,True,5.507,1560.002,5.472,120.00,v4: time-windowed allowed_after=900
+B,CrewPlanning,instance-2,EnforcedAction,True,0.035,1695.00,0.000,255.00,
+B,CrewPlanning,instance-2,ActionOrdering,True,0.218,1440.00,0.183,0.00,
+B,CrewPlanning,instance-2,AtomGoal,True,0.035,1695.00,0.000,255.00,
+B,CrewPlanning,instance-2,FluentChange,False,0.000,N/A,N/A,N/A,N/A: not applicable for CrewPlanning
+B,CrewPlanning,instance-2,TimedLiteral,True,0.035,1440.00,0.000,0.00,
+B,CrewPlanning,instance-2,ActionCountLimit,False,0.009,N/A,-0.026,N/A,N/A — domain-incompatible; see Appendix B
+B,CrewPlanning,instance-2,Preference,True,5.508,1695.00,5.473,255.00,
+A,CrewPlanning,instance-3,unconstrained,True,0.018,1440.00,0.000,0.00,
+B,CrewPlanning,instance-3,unconstrained,True,0.034,1440.00,0.000,0.00,
+A,CrewPlanning,instance-3,ProhibitedAction,True,0.116,1560.002,0.099,120.00,v4: time-windowed allowed_after=900
+A,CrewPlanning,instance-3,EnforcedAction,True,0.034,1695.00,0.016,255.00,
+A,CrewPlanning,instance-3,ActionOrdering,True,0.117,1440.00,0.099,0.00,
+A,CrewPlanning,instance-3,AtomGoal,True,0.034,1695.00,0.016,255.00,
+A,CrewPlanning,instance-3,FluentChange,False,0.000,N/A,N/A,N/A,N/A: not applicable for CrewPlanning
+A,CrewPlanning,instance-3,TimedLiteral,True,0.019,1440.00,0.001,0.00,
+A,CrewPlanning,instance-3,ActionCountLimit,False,0.009,N/A,-0.009,N/A,N/A — domain-incompatible; see Appendix B
+A,CrewPlanning,instance-3,Preference,True,0.034,1440.00,0.016,0.00,
+B,CrewPlanning,instance-3,ProhibitedAction,True,5.507,1560.002,5.473,120.00,v4: time-windowed allowed_after=900
+B,CrewPlanning,instance-3,EnforcedAction,True,0.034,1695.00,0.000,255.00,
+B,CrewPlanning,instance-3,ActionOrdering,True,0.167,1440.00,0.133,0.00,
+B,CrewPlanning,instance-3,AtomGoal,True,0.035,1695.00,0.001,255.00,
+B,CrewPlanning,instance-3,FluentChange,False,0.000,N/A,N/A,N/A,N/A: not applicable for CrewPlanning
+B,CrewPlanning,instance-3,TimedLiteral,True,0.034,1440.00,0.000,0.00,
+B,CrewPlanning,instance-3,ActionCountLimit,False,0.009,N/A,-0.025,N/A,N/A — domain-incompatible; see Appendix B
+B,CrewPlanning,instance-3,Preference,True,5.507,1695.00,5.473,255.00,
+iterated,CrewPlanning,instance-1_iterated,iter_0_unconstrained,True,0.018,1440.00,0.000,0.00,
+iterated,CrewPlanning,instance-1_iterated,iter_1_EnforcedAction,True,0.034,1695.002,0.016,255.00,v3: reordered sequence
+iterated,CrewPlanning,instance-1_iterated,iter_2_AtomGoal,True,0.034,1695.002,0.016,255.00,v3: reordered sequence
+iterated,CrewPlanning,instance-1_iterated,iter_3_ActionOrdering,True,0.167,1695.002,0.149,255.00,v3: reordered sequence
+iterated,CrewPlanning,instance-1_iterated,iter_4_Preference,True,0.116,1695.002,0.098,255.00,v3: reordered sequence; penalty not reflected
+A,Elevators,instance-1,unconstrained,True,0.034,56.00,0.000,0.00,
+B,Elevators,instance-1,unconstrained,True,7.013,46.00,0.000,0.00,
+A,Elevators,instance-1,ProhibitedAction,True,0.034,54.00,0.000,-2.00,
+A,Elevators,instance-1,EnforcedAction,True,0.034,56.00,0.000,0.00,
+A,Elevators,instance-1,ActionOrdering,True,0.034,56.00,0.000,0.00,
+A,Elevators,instance-1,AtomGoal,True,0.034,54.00,0.000,-2.00,
+A,Elevators,instance-1,FluentChange,True,0.034,54.001,-0.768,-2.00,v3: target=(travel-fast n0 n2) 10->100
+A,Elevators,instance-1,TimedLiteral,True,0.066,50.00,0.032,-6.00,
+A,Elevators,instance-1,ActionCountLimit,True,0.034,88.00,0.000,32.00,
+A,Elevators,instance-1,Preference,True,0.034,56.00,0.000,0.00,
+B,Elevators,instance-1,ProhibitedAction,True,9.011,46.00,1.998,0.00,
+B,Elevators,instance-1,EnforcedAction,True,5.508,46.00,-1.505,0.00,
+B,Elevators,instance-1,ActionOrdering,True,10.012,46.00,2.999,0.00,
+B,Elevators,instance-1,AtomGoal,True,5.507,46.00,-1.506,0.00,
+B,Elevators,instance-1,FluentChange,True,7.009,48.001,0.001,2.00,v3: target=(travel-fast n0 n2) 10->100
+B,Elevators,instance-1,TimedLiteral,True,7.509,32.00,0.496,-14.00,
+B,Elevators,instance-1,ActionCountLimit,True,13.515,28.00,6.502,-18.00,
+B,Elevators,instance-1,Preference,True,10.009,46.00,2.996,0.00,
+A,Elevators,instance-2,unconstrained,True,0.117,76.00,0.000,0.00,
+B,Elevators,instance-2,unconstrained,True,5.508,76.00,0.000,0.00,
+A,Elevators,instance-2,ProhibitedAction,True,0.118,94.00,0.001,18.00,
+A,Elevators,instance-2,EnforcedAction,True,0.117,94.00,0.000,18.00,
+A,Elevators,instance-2,ActionOrdering,True,0.418,92.00,0.301,16.00,
+A,Elevators,instance-2,AtomGoal,True,0.116,76.00,-0.001,0.00,
+A,Elevators,instance-2,FluentChange,True,0.066,76.001,-0.051,0.00,v3: target=(travel-fast n0 n2) 8->80
+A,Elevators,instance-2,TimedLiteral,True,0.268,122.00,0.151,46.00,
+A,Elevators,instance-2,ActionCountLimit,True,0.117,154.00,0.000,78.00,
+A,Elevators,instance-2,Preference,True,0.117,76.00,0.000,0.00,
+B,Elevators,instance-2,ProhibitedAction,True,5.508,92.00,0.000,16.00,
+B,Elevators,instance-2,EnforcedAction,True,5.508,94.00,0.000,18.00,
+B,Elevators,instance-2,ActionOrdering,True,6.008,92.00,0.500,16.00,
+B,Elevators,instance-2,AtomGoal,True,5.508,76.00,0.000,0.00,
+B,Elevators,instance-2,FluentChange,True,5.508,76.001,0.001,0.00,v3: target=(travel-fast n0 n2) 8->80
+B,Elevators,instance-2,TimedLiteral,True,5.508,122.00,0.000,46.00,
+B,Elevators,instance-2,ActionCountLimit,True,5.508,92.00,0.000,16.00,
+B,Elevators,instance-2,Preference,True,6.509,92.00,1.001,16.00,
+A,Elevators,instance-3,unconstrained,True,1.970,178.01,0.000,0.00,
+B,Elevators,instance-3,unconstrained,True,8.011,178.01,0.000,0.00,
+A,Elevators,instance-3,ProhibitedAction,True,0.819,176.00,-1.151,-2.00,
+A,Elevators,instance-3,EnforcedAction,True,0.718,228.00,-1.252,50.00,
+A,Elevators,instance-3,ActionOrdering,True,65.252,138.00,63.282,-40.00,
+A,Elevators,instance-3,AtomGoal,True,5.221,204.01,3.251,26.00,
+A,Elevators,instance-3,FluentChange,True,0.419,158.004,-1.300,-20.00,v3: target=(travel-fast n0 n2) 8->80
+A,Elevators,instance-3,TimedLiteral,True,4.271,214.01,2.301,36.00,
+A,Elevators,instance-3,ActionCountLimit,True,1.118,220.01,-0.852,42.00,
+A,Elevators,instance-3,Preference,True,1.870,178.01,-0.100,0.00,
+B,Elevators,instance-3,ProhibitedAction,True,6.509,176.00,-1.502,-2.00,
+B,Elevators,instance-3,EnforcedAction,True,6.009,228.00,-2.002,50.00,
+B,Elevators,instance-3,ActionOrdering,False,60.024,N/A,52.013,N/A,c) Timeout
+B,Elevators,instance-3,AtomGoal,True,12.515,204.01,4.504,26.00,
+B,Elevators,instance-3,FluentChange,True,6.008,158.004,-1.502,-20.00,v3: target=(travel-fast n0 n2) 8->80
+B,Elevators,instance-3,TimedLiteral,True,11.514,214.01,3.503,36.00,
+B,Elevators,instance-3,ActionCountLimit,True,6.510,220.01,-1.501,42.00,
+B,Elevators,instance-3,Preference,True,8.510,194.01,0.499,16.00,
+iterated,Elevators,instance-1_iterated,iter_0_unconstrained,True,0.034,56.00,0.000,0.00,
+iterated,Elevators,instance-1_iterated,iter_1_ProhibitedAction,True,0.034,54.00,0.000,-2.00,
+iterated,Elevators,instance-1_iterated,iter_2_EnforcedAction,True,0.034,54.00,0.000,-2.00,
+iterated,Elevators,instance-1_iterated,iter_3_ActionOrdering,True,0.034,54.00,0.000,-2.00,
+iterated,Elevators,instance-1_iterated,iter_4_AtomGoal,True,0.034,64.00,0.000,8.00,
+A,ZenoTravel,instance-1,unconstrained,yes,0.834,3.6719999999999997,0.0,0.0,
+A,ZenoTravel,instance-1,ProhibitedAction,yes,0.009,3.424,-0.825,-0.25,
+A,ZenoTravel,instance-1,EnforcedAction,yes,0.018,3.6719999999999997,-0.816,0.0,
+A,ZenoTravel,instance-1,ActionOrdering,yes,0.017,3.6719999999999997,-0.817,0.0,
+A,ZenoTravel,instance-1,AtomGoal,no,0.0,,,,N/A: not applicable for ZenoTravel
+A,ZenoTravel,instance-1,FluentChange,yes,0.009,3.424,-0.825,-0.25,
+A,ZenoTravel,instance-1,TimedLiteral,yes,0.009,3.6719999999999997,-0.825,0.0,
+A,ZenoTravel,instance-1,ActionCountLimit,yes,0.009,3.424,-0.825,-0.25,
+A,ZenoTravel,instance-1,Preference,yes,0.009,3.6719999999999997,-0.825,0.0,
+B,ZenoTravel,instance-1,unconstrained,yes,5.508,3.424,0.0,0.0,
+B,ZenoTravel,instance-1,ProhibitedAction,yes,5.507,10.167,-0.001,6.74,
+B,ZenoTravel,instance-1,EnforcedAction,yes,5.507,3.424,-0.001,0.0,
+B,ZenoTravel,instance-1,ActionOrdering,no,0.0,,,,N/A: not applicable for ZenoTravel
+B,ZenoTravel,instance-1,AtomGoal,no,0.0,,,,N/A: not applicable for ZenoTravel
+B,ZenoTravel,instance-1,FluentChange,yes,5.507,3.424,-0.001,0.0,
+B,ZenoTravel,instance-1,TimedLiteral,yes,5.507,3.424,-0.001,0.0,
+B,ZenoTravel,instance-1,ActionCountLimit,yes,5.507,3.6719999999999997,-0.001,0.25,
+B,ZenoTravel,instance-1,Preference,yes,0.167,3.424,-5.341,0.0,
+A,ZenoTravel,instance-3,unconstrained,yes,0.167,9.034,0.0,0.0,
+A,ZenoTravel,instance-3,ProhibitedAction,yes,0.066,9.034,-0.101,0.0,
+A,ZenoTravel,instance-3,EnforcedAction,yes,0.218,9.034,0.051,0.0,
+A,ZenoTravel,instance-3,ActionOrdering,yes,0.167,10.631,0.0,1.6,
+A,ZenoTravel,instance-3,AtomGoal,no,0.0,,,,N/A: not applicable for ZenoTravel
+A,ZenoTravel,instance-3,FluentChange,yes,0.167,11.342,0.0,2.31,
+A,ZenoTravel,instance-3,TimedLiteral,yes,0.167,9.034,0.0,0.0,
+A,ZenoTravel,instance-3,ActionCountLimit,yes,0.368,16.314,0.201,7.28,
+A,ZenoTravel,instance-3,Preference,yes,0.166,9.034,-0.001,0.0,
+B,ZenoTravel,instance-3,unconstrained,yes,5.508,12.659,0.0,0.0,
+B,ZenoTravel,instance-3,ProhibitedAction,yes,6.51,13.089,1.002,0.43,
+B,ZenoTravel,instance-3,EnforcedAction,yes,7.011,18.289,1.503,5.63,
+B,ZenoTravel,instance-3,ActionOrdering,yes,6.009,12.659,0.501,0.0,
+B,ZenoTravel,instance-3,AtomGoal,no,0.0,,,,N/A: not applicable for ZenoTravel
+B,ZenoTravel,instance-3,FluentChange,yes,8.011,11.64,2.503,-1.02,
+B,ZenoTravel,instance-3,TimedLiteral,yes,6.008,12.659,0.5,0.0,
+B,ZenoTravel,instance-3,ActionCountLimit,yes,5.508,10.651,0.0,-2.01,
+B,ZenoTravel,instance-3,Preference,yes,6.507,12.659,0.999,0.0,
+A,ZenoTravel,instance-5,unconstrained,yes,0.168,10.166,0.0,0.0,
+A,ZenoTravel,instance-5,ProhibitedAction,yes,0.218,12.262,0.05,2.1,
+A,ZenoTravel,instance-5,EnforcedAction,yes,0.167,10.166,-0.001,0.0,
+A,ZenoTravel,instance-5,ActionOrdering,yes,0.218,12.262,0.05,2.1,
+A,ZenoTravel,instance-5,AtomGoal,no,0.0,,,,N/A: not applicable for ZenoTravel
+A,ZenoTravel,instance-5,FluentChange,yes,0.067,12.262,-0.101,2.1,
+A,ZenoTravel,instance-5,TimedLiteral,yes,0.168,10.166,0.0,0.0,
+A,ZenoTravel,instance-5,ActionCountLimit,yes,0.117,10.427,-0.051,0.26,
+A,ZenoTravel,instance-5,Preference,yes,0.167,10.166,-0.001,0.0,
+B,ZenoTravel,instance-5,unconstrained,yes,5.509,12.818,0.0,0.0,
+B,ZenoTravel,instance-5,ProhibitedAction,yes,5.509,10.66,0.0,-2.16,
+B,ZenoTravel,instance-5,EnforcedAction,yes,5.509,12.818,0.0,0.0,
+B,ZenoTravel,instance-5,ActionOrdering,yes,5.509,10.66,0.0,-2.16,
+B,ZenoTravel,instance-5,AtomGoal,no,0.0,,,,N/A: not applicable for ZenoTravel
+B,ZenoTravel,instance-5,FluentChange,yes,5.509,12.262,0.0,-0.56,
+B,ZenoTravel,instance-5,TimedLiteral,yes,6.01,24.69,0.501,11.87,
+B,ZenoTravel,instance-5,ActionCountLimit,yes,7.011,11.294,1.502,-1.52,
+B,ZenoTravel,instance-5,Preference,yes,6.508,13.409,0.999,0.59,

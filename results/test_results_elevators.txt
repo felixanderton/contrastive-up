@@ -1,0 +1,2326 @@
+======================================================================
+CONTRASTIVE PLANNING — ELEVATORS CONSTRAINT TEST RESULTS
+======================================================================
+
+[Test 1/8] ProhibitedAction: ban move-up-fast(fast0, n0, n3)
+------------------------------------------------------------
+INFO: Prohibited action 'move-up-fast(fast0, n0, n3)'
+Running: ./optic-clp benchmarks/elevators/domain.pddl benchmarks/elevators/instances/instance-1.pddl
+Warnings encountered when parsing Domain/Problem File
+-----------------------------------------------------
+
+The supplied domain/problem file appear to violate part of the PDDL
+language specification.  Specifically:
+
+Errors: 0, warnings: 16
+benchmarks/elevators/domain.pddl: line: 27: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 33: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 39: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 45: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+
+The planner will continue, but you may wish to fix your files accordingly
+Number of literals: 31
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (passenger-at p0 n3), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (passenger-at p1 n0), is static or a precondition[00m
+[01;34mFor limits: literal goal index 2, fact (passenger-at p2 n2), is static or a precondition[00m
+All the ground actions in this problem are compression-safe
+Initial heuristic = 13.000, admissible cost estimate 13.004
+b (12.000 | 10.000)b (11.000 | 10.000)b (10.000 | 11.000)b (9.000 | 16.001)b (8.000 | 29.000)b (7.000 | 30.000)b (5.000 | 33.002)b (3.000 | 48.002)b (2.000 | 49.002)b (1.000 | 55.002)(G)
+; LP calculated the cost
+
+; Plan found with metric 56.002
+; Theoretical reachable cost 56.004
+; States evaluated so far: 29
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.04
+0.000: (move-up-fast fast0 n0 n2)  [10.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n2)  [10.000]
+10.001: (move-up-fast fast0 n2 n3)  [6.000]
+11.001: (move-down-slow slow0-0 n2 n0)  [18.000]
+16.002: (move-down-fast fast0 n3 n1)  [10.000]
+26.002: (board p2 fast0 n1 n0 n1)  [1.000]
+27.002: (move-down-fast fast0 n1 n0)  [6.000]
+29.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+33.002: (board p0 fast0 n0 n1 n2)  [1.000]
+34.002: (move-up-fast fast0 n0 n3)  [14.000]
+48.002: (leave p0 fast0 n3 n2 n1)  [1.000]
+49.002: (move-down-fast fast0 n3 n2)  [6.000]
+55.002: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 56.002
+
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (12.000 | 10.000)b (9.000 | 14.000)b (9.000 | 10.000)b (8.000 | 27.000)b (7.000 | 28.000)b (5.000 | 31.001)b (3.000 | 46.001)b (2.000 | 47.001)b (1.000 | 53.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 54.001
+; Theoretical reachable cost 54.002
+; States evaluated so far: 192
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.22
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n3)  [14.000]
+46.001: (leave p0 fast0 n3 n2 n1)  [1.000]
+47.001: (move-down-fast fast0 n3 n2)  [6.000]
+53.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+53.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 54.001
+b (1.000 | 49.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 50.001
+; Theoretical reachable cost 50.002
+; States evaluated so far: 239
+; States pruned based on pre-heuristic cost lower bound: 7
+; Time 0.34
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n2)  [10.000]
+42.001: (leave p2 fast0 n2 n2 n1)  [1.000]
+43.001: (move-up-fast fast0 n2 n3)  [6.000]
+49.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+49.001: (leave p0 fast0 n3 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 50.001
+b (1.000 | 47.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 48.001
+; Theoretical reachable cost 48.002
+; States evaluated so far: 942
+; States pruned based on pre-heuristic cost lower bound: 14
+; Time 1.65
+0.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-up-fast fast0 n0 n3)  [14.000]
+15.000: (leave p0 fast0 n3 n1 n0)  [1.000]
+16.001: (board p1 fast0 n3 n0 n1)  [1.000]
+17.001: (move-down-fast fast0 n3 n1)  [10.000]
+26.001: (move-up-slow slow0-0 n0 n1)  [10.000]
+27.001: (board p2 fast0 n1 n1 n2)  [1.000]
+28.002: (leave p1 fast0 n1 n2 n1)  [1.000]
+35.001: (move-up-fast fast0 n1 n2)  [6.000]
+36.001: (board p1 slow0-0 n1 n0 n1)  [1.000]
+37.001: (move-down-slow slow0-0 n1 n0)  [10.000]
+41.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+42.001: (move-up-fast fast0 n2 n3)  [6.000]
+47.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 48.001
+b (1.000 | 45.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 46.001
+; Theoretical reachable cost 46.002
+; States evaluated so far: 988
+; States pruned based on pre-heuristic cost lower bound: 21
+; Time 1.75
+0.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-up-fast fast0 n0 n3)  [14.000]
+15.000: (leave p0 fast0 n3 n1 n0)  [1.000]
+16.001: (board p1 fast0 n3 n0 n1)  [1.000]
+17.001: (move-down-fast fast0 n3 n1)  [10.000]
+26.001: (move-up-slow slow0-0 n0 n1)  [10.000]
+27.001: (board p2 fast0 n1 n1 n2)  [1.000]
+28.001: (move-up-fast fast0 n1 n2)  [6.000]
+34.001: (leave p2 fast0 n2 n2 n1)  [1.000]
+35.001: (move-down-fast fast0 n2 n0)  [10.000]
+45.001: (leave p1 fast0 n0 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 46.001
+Running: ./optic-clp domain_constrained_temp.pddl problem_constrained_temp.pddl
+Warnings encountered when parsing Domain/Problem File
+-----------------------------------------------------
+
+The supplied domain/problem file appear to violate part of the PDDL
+language specification.  Specifically:
+
+Errors: 0, warnings: 17
+domain_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 34: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 40: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 47: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 49: Warning: Undeclared requirement :timed-initial-literals 
+
+The planner will continue, but you may wish to fix your files accordingly
+Number of literals: 47
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (passenger-at p0 n3), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (passenger-at p1 n0), is static or a precondition[00m
+[01;34mFor limits: literal goal index 2, fact (passenger-at p2 n2), is static or a precondition[00m
+Pruning (move-up-fast fast0 n0 n3) - temporal contradiction: start min/max = 2147483.647/0.000; end min/max = 14.000/14.000; duration min/max = 14.000/14.000
+All the ground actions in this problem are compression-safe
+Initial heuristic = 13.000, admissible cost estimate 13.004
+b (12.000 | 10.000)b (11.000 | 10.000)b (10.000 | 11.000)b (9.000 | 16.001)b (8.000 | 29.000)b (7.000 | 30.000)b (6.000 | 33.002)b (4.000 | 44.002)b (2.000 | 45.002)b (1.000 | 51.002)(G)
+; LP calculated the cost
+
+; Plan found with metric 52.002
+; Theoretical reachable cost 52.004
+; States evaluated so far: 28
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.02
+0.000: (move-up-fast fast0 n0 n2)  [10.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n2)  [10.000]
+10.001: (move-up-fast fast0 n2 n3)  [6.000]
+11.001: (move-down-slow slow0-0 n2 n0)  [18.000]
+16.002: (move-down-fast fast0 n3 n1)  [10.000]
+26.002: (board p2 fast0 n1 n0 n1)  [1.000]
+27.002: (move-down-fast fast0 n1 n0)  [6.000]
+29.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+33.002: (board p0 fast0 n0 n1 n2)  [1.000]
+34.002: (move-up-fast fast0 n0 n2)  [10.000]
+44.002: (leave p2 fast0 n2 n2 n1)  [1.000]
+45.002: (move-up-fast fast0 n2 n3)  [6.000]
+51.002: (leave p0 fast0 n3 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 52.002
+
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (12.000 | 10.000)b (9.000 | 26.000)b (9.000 | 18.000)b (9.000 | 10.000)b (8.000 | 26.000)b (7.000 | 26.000)b (6.000 | 26.000)b (5.000 | 29.001)b (4.000 | 36.003)b (3.000 | 44.001)b (3.000 | 42.003)b (2.000 | 44.001)b (1.000 | 49.003)(G)
+; LP calculated the cost
+
+; Plan found with metric 50.003
+; Theoretical reachable cost 50.005
+; States evaluated so far: 351
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.39
+0.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-up-fast fast0 n0 n2)  [10.000]
+11.001: (move-up-fast fast0 n2 n3)  [6.000]
+17.001: (leave p0 fast0 n3 n1 n0)  [1.000]
+18.002: (board p1 fast0 n3 n0 n1)  [1.000]
+19.002: (move-down-fast fast0 n3 n1)  [10.000]
+26.001: (move-up-slow slow0-0 n0 n2)  [18.000]
+29.003: (move-down-fast fast0 n1 n0)  [6.000]
+35.003: (leave p1 fast0 n0 n1 n0)  [1.000]
+36.003: (move-up-fast fast0 n0 n1)  [6.000]
+42.003: (board p2 fast0 n1 n0 n1)  [1.000]
+43.003: (move-up-fast fast0 n1 n2)  [6.000]
+49.003: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 50.003
+b (1.000 | 47.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 48.001
+; Theoretical reachable cost 48.002
+; States evaluated so far: 363
+; States pruned based on pre-heuristic cost lower bound: 6
+; Time 0.42
+0.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-up-fast fast0 n0 n2)  [10.000]
+11.001: (move-up-fast fast0 n2 n3)  [6.000]
+17.001: (leave p0 fast0 n3 n1 n0)  [1.000]
+18.002: (board p1 fast0 n3 n0 n1)  [1.000]
+25.000: (move-down-fast fast0 n3 n1)  [10.000]
+26.001: (move-up-slow slow0-0 n0 n1)  [10.000]
+35.001: (move-down-fast fast0 n1 n0)  [6.000]
+36.001: (board p2 slow0-0 n1 n0 n1)  [1.000]
+37.001: (move-up-slow slow0-0 n1 n2)  [10.000]
+41.001: (leave p1 fast0 n0 n1 n0)  [1.000]
+42.001: (move-up-fast fast0 n0 n1)  [6.000]
+47.001: (leave p2 slow0-0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 48.001
+
+
+ Constraint: Why did fast0 go directly from n0 to n3?
+
+Plan comparison:
+Step | Original Plan                   | Constrained Plan               
+Cost | 46.00                           | 48.00                          
+------------------------------------------------------------------------
+   0 | [34mmove-down-slow(slow0-0, n3, n0)[0m | [34mmove-down-slow(slow0-0, n3, n0)[0m
+   1 | [34mboard(p0, fast0, n0, n0, n1)   [0m | [34mboard(p0, fast0, n0, n0, n1)   [0m
+   2 | [31mmove-up-fast(fast0, n0, n3)    [0m | [33mmove-up-fast(fast0, n0, n2)    [0m
+   3 | [32mleave(p0, fast0, n3, n1, n0)   [0m | [33mmove-up-fast(fast0, n2, n3)    [0m
+   4 | [32mboard(p1, fast0, n3, n0, n1)   [0m | [32mleave(p0, fast0, n3, n1, n0)   [0m
+   5 | [32mmove-down-fast(fast0, n3, n1)  [0m | [32mboard(p1, fast0, n3, n0, n1)   [0m
+   6 | [32mmove-up-slow(slow0-0, n0, n1)  [0m | [32mmove-down-fast(fast0, n3, n1)  [0m
+   7 | [31mboard(p2, fast0, n1, n1, n2)   [0m | [32mmove-up-slow(slow0-0, n0, n1)  [0m
+   8 | [31mmove-up-fast(fast0, n1, n2)    [0m | [33mmove-down-fast(fast0, n1, n0)  [0m
+   9 | [31mleave(p2, fast0, n2, n2, n1)   [0m | [33mboard(p2, slow0-0, n1, n0, n1) [0m
+  10 | [31mmove-down-fast(fast0, n2, n0)  [0m | [33mmove-up-slow(slow0-0, n1, n2)  [0m
+  11 | [34mleave(p1, fast0, n0, n1, n0)   [0m | [34mleave(p1, fast0, n0, n1, n0)   [0m
+  12 |                                 | [33mmove-up-fast(fast0, n0, n1)    [0m
+  13 |                                 | [33mleave(p2, slow0-0, n2, n1, n0) [0m
+
+Legend:
+[34m  Blue       : matching action in both plans[0m
+[33m  Yellow     : action added relative to the other plan[0m
+[31m  Red        : action removed relative to the other plan[0m
+[32m  Green      : action exists in both plans but moved[0m
+
+[Test 2/8] EnforcedAction: enforce board(p0, slow0-0, n0, n0, n1)
+-----------------------------------------------------------------
+INFO: Enforced action 'board(p0, slow0-0, n0, n0, n1)'
+Running: ./optic-clp benchmarks/elevators/domain.pddl benchmarks/elevators/instances/instance-1.pddl
+Warnings encountered when parsing Domain/Problem File
+-----------------------------------------------------
+
+The supplied domain/problem file appear to violate part of the PDDL
+language specification.  Specifically:
+
+Errors: 0, warnings: 16
+benchmarks/elevators/domain.pddl: line: 27: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 33: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 39: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 45: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+
+The planner will continue, but you may wish to fix your files accordingly
+Number of literals: 31
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (passenger-at p0 n3), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (passenger-at p1 n0), is static or a precondition[00m
+[01;34mFor limits: literal goal index 2, fact (passenger-at p2 n2), is static or a precondition[00m
+All the ground actions in this problem are compression-safe
+Initial heuristic = 13.000, admissible cost estimate 13.004
+b (12.000 | 10.000)b (11.000 | 10.000)b (10.000 | 11.000)b (9.000 | 16.001)b (8.000 | 29.000)b (7.000 | 30.000)b (5.000 | 33.002)b (3.000 | 48.002)b (2.000 | 49.002)b (1.000 | 55.002)(G)
+; LP calculated the cost
+
+; Plan found with metric 56.002
+; Theoretical reachable cost 56.004
+; States evaluated so far: 29
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.03
+0.000: (move-up-fast fast0 n0 n2)  [10.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n2)  [10.000]
+10.001: (move-up-fast fast0 n2 n3)  [6.000]
+11.001: (move-down-slow slow0-0 n2 n0)  [18.000]
+16.002: (move-down-fast fast0 n3 n1)  [10.000]
+26.002: (board p2 fast0 n1 n0 n1)  [1.000]
+27.002: (move-down-fast fast0 n1 n0)  [6.000]
+29.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+33.002: (board p0 fast0 n0 n1 n2)  [1.000]
+34.002: (move-up-fast fast0 n0 n3)  [14.000]
+48.002: (leave p0 fast0 n3 n2 n1)  [1.000]
+49.002: (move-down-fast fast0 n3 n2)  [6.000]
+55.002: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 56.002
+
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (12.000 | 10.000)b (9.000 | 14.000)b (9.000 | 10.000)b (8.000 | 27.000)b (7.000 | 28.000)b (5.000 | 31.001)b (3.000 | 46.001)b (2.000 | 47.001)b (1.000 | 53.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 54.001
+; Theoretical reachable cost 54.002
+; States evaluated so far: 192
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.20
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n3)  [14.000]
+46.001: (leave p0 fast0 n3 n2 n1)  [1.000]
+47.001: (move-down-fast fast0 n3 n2)  [6.000]
+53.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+53.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 54.001
+b (1.000 | 49.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 50.001
+; Theoretical reachable cost 50.002
+; States evaluated so far: 239
+; States pruned based on pre-heuristic cost lower bound: 7
+; Time 0.32
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n2)  [10.000]
+42.001: (leave p2 fast0 n2 n2 n1)  [1.000]
+43.001: (move-up-fast fast0 n2 n3)  [6.000]
+49.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+49.001: (leave p0 fast0 n3 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 50.001
+b (1.000 | 47.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 48.001
+; Theoretical reachable cost 48.002
+; States evaluated so far: 942
+; States pruned based on pre-heuristic cost lower bound: 14
+; Time 1.57
+0.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-up-fast fast0 n0 n3)  [14.000]
+15.000: (leave p0 fast0 n3 n1 n0)  [1.000]
+16.001: (board p1 fast0 n3 n0 n1)  [1.000]
+17.001: (move-down-fast fast0 n3 n1)  [10.000]
+26.001: (move-up-slow slow0-0 n0 n1)  [10.000]
+27.001: (board p2 fast0 n1 n1 n2)  [1.000]
+28.002: (leave p1 fast0 n1 n2 n1)  [1.000]
+35.001: (move-up-fast fast0 n1 n2)  [6.000]
+36.001: (board p1 slow0-0 n1 n0 n1)  [1.000]
+37.001: (move-down-slow slow0-0 n1 n0)  [10.000]
+41.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+42.001: (move-up-fast fast0 n2 n3)  [6.000]
+47.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 48.001
+b (1.000 | 45.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 46.001
+; Theoretical reachable cost 46.002
+; States evaluated so far: 988
+; States pruned based on pre-heuristic cost lower bound: 21
+; Time 1.69
+0.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-up-fast fast0 n0 n3)  [14.000]
+15.000: (leave p0 fast0 n3 n1 n0)  [1.000]
+16.001: (board p1 fast0 n3 n0 n1)  [1.000]
+17.001: (move-down-fast fast0 n3 n1)  [10.000]
+26.001: (move-up-slow slow0-0 n0 n1)  [10.000]
+27.001: (board p2 fast0 n1 n1 n2)  [1.000]
+28.001: (move-up-fast fast0 n1 n2)  [6.000]
+34.001: (leave p2 fast0 n2 n2 n1)  [1.000]
+35.001: (move-down-fast fast0 n2 n0)  [10.000]
+45.001: (leave p1 fast0 n0 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 46.001
+Running: ./optic-clp domain_constrained_temp.pddl problem_constrained_temp.pddl
+Warnings encountered when parsing Domain/Problem File
+-----------------------------------------------------
+
+The supplied domain/problem file appear to violate part of the PDDL
+language specification.  Specifically:
+
+Errors: 0, warnings: 16
+domain_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 35: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 41: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 47: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+
+The planner will continue, but you may wish to fix your files accordingly
+Number of literals: 32
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (passenger-at p0 n3), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (passenger-at p1 n0), is static or a precondition[00m
+[01;34mFor limits: literal goal index 2, fact (passenger-at p2 n2), is static or a precondition[00m
+[01;31mLooking for achievers for goal index 3, fact (did_board_p0_slow0-0_n0_n0_n1) with fID 31[00m
+ (mark_board_p0_slow0-0_n0_n0_n1 p0 slow0-0 n0 n0 n1)
+  Looking at numeric effects of (mark_board_p0_slow0-0_n0_n0_n1 p0 slow0-0 n0 n0 n1): 0 and 0
+  No troublesome numerics - looking at conditional effects on (mark_board_p0_slow0-0_n0_n0_n1 p0 slow0-0 n0 n0 n1), of which there are 0
+Action 96 - (mark_board_p0_slow0-0_n0_n0_n1 p0 slow0-0 n0 n0 n1) is uninteresting once we have fact (did_board_p0_slow0-0_n0_n0_n1)
+All the ground actions in this problem are compression-safe
+Initial heuristic = 14.000, admissible cost estimate 13.004
+b (12.000 | 10.000)b (10.000 | 14.000)b (9.000 | 29.000)b (8.000 | 30.000)b (6.000 | 40.000)b (5.000 | 50.001)b (4.000 | 52.003)b (2.000 | 53.003)b (1.000 | 67.003)(G)
+; LP calculated the cost
+
+; Plan found with metric 68.004
+; Theoretical reachable cost 68.005
+; States evaluated so far: 93
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.09
+0.000: (move-down-slow slow0-0 n3 n2)  [10.000]
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+10.001: (move-down-slow slow0-0 n2 n1)  [10.000]
+14.000: (board p1 fast0 n3 n0 n1)  [1.000]
+15.000: (move-down-fast fast0 n3 n0)  [14.000]
+20.001: (board p2 slow0-0 n1 n0 n1)  [1.000]
+21.001: (move-up-slow slow0-0 n1 n2)  [10.000]
+29.000: (leave p1 fast0 n0 n1 n0)  [1.000]
+30.000: (move-up-fast fast0 n0 n2)  [10.000]
+31.001: (leave p2 slow0-0 n2 n1 n0)  [1.000]
+32.001: (move-down-slow slow0-0 n2 n0)  [18.000]
+40.001: (move-down-fast fast0 n2 n0)  [10.000]
+50.001: (board p0 slow0-0 n0 n0 n1)  [1.000]
+51.002: (mark_board_p0_slow0-0_n0_n0_n1 p0 slow0-0 n0 n0 n1)  [0.010]
+51.003: (leave p0 slow0-0 n0 n1 n0)  [1.000]
+52.004: (board p0 fast0 n0 n0 n1)  [1.000]
+53.004: (move-up-fast fast0 n0 n3)  [14.000]
+67.004: (leave p0 fast0 n3 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 68.004
+
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (10.000 | 14.000)b (9.000 | 28.000)b (8.000 | 29.012)b (6.000 | 55.001)b (5.000 | 55.001)b (4.000 | 55.001)b (3.000 | 56.001)b (2.000 | 56.001)b (1.000 | 56.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 56.001
+; Theoretical reachable cost 56.002
+; States evaluated so far: 208
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.23
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n2)  [6.000]
+20.002: (move-down-fast fast0 n2 n1)  [6.000]
+26.002: (board p2 fast0 n1 n0 n1)  [1.000]
+27.000: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+27.002: (move-up-fast fast0 n1 n2)  [6.000]
+28.001: (board p0 slow0-0 n0 n0 n1)  [1.000]
+29.001: (move-up-slow slow0-0 n0 n3)  [26.000]
+33.002: (leave p2 fast0 n2 n1 n0)  [1.000]
+55.000: (mark_board_p0_slow0-0_n0_n0_n1 p0 slow0-0 n0 n0 n1)  [0.010]
+55.001: (leave p0 slow0-0 n3 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 56.001
+b (1.000 | 52.002)(G)
+; LP calculated the cost
+
+; Plan found with metric 52.002
+; Theoretical reachable cost 52.004
+; States evaluated so far: 270
+; States pruned based on pre-heuristic cost lower bound: 7
+; Time 0.35
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+27.000: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+28.001: (board p0 slow0-0 n0 n0 n1)  [1.000]
+29.001: (move-up-slow slow0-0 n0 n1)  [10.000]
+29.002: (mark_board_p0_slow0-0_n0_n0_n1 p0 slow0-0 n0 n0 n1)  [0.010]
+39.001: (leave p0 slow0-0 n1 n1 n0)  [1.000]
+40.002: (board p0 fast0 n1 n0 n1)  [1.000]
+40.002: (board p2 slow0-0 n1 n0 n1)  [1.000]
+41.002: (move-up-fast fast0 n1 n3)  [10.000]
+41.002: (move-up-slow slow0-0 n1 n2)  [10.000]
+51.002: (leave p0 fast0 n3 n1 n0)  [1.000]
+51.002: (leave p2 slow0-0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 52.002
+b (1.000 | 49.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 50.001
+; Theoretical reachable cost 50.002
+; States evaluated so far: 734
+; States pruned based on pre-heuristic cost lower bound: 14
+; Time 1.45
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+27.000: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+28.001: (board p0 slow0-0 n0 n0 n1)  [1.000]
+29.002: (mark_board_p0_slow0-0_n0_n0_n1 p0 slow0-0 n0 n0 n1)  [0.010]
+29.003: (leave p0 slow0-0 n0 n1 n0)  [1.000]
+30.004: (board p1 slow0-0 n0 n0 n1)  [1.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+31.005: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+32.001: (move-up-fast fast0 n0 n2)  [10.000]
+42.001: (leave p2 fast0 n2 n2 n1)  [1.000]
+43.001: (move-up-fast fast0 n2 n3)  [6.000]
+49.001: (leave p0 fast0 n3 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 50.001
+
+
+ Constraint: What if p0 had to ride the slow elevator?
+
+Plan comparison:
+Step | Original Plan                   | Constrained Plan               
+Cost | 46.00                           | 50.00                          
+------------------------------------------------------------------------
+   0 | [32mmove-down-slow(slow0-0, n3, n0)[0m | [32mmove-up-fast(fast0, n0, n3)    [0m
+   1 | [31mboard(p0, fast0, n0, n0, n1)   [0m | [33mboard(p1, slow0-0, n3, n0, n1) [0m
+   2 | [32mmove-up-fast(fast0, n0, n3)    [0m | [32mmove-down-slow(slow0-0, n3, n0)[0m
+   3 | [32mleave(p0, fast0, n3, n1, n0)   [0m | [32mmove-down-fast(fast0, n3, n1)  [0m
+   4 | [31mboard(p1, fast0, n3, n0, n1)   [0m | [33mboard(p2, fast0, n1, n0, n1)   [0m
+   5 | [32mmove-down-fast(fast0, n3, n1)  [0m | [33mmove-down-fast(fast0, n1, n0)  [0m
+   6 | [31mmove-up-slow(slow0-0, n0, n1)  [0m | [33mleave(p1, slow0-0, n0, n1, n0) [0m
+   7 | [31mboard(p2, fast0, n1, n1, n2)   [0m | [33mboard(p0, slow0-0, n0, n0, n1) [0m
+   8 | [31mmove-up-fast(fast0, n1, n2)    [0m | [33mleave(p0, slow0-0, n0, n1, n0) [0m
+   9 | [32mleave(p2, fast0, n2, n2, n1)   [0m | [33mboard(p1, slow0-0, n0, n0, n1) [0m
+  10 | [31mmove-down-fast(fast0, n2, n0)  [0m | [33mboard(p0, fast0, n0, n1, n2)   [0m
+  11 | [31mleave(p1, fast0, n0, n1, n0)   [0m | [33mleave(p1, slow0-0, n0, n1, n0) [0m
+  12 |                                 | [33mmove-up-fast(fast0, n0, n2)    [0m
+  13 |                                 | [32mleave(p2, fast0, n2, n2, n1)   [0m
+  14 |                                 | [33mmove-up-fast(fast0, n2, n3)    [0m
+  15 |                                 | [32mleave(p0, fast0, n3, n1, n0)   [0m
+
+Legend:
+[34m  Blue       : matching action in both plans[0m
+[33m  Yellow     : action added relative to the other plan[0m
+[31m  Red        : action removed relative to the other plan[0m
+[32m  Green      : action exists in both plans but moved[0m
+
+[Test 3/8] ActionOrdering: leave(p0,fast0,n3) after leave(p1,fast0,n0)
+----------------------------------------------------------------------
+INFO: Ordered 'leave(p0, fast0, n3, n1, n0)' to start after 'leave(p1, fast0, n0, n1, n0)' completes
+Running: ./optic-clp benchmarks/elevators/domain.pddl benchmarks/elevators/instances/instance-1.pddl
+Warnings encountered when parsing Domain/Problem File
+-----------------------------------------------------
+
+The supplied domain/problem file appear to violate part of the PDDL
+language specification.  Specifically:
+
+Errors: 0, warnings: 16
+benchmarks/elevators/domain.pddl: line: 27: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 33: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 39: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 45: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+
+The planner will continue, but you may wish to fix your files accordingly
+Number of literals: 31
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (passenger-at p0 n3), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (passenger-at p1 n0), is static or a precondition[00m
+[01;34mFor limits: literal goal index 2, fact (passenger-at p2 n2), is static or a precondition[00m
+All the ground actions in this problem are compression-safe
+Initial heuristic = 13.000, admissible cost estimate 13.004
+b (12.000 | 10.000)b (11.000 | 10.000)b (10.000 | 11.000)b (9.000 | 16.001)b (8.000 | 29.000)b (7.000 | 30.000)b (5.000 | 33.002)b (3.000 | 48.002)b (2.000 | 49.002)b (1.000 | 55.002)(G)
+; LP calculated the cost
+
+; Plan found with metric 56.002
+; Theoretical reachable cost 56.004
+; States evaluated so far: 29
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.03
+0.000: (move-up-fast fast0 n0 n2)  [10.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n2)  [10.000]
+10.001: (move-up-fast fast0 n2 n3)  [6.000]
+11.001: (move-down-slow slow0-0 n2 n0)  [18.000]
+16.002: (move-down-fast fast0 n3 n1)  [10.000]
+26.002: (board p2 fast0 n1 n0 n1)  [1.000]
+27.002: (move-down-fast fast0 n1 n0)  [6.000]
+29.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+33.002: (board p0 fast0 n0 n1 n2)  [1.000]
+34.002: (move-up-fast fast0 n0 n3)  [14.000]
+48.002: (leave p0 fast0 n3 n2 n1)  [1.000]
+49.002: (move-down-fast fast0 n3 n2)  [6.000]
+55.002: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 56.002
+
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (12.000 | 10.000)b (9.000 | 14.000)b (9.000 | 10.000)b (8.000 | 27.000)b (7.000 | 28.000)b (5.000 | 31.001)b (3.000 | 46.001)b (2.000 | 47.001)b (1.000 | 53.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 54.001
+; Theoretical reachable cost 54.002
+; States evaluated so far: 192
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.21
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n3)  [14.000]
+46.001: (leave p0 fast0 n3 n2 n1)  [1.000]
+47.001: (move-down-fast fast0 n3 n2)  [6.000]
+53.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+53.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 54.001
+b (1.000 | 49.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 50.001
+; Theoretical reachable cost 50.002
+; States evaluated so far: 239
+; States pruned based on pre-heuristic cost lower bound: 7
+; Time 0.33
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n2)  [10.000]
+42.001: (leave p2 fast0 n2 n2 n1)  [1.000]
+43.001: (move-up-fast fast0 n2 n3)  [6.000]
+49.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+49.001: (leave p0 fast0 n3 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 50.001
+b (1.000 | 47.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 48.001
+; Theoretical reachable cost 48.002
+; States evaluated so far: 942
+; States pruned based on pre-heuristic cost lower bound: 14
+; Time 1.64
+0.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-up-fast fast0 n0 n3)  [14.000]
+15.000: (leave p0 fast0 n3 n1 n0)  [1.000]
+16.001: (board p1 fast0 n3 n0 n1)  [1.000]
+17.001: (move-down-fast fast0 n3 n1)  [10.000]
+26.001: (move-up-slow slow0-0 n0 n1)  [10.000]
+27.001: (board p2 fast0 n1 n1 n2)  [1.000]
+28.002: (leave p1 fast0 n1 n2 n1)  [1.000]
+35.001: (move-up-fast fast0 n1 n2)  [6.000]
+36.001: (board p1 slow0-0 n1 n0 n1)  [1.000]
+37.001: (move-down-slow slow0-0 n1 n0)  [10.000]
+41.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+42.001: (move-up-fast fast0 n2 n3)  [6.000]
+47.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 48.001
+b (1.000 | 45.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 46.001
+; Theoretical reachable cost 46.002
+; States evaluated so far: 988
+; States pruned based on pre-heuristic cost lower bound: 21
+; Time 1.75
+0.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-up-fast fast0 n0 n3)  [14.000]
+15.000: (leave p0 fast0 n3 n1 n0)  [1.000]
+16.001: (board p1 fast0 n3 n0 n1)  [1.000]
+17.001: (move-down-fast fast0 n3 n1)  [10.000]
+26.001: (move-up-slow slow0-0 n0 n1)  [10.000]
+27.001: (board p2 fast0 n1 n1 n2)  [1.000]
+28.001: (move-up-fast fast0 n1 n2)  [6.000]
+34.001: (leave p2 fast0 n2 n2 n1)  [1.000]
+35.001: (move-down-fast fast0 n2 n0)  [10.000]
+45.001: (leave p1 fast0 n0 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 46.001
+Running: ./optic-clp domain_constrained_temp.pddl problem_constrained_temp.pddl
+Warnings encountered when parsing Domain/Problem File
+-----------------------------------------------------
+
+The supplied domain/problem file appear to violate part of the PDDL
+language specification.  Specifically:
+
+Errors: 0, warnings: 17
+domain_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 37: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 43: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 49: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 419: Warning: Undeclared requirement :timed-initial-literals 
+
+The planner will continue, but you may wish to fix your files accordingly
+Number of literals: 416
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (passenger-at p0 n3), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (passenger-at p1 n0), is static or a precondition[00m
+[01;34mFor limits: literal goal index 2, fact (passenger-at p2 n2), is static or a precondition[00m
+Action 96 - (set_done_leave_p1_fast0_n0_n1_n0 p1 fast0 n0 n1 n0) is uninteresting once we have fact (done_leave_p1_fast0_n0_n1_n0)
+All the ground actions in this problem are compression-safe
+Initial heuristic = 13.000, admissible cost estimate 13.004
+b (12.000 | 10.000)b (11.000 | 10.000)b (10.000 | 11.000)b (9.000 | 16.001)b (8.000 | 29.000)b (7.000 | 30.000)b (5.000 | 33.002)b (3.000 | 48.002)b (2.000 | 49.002)b (1.000 | 55.002)(G)
+; LP calculated the cost
+
+; Plan found with metric 56.002
+; Theoretical reachable cost 56.004
+; States evaluated so far: 29
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.04
+0.000: (move-up-fast fast0 n0 n2)  [10.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n2)  [10.000]
+10.001: (move-up-fast fast0 n2 n3)  [6.000]
+11.001: (move-down-slow slow0-0 n2 n0)  [18.000]
+16.002: (move-down-fast fast0 n3 n1)  [10.000]
+26.002: (board p2 fast0 n1 n0 n1)  [1.000]
+27.002: (move-down-fast fast0 n1 n0)  [6.000]
+29.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+33.002: (board p0 fast0 n0 n1 n2)  [1.000]
+34.002: (move-up-fast fast0 n0 n3)  [14.000]
+48.002: (leave p0 fast0 n3 n2 n1)  [1.000]
+49.002: (move-down-fast fast0 n3 n2)  [6.000]
+55.002: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 56.002
+
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (12.000 | 10.000)b (9.000 | 14.000)b (9.000 | 10.000)b (8.000 | 27.000)b (7.000 | 28.000)b (5.000 | 31.001)b (3.000 | 46.001)b (2.000 | 47.001)b (1.000 | 53.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 54.001
+; Theoretical reachable cost 54.002
+; States evaluated so far: 252
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.27
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n3)  [14.000]
+46.001: (leave p0 fast0 n3 n2 n1)  [1.000]
+47.001: (move-down-fast fast0 n3 n2)  [6.000]
+53.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+53.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 54.001
+b (1.000 | 49.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 52.004
+; Theoretical reachable cost 52.005
+; States evaluated so far: 771
+; States pruned based on pre-heuristic cost lower bound: 8
+; Time 1.76
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+27.000: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n2)  [10.000]
+42.001: (leave p2 fast0 n2 n2 n1)  [1.000]
+43.002: (leave p0 fast0 n2 n1 n0)  [1.000]
+44.003: (set_done_leave_p1_fast0_n0_n1_n0 p1 fast0 n0 n1 n0)  [0.010]
+44.004: (board p0 fast0 n2 n0 n1)  [1.000]
+44.014: (release_order_leave_by_p1_fast0_n0_n1_n0 p0 fast0 n3 n1 n0)  [0.010]
+45.004: (move-up-fast fast0 n2 n3)  [6.000]
+51.004: (leave p0 fast0 n3 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 52.004
+(G)
+
+ Constraint: Why was p0 delivered before p1?
+
+Plan comparison:
+Step | Original Plan                   | Constrained Plan               
+Cost | 46.00                           | 52.00                          
+------------------------------------------------------------------------
+   0 | [32mmove-down-slow(slow0-0, n3, n0)[0m | [32mmove-up-fast(fast0, n0, n3)    [0m
+   1 | [31mboard(p0, fast0, n0, n0, n1)   [0m | [33mboard(p1, slow0-0, n3, n0, n1) [0m
+   2 | [32mmove-up-fast(fast0, n0, n3)    [0m | [32mmove-down-slow(slow0-0, n3, n0)[0m
+   3 | [32mleave(p0, fast0, n3, n1, n0)   [0m | [32mmove-down-fast(fast0, n3, n1)  [0m
+   4 | [31mboard(p1, fast0, n3, n0, n1)   [0m | [33mboard(p2, fast0, n1, n0, n1)   [0m
+   5 | [32mmove-down-fast(fast0, n3, n1)  [0m | [33mmove-down-fast(fast0, n1, n0)  [0m
+   6 | [31mmove-up-slow(slow0-0, n0, n1)  [0m | [33mleave(p1, slow0-0, n0, n1, n0) [0m
+   7 | [31mboard(p2, fast0, n1, n1, n2)   [0m | [33mboard(p0, fast0, n0, n1, n2)   [0m
+   8 | [31mmove-up-fast(fast0, n1, n2)    [0m | [33mmove-up-fast(fast0, n0, n2)    [0m
+   9 | [34mleave(p2, fast0, n2, n2, n1)   [0m | [34mleave(p2, fast0, n2, n2, n1)   [0m
+  10 | [31mmove-down-fast(fast0, n2, n0)  [0m | [33mleave(p0, fast0, n2, n1, n0)   [0m
+  11 | [31mleave(p1, fast0, n0, n1, n0)   [0m | [33mboard(p0, fast0, n2, n0, n1)   [0m
+  12 |                                 | [33mmove-up-fast(fast0, n2, n3)    [0m
+  13 |                                 | [32mleave(p0, fast0, n3, n1, n0)   [0m
+
+Legend:
+[34m  Blue       : matching action in both plans[0m
+[33m  Yellow     : action added relative to the other plan[0m
+[31m  Red        : action removed relative to the other plan[0m
+[32m  Green      : action exists in both plans but moved[0m
+
+[Test 4/8] AtomGoal: slow0-0 must end at n3
+-------------------------------------------
+INFO: Added goal atom '(lift-at slow0-0 n3)'
+Running: ./optic-clp benchmarks/elevators/domain.pddl benchmarks/elevators/instances/instance-1.pddl
+Warnings encountered when parsing Domain/Problem File
+-----------------------------------------------------
+
+The supplied domain/problem file appear to violate part of the PDDL
+language specification.  Specifically:
+
+Errors: 0, warnings: 16
+benchmarks/elevators/domain.pddl: line: 27: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 33: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 39: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 45: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+
+The planner will continue, but you may wish to fix your files accordingly
+Number of literals: 31
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (passenger-at p0 n3), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (passenger-at p1 n0), is static or a precondition[00m
+[01;34mFor limits: literal goal index 2, fact (passenger-at p2 n2), is static or a precondition[00m
+All the ground actions in this problem are compression-safe
+Initial heuristic = 13.000, admissible cost estimate 13.004
+b (12.000 | 10.000)b (11.000 | 10.000)b (10.000 | 11.000)b (9.000 | 16.001)b (8.000 | 29.000)b (7.000 | 30.000)b (5.000 | 33.002)b (3.000 | 48.002)b (2.000 | 49.002)b (1.000 | 55.002)(G)
+; LP calculated the cost
+
+; Plan found with metric 56.002
+; Theoretical reachable cost 56.004
+; States evaluated so far: 29
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.03
+0.000: (move-up-fast fast0 n0 n2)  [10.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n2)  [10.000]
+10.001: (move-up-fast fast0 n2 n3)  [6.000]
+11.001: (move-down-slow slow0-0 n2 n0)  [18.000]
+16.002: (move-down-fast fast0 n3 n1)  [10.000]
+26.002: (board p2 fast0 n1 n0 n1)  [1.000]
+27.002: (move-down-fast fast0 n1 n0)  [6.000]
+29.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+33.002: (board p0 fast0 n0 n1 n2)  [1.000]
+34.002: (move-up-fast fast0 n0 n3)  [14.000]
+48.002: (leave p0 fast0 n3 n2 n1)  [1.000]
+49.002: (move-down-fast fast0 n3 n2)  [6.000]
+55.002: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 56.002
+
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (12.000 | 10.000)b (9.000 | 14.000)b (9.000 | 10.000)b (8.000 | 27.000)b (7.000 | 28.000)b (5.000 | 31.001)b (3.000 | 46.001)b (2.000 | 47.001)b (1.000 | 53.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 54.001
+; Theoretical reachable cost 54.002
+; States evaluated so far: 192
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.21
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n3)  [14.000]
+46.001: (leave p0 fast0 n3 n2 n1)  [1.000]
+47.001: (move-down-fast fast0 n3 n2)  [6.000]
+53.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+53.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 54.001
+b (1.000 | 49.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 50.001
+; Theoretical reachable cost 50.002
+; States evaluated so far: 239
+; States pruned based on pre-heuristic cost lower bound: 7
+; Time 0.32
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n2)  [10.000]
+42.001: (leave p2 fast0 n2 n2 n1)  [1.000]
+43.001: (move-up-fast fast0 n2 n3)  [6.000]
+49.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+49.001: (leave p0 fast0 n3 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 50.001
+b (1.000 | 47.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 48.001
+; Theoretical reachable cost 48.002
+; States evaluated so far: 942
+; States pruned based on pre-heuristic cost lower bound: 14
+; Time 1.65
+0.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-up-fast fast0 n0 n3)  [14.000]
+15.000: (leave p0 fast0 n3 n1 n0)  [1.000]
+16.001: (board p1 fast0 n3 n0 n1)  [1.000]
+17.001: (move-down-fast fast0 n3 n1)  [10.000]
+26.001: (move-up-slow slow0-0 n0 n1)  [10.000]
+27.001: (board p2 fast0 n1 n1 n2)  [1.000]
+28.002: (leave p1 fast0 n1 n2 n1)  [1.000]
+35.001: (move-up-fast fast0 n1 n2)  [6.000]
+36.001: (board p1 slow0-0 n1 n0 n1)  [1.000]
+37.001: (move-down-slow slow0-0 n1 n0)  [10.000]
+41.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+42.001: (move-up-fast fast0 n2 n3)  [6.000]
+47.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 48.001
+b (1.000 | 45.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 46.001
+; Theoretical reachable cost 46.002
+; States evaluated so far: 988
+; States pruned based on pre-heuristic cost lower bound: 21
+; Time 1.76
+0.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-up-fast fast0 n0 n3)  [14.000]
+15.000: (leave p0 fast0 n3 n1 n0)  [1.000]
+16.001: (board p1 fast0 n3 n0 n1)  [1.000]
+17.001: (move-down-fast fast0 n3 n1)  [10.000]
+26.001: (move-up-slow slow0-0 n0 n1)  [10.000]
+27.001: (board p2 fast0 n1 n1 n2)  [1.000]
+28.001: (move-up-fast fast0 n1 n2)  [6.000]
+34.001: (leave p2 fast0 n2 n2 n1)  [1.000]
+35.001: (move-down-fast fast0 n2 n0)  [10.000]
+45.001: (leave p1 fast0 n0 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 46.001
+Running: ./optic-clp domain_constrained_temp.pddl problem_constrained_temp.pddl
+Warnings encountered when parsing Domain/Problem File
+-----------------------------------------------------
+
+The supplied domain/problem file appear to violate part of the PDDL
+language specification.  Specifically:
+
+Errors: 0, warnings: 16
+domain_constrained_temp.pddl: line: 27: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 33: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 39: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 45: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+
+The planner will continue, but you may wish to fix your files accordingly
+Number of literals: 31
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (passenger-at p0 n3), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (passenger-at p1 n0), is static or a precondition[00m
+[01;34mFor limits: literal goal index 2, fact (passenger-at p2 n2), is static or a precondition[00m
+[01;34mFor limits: literal goal index 3, fact (lift-at slow0-0 n3), is static or a precondition[00m
+All the ground actions in this problem are compression-safe
+Initial heuristic = 13.000, admissible cost estimate 13.004
+b (12.000 | 10.000)b (11.000 | 10.000)b (9.000 | 16.001)b (8.000 | 28.000)b (7.000 | 54.000)b (5.000 | 54.000)b (3.000 | 54.000)b (2.000 | 54.000)b (1.000 | 55.002)(G)
+; LP calculated the cost
+
+; Plan found with metric 56.002
+; Theoretical reachable cost 56.004
+; States evaluated so far: 41
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.03
+0.000: (move-up-fast fast0 n0 n2)  [10.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+10.001: (move-up-fast fast0 n2 n3)  [6.000]
+16.002: (move-down-fast fast0 n3 n1)  [10.000]
+26.002: (board p2 fast0 n1 n0 n1)  [1.000]
+27.000: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+27.002: (move-down-fast fast0 n1 n0)  [6.000]
+28.000: (move-up-slow slow0-0 n0 n3)  [26.000]
+33.002: (board p0 fast0 n0 n1 n2)  [1.000]
+34.002: (move-up-fast fast0 n0 n3)  [14.000]
+48.002: (leave p0 fast0 n3 n2 n1)  [1.000]
+49.002: (move-down-fast fast0 n3 n2)  [6.000]
+55.002: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 56.002
+
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (12.000 | 10.000)b (9.000 | 14.000)b (8.000 | 28.000)b (7.000 | 54.000)b (5.000 | 54.000)b (3.000 | 54.000)b (2.000 | 54.000)b (1.000 | 54.000)(G)
+; LP calculated the cost
+
+; Plan found with metric 54.001
+; Theoretical reachable cost 54.002
+; States evaluated so far: 129
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.17
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+27.000: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+28.001: (move-up-slow slow0-0 n0 n3)  [26.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n3)  [14.000]
+46.001: (leave p0 fast0 n3 n2 n1)  [1.000]
+47.001: (move-down-fast fast0 n3 n2)  [6.000]
+53.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 54.001
+b (1.000 | 50.001)(G)(G)
+; LP calculated the cost
+
+; Plan found with metric 52.001
+; Theoretical reachable cost 52.002
+; States evaluated so far: 843
+; States pruned based on pre-heuristic cost lower bound: 7
+; Time 1.24
+0.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-up-fast fast0 n0 n3)  [14.000]
+15.000: (leave p0 fast0 n3 n1 n0)  [1.000]
+16.001: (board p1 fast0 n3 n0 n1)  [1.000]
+17.001: (move-down-fast fast0 n3 n1)  [10.000]
+26.001: (move-up-slow slow0-0 n0 n3)  [26.000]
+27.001: (board p2 fast0 n1 n1 n2)  [1.000]
+28.001: (move-up-fast fast0 n1 n2)  [6.000]
+34.001: (leave p2 fast0 n2 n2 n1)  [1.000]
+35.001: (move-down-fast fast0 n2 n0)  [10.000]
+45.001: (leave p1 fast0 n0 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 52.001
+b (1.000 | 45.001)
+
+ Constraint: What if the slow elevator had to return to floor 3?
+
+Plan comparison:
+Step | Original Plan                   | Constrained Plan               
+Cost | 46.00                           | 52.00                          
+------------------------------------------------------------------------
+   0 | [34mmove-down-slow(slow0-0, n3, n0)[0m | [34mmove-down-slow(slow0-0, n3, n0)[0m
+   1 | [34mboard(p0, fast0, n0, n0, n1)   [0m | [34mboard(p0, fast0, n0, n0, n1)   [0m
+   2 | [34mmove-up-fast(fast0, n0, n3)    [0m | [34mmove-up-fast(fast0, n0, n3)    [0m
+   3 | [34mleave(p0, fast0, n3, n1, n0)   [0m | [34mleave(p0, fast0, n3, n1, n0)   [0m
+   4 | [34mboard(p1, fast0, n3, n0, n1)   [0m | [34mboard(p1, fast0, n3, n0, n1)   [0m
+   5 | [34mmove-down-fast(fast0, n3, n1)  [0m | [34mmove-down-fast(fast0, n3, n1)  [0m
+   6 | [31mmove-up-slow(slow0-0, n0, n1)  [0m | [33mmove-up-slow(slow0-0, n0, n3)  [0m
+   7 | [34mboard(p2, fast0, n1, n1, n2)   [0m | [34mboard(p2, fast0, n1, n1, n2)   [0m
+   8 | [34mmove-up-fast(fast0, n1, n2)    [0m | [34mmove-up-fast(fast0, n1, n2)    [0m
+   9 | [34mleave(p2, fast0, n2, n2, n1)   [0m | [34mleave(p2, fast0, n2, n2, n1)   [0m
+  10 | [34mmove-down-fast(fast0, n2, n0)  [0m | [34mmove-down-fast(fast0, n2, n0)  [0m
+  11 | [34mleave(p1, fast0, n0, n1, n0)   [0m | [34mleave(p1, fast0, n0, n1, n0)   [0m
+
+Legend:
+[34m  Blue       : matching action in both plans[0m
+[33m  Yellow     : action added relative to the other plan[0m
+[31m  Red        : action removed relative to the other plan[0m
+[32m  Green      : action exists in both plans but moved[0m
+
+[Test 5/8] FluentChange: travel-fast(n0,n2) 10 -> 30
+----------------------------------------------------
+INFO: Set fluent '(travel-fast n0 n2)' to 30
+INFO: Set fluent '(travel-fast n2 n0)' to 30
+Running: ./optic-clp benchmarks/elevators/domain.pddl benchmarks/elevators/instances/instance-1.pddl
+Warnings encountered when parsing Domain/Problem File
+-----------------------------------------------------
+
+The supplied domain/problem file appear to violate part of the PDDL
+language specification.  Specifically:
+
+Errors: 0, warnings: 16
+benchmarks/elevators/domain.pddl: line: 27: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 33: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 39: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 45: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+
+The planner will continue, but you may wish to fix your files accordingly
+Number of literals: 31
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (passenger-at p0 n3), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (passenger-at p1 n0), is static or a precondition[00m
+[01;34mFor limits: literal goal index 2, fact (passenger-at p2 n2), is static or a precondition[00m
+All the ground actions in this problem are compression-safe
+Initial heuristic = 13.000, admissible cost estimate 13.004
+b (12.000 | 10.000)b (11.000 | 10.000)b (10.000 | 11.000)b (9.000 | 16.001)b (8.000 | 29.000)b (7.000 | 30.000)b (5.000 | 33.002)b (3.000 | 48.002)b (2.000 | 49.002)b (1.000 | 55.002)(G)
+; LP calculated the cost
+
+; Plan found with metric 56.002
+; Theoretical reachable cost 56.004
+; States evaluated so far: 29
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.02
+0.000: (move-up-fast fast0 n0 n2)  [10.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n2)  [10.000]
+10.001: (move-up-fast fast0 n2 n3)  [6.000]
+11.001: (move-down-slow slow0-0 n2 n0)  [18.000]
+16.002: (move-down-fast fast0 n3 n1)  [10.000]
+26.002: (board p2 fast0 n1 n0 n1)  [1.000]
+27.002: (move-down-fast fast0 n1 n0)  [6.000]
+29.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+33.002: (board p0 fast0 n0 n1 n2)  [1.000]
+34.002: (move-up-fast fast0 n0 n3)  [14.000]
+48.002: (leave p0 fast0 n3 n2 n1)  [1.000]
+49.002: (move-down-fast fast0 n3 n2)  [6.000]
+55.002: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 56.002
+
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (12.000 | 10.000)b (9.000 | 14.000)b (9.000 | 10.000)b (8.000 | 27.000)b (7.000 | 28.000)b (5.000 | 31.001)b (3.000 | 46.001)b (2.000 | 47.001)b (1.000 | 53.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 54.001
+; Theoretical reachable cost 54.002
+; States evaluated so far: 192
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.20
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n3)  [14.000]
+46.001: (leave p0 fast0 n3 n2 n1)  [1.000]
+47.001: (move-down-fast fast0 n3 n2)  [6.000]
+53.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+53.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 54.001
+b (1.000 | 49.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 50.001
+; Theoretical reachable cost 50.002
+; States evaluated so far: 239
+; States pruned based on pre-heuristic cost lower bound: 7
+; Time 0.32
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n2)  [10.000]
+42.001: (leave p2 fast0 n2 n2 n1)  [1.000]
+43.001: (move-up-fast fast0 n2 n3)  [6.000]
+49.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+49.001: (leave p0 fast0 n3 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 50.001
+b (1.000 | 47.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 48.001
+; Theoretical reachable cost 48.002
+; States evaluated so far: 942
+; States pruned based on pre-heuristic cost lower bound: 14
+; Time 1.62
+0.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-up-fast fast0 n0 n3)  [14.000]
+15.000: (leave p0 fast0 n3 n1 n0)  [1.000]
+16.001: (board p1 fast0 n3 n0 n1)  [1.000]
+17.001: (move-down-fast fast0 n3 n1)  [10.000]
+26.001: (move-up-slow slow0-0 n0 n1)  [10.000]
+27.001: (board p2 fast0 n1 n1 n2)  [1.000]
+28.002: (leave p1 fast0 n1 n2 n1)  [1.000]
+35.001: (move-up-fast fast0 n1 n2)  [6.000]
+36.001: (board p1 slow0-0 n1 n0 n1)  [1.000]
+37.001: (move-down-slow slow0-0 n1 n0)  [10.000]
+41.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+42.001: (move-up-fast fast0 n2 n3)  [6.000]
+47.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 48.001
+b (1.000 | 45.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 46.001
+; Theoretical reachable cost 46.002
+; States evaluated so far: 988
+; States pruned based on pre-heuristic cost lower bound: 21
+; Time 1.73
+0.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-up-fast fast0 n0 n3)  [14.000]
+15.000: (leave p0 fast0 n3 n1 n0)  [1.000]
+16.001: (board p1 fast0 n3 n0 n1)  [1.000]
+17.001: (move-down-fast fast0 n3 n1)  [10.000]
+26.001: (move-up-slow slow0-0 n0 n1)  [10.000]
+27.001: (board p2 fast0 n1 n1 n2)  [1.000]
+28.001: (move-up-fast fast0 n1 n2)  [6.000]
+34.001: (leave p2 fast0 n2 n2 n1)  [1.000]
+35.001: (move-down-fast fast0 n2 n0)  [10.000]
+45.001: (leave p1 fast0 n0 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 46.001
+Running: ./optic-clp domain_constrained_temp.pddl problem_constrained_temp.pddl
+Warnings encountered when parsing Domain/Problem File
+-----------------------------------------------------
+
+The supplied domain/problem file appear to violate part of the PDDL
+language specification.  Specifically:
+
+Errors: 0, warnings: 17
+domain_constrained_temp.pddl: line: 27: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 33: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 39: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 45: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 33: Warning: Undeclared requirement :number-fluents 
+
+The planner will continue, but you may wish to fix your files accordingly
+Number of literals: 31
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (passenger-at p0 n3), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (passenger-at p1 n0), is static or a precondition[00m
+[01;34mFor limits: literal goal index 2, fact (passenger-at p2 n2), is static or a precondition[00m
+All the ground actions in this problem are compression-safe
+Initial heuristic = 12.000, admissible cost estimate 15.002
+b (11.000 | 1.000)b (9.000 | 14.000)b (8.000 | 27.000)b (7.000 | 28.000)b (6.000 | 31.001)b (3.000 | 46.001)b (2.000 | 47.001)b (1.000 | 53.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 54.001
+; Theoretical reachable cost 54.002
+; States evaluated so far: 23
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.02
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+27.000: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n3)  [14.000]
+46.001: (leave p0 fast0 n3 n2 n1)  [1.000]
+47.001: (move-down-fast fast0 n3 n2)  [6.000]
+53.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 54.001
+
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (9.000 | 30.000)b (9.000 | 14.000)b (9.000 | 10.000)b (8.000 | 27.000)b (7.000 | 28.000)b (6.000 | 31.001)b (3.000 | 46.001)b (2.000 | 47.001)b (1.000 | 50.002)(G)
+; LP calculated the cost
+
+; Plan found with metric 51.002
+; Theoretical reachable cost 51.004
+; States evaluated so far: 346
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.62
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+27.000: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+28.000: (move-up-slow slow0-0 n0 n1)  [10.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n1)  [6.000]
+38.001: (leave p2 fast0 n1 n2 n1)  [1.000]
+39.002: (board p2 slow0-0 n1 n0 n1)  [1.000]
+40.002: (move-up-fast fast0 n1 n3)  [10.000]
+40.002: (move-up-slow slow0-0 n1 n2)  [10.000]
+50.002: (leave p0 fast0 n3 n1 n0)  [1.000]
+50.002: (leave p2 slow0-0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 51.002
+b (1.000 | 47.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 48.001
+; Theoretical reachable cost 48.002
+; States evaluated so far: 986
+; States pruned based on pre-heuristic cost lower bound: 7
+; Time 1.92
+0.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-up-fast fast0 n0 n3)  [14.000]
+15.000: (leave p0 fast0 n3 n1 n0)  [1.000]
+16.001: (board p1 fast0 n3 n0 n1)  [1.000]
+17.001: (move-down-fast fast0 n3 n1)  [10.000]
+26.001: (move-up-slow slow0-0 n0 n1)  [10.000]
+27.001: (board p2 fast0 n1 n1 n2)  [1.000]
+28.002: (leave p1 fast0 n1 n2 n1)  [1.000]
+36.001: (board p1 slow0-0 n1 n0 n1)  [1.000]
+37.001: (move-down-slow slow0-0 n1 n0)  [10.000]
+41.001: (move-up-fast fast0 n1 n2)  [6.000]
+47.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+47.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 48.001
+
+
+ Constraint: What if the fast trip between n0 and n2 took 30 time units?
+
+Plan comparison:
+Step | Original Plan                   | Constrained Plan               
+Cost | 46.00                           | 48.00                          
+------------------------------------------------------------------------
+   0 | [34mmove-down-slow(slow0-0, n3, n0)[0m | [34mmove-down-slow(slow0-0, n3, n0)[0m
+   1 | [34mboard(p0, fast0, n0, n0, n1)   [0m | [34mboard(p0, fast0, n0, n0, n1)   [0m
+   2 | [34mmove-up-fast(fast0, n0, n3)    [0m | [34mmove-up-fast(fast0, n0, n3)    [0m
+   3 | [34mleave(p0, fast0, n3, n1, n0)   [0m | [34mleave(p0, fast0, n3, n1, n0)   [0m
+   4 | [34mboard(p1, fast0, n3, n0, n1)   [0m | [34mboard(p1, fast0, n3, n0, n1)   [0m
+   5 | [34mmove-down-fast(fast0, n3, n1)  [0m | [34mmove-down-fast(fast0, n3, n1)  [0m
+   6 | [34mmove-up-slow(slow0-0, n0, n1)  [0m | [34mmove-up-slow(slow0-0, n0, n1)  [0m
+   7 | [34mboard(p2, fast0, n1, n1, n2)   [0m | [34mboard(p2, fast0, n1, n1, n2)   [0m
+   8 | [32mmove-up-fast(fast0, n1, n2)    [0m | [33mleave(p1, fast0, n1, n2, n1)   [0m
+   9 | [31mleave(p2, fast0, n2, n2, n1)   [0m | [33mboard(p1, slow0-0, n1, n0, n1) [0m
+  10 | [31mmove-down-fast(fast0, n2, n0)  [0m | [33mmove-down-slow(slow0-0, n1, n0)[0m
+  11 | [31mleave(p1, fast0, n0, n1, n0)   [0m | [32mmove-up-fast(fast0, n1, n2)    [0m
+  12 |                                 | [33mleave(p2, fast0, n2, n1, n0)   [0m
+  13 |                                 | [33mleave(p1, slow0-0, n0, n1, n0) [0m
+
+Legend:
+[34m  Blue       : matching action in both plans[0m
+[33m  Yellow     : action added relative to the other plan[0m
+[31m  Red        : action removed relative to the other plan[0m
+[32m  Green      : action exists in both plans but moved[0m
+
+[Test 6/8] TimedLiteral: fast0 cannot reach n3 (from t=0.001)
+-------------------------------------------------------------
+INFO: Added timed literal '(at 0.001 (not (reachable-floor fast0 n3)))'
+Running: ./optic-clp benchmarks/elevators/domain.pddl benchmarks/elevators/instances/instance-1.pddl
+Warnings encountered when parsing Domain/Problem File
+-----------------------------------------------------
+
+The supplied domain/problem file appear to violate part of the PDDL
+language specification.  Specifically:
+
+Errors: 0, warnings: 16
+benchmarks/elevators/domain.pddl: line: 27: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 33: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 39: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 45: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+
+The planner will continue, but you may wish to fix your files accordingly
+Number of literals: 31
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (passenger-at p0 n3), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (passenger-at p1 n0), is static or a precondition[00m
+[01;34mFor limits: literal goal index 2, fact (passenger-at p2 n2), is static or a precondition[00m
+All the ground actions in this problem are compression-safe
+Initial heuristic = 13.000, admissible cost estimate 13.004
+b (12.000 | 10.000)b (11.000 | 10.000)b (10.000 | 11.000)b (9.000 | 16.001)b (8.000 | 29.000)b (7.000 | 30.000)b (5.000 | 33.002)b (3.000 | 48.002)b (2.000 | 49.002)b (1.000 | 55.002)(G)
+; LP calculated the cost
+
+; Plan found with metric 56.002
+; Theoretical reachable cost 56.004
+; States evaluated so far: 29
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.02
+0.000: (move-up-fast fast0 n0 n2)  [10.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n2)  [10.000]
+10.001: (move-up-fast fast0 n2 n3)  [6.000]
+11.001: (move-down-slow slow0-0 n2 n0)  [18.000]
+16.002: (move-down-fast fast0 n3 n1)  [10.000]
+26.002: (board p2 fast0 n1 n0 n1)  [1.000]
+27.002: (move-down-fast fast0 n1 n0)  [6.000]
+29.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+33.002: (board p0 fast0 n0 n1 n2)  [1.000]
+34.002: (move-up-fast fast0 n0 n3)  [14.000]
+48.002: (leave p0 fast0 n3 n2 n1)  [1.000]
+49.002: (move-down-fast fast0 n3 n2)  [6.000]
+55.002: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 56.002
+
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (12.000 | 10.000)b (9.000 | 14.000)b (9.000 | 10.000)b (8.000 | 27.000)b (7.000 | 28.000)b (5.000 | 31.001)b (3.000 | 46.001)b (2.000 | 47.001)b (1.000 | 53.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 54.001
+; Theoretical reachable cost 54.002
+; States evaluated so far: 192
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.21
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n3)  [14.000]
+46.001: (leave p0 fast0 n3 n2 n1)  [1.000]
+47.001: (move-down-fast fast0 n3 n2)  [6.000]
+53.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+53.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 54.001
+b (1.000 | 49.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 50.001
+; Theoretical reachable cost 50.002
+; States evaluated so far: 239
+; States pruned based on pre-heuristic cost lower bound: 7
+; Time 0.33
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n2)  [10.000]
+42.001: (leave p2 fast0 n2 n2 n1)  [1.000]
+43.001: (move-up-fast fast0 n2 n3)  [6.000]
+49.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+49.001: (leave p0 fast0 n3 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 50.001
+b (1.000 | 47.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 48.001
+; Theoretical reachable cost 48.002
+; States evaluated so far: 942
+; States pruned based on pre-heuristic cost lower bound: 14
+; Time 1.69
+0.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-up-fast fast0 n0 n3)  [14.000]
+15.000: (leave p0 fast0 n3 n1 n0)  [1.000]
+16.001: (board p1 fast0 n3 n0 n1)  [1.000]
+17.001: (move-down-fast fast0 n3 n1)  [10.000]
+26.001: (move-up-slow slow0-0 n0 n1)  [10.000]
+27.001: (board p2 fast0 n1 n1 n2)  [1.000]
+28.002: (leave p1 fast0 n1 n2 n1)  [1.000]
+35.001: (move-up-fast fast0 n1 n2)  [6.000]
+36.001: (board p1 slow0-0 n1 n0 n1)  [1.000]
+37.001: (move-down-slow slow0-0 n1 n0)  [10.000]
+41.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+42.001: (move-up-fast fast0 n2 n3)  [6.000]
+47.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 48.001
+b (1.000 | 45.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 46.001
+; Theoretical reachable cost 46.002
+; States evaluated so far: 988
+; States pruned based on pre-heuristic cost lower bound: 21
+; Time 1.80
+0.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-up-fast fast0 n0 n3)  [14.000]
+15.000: (leave p0 fast0 n3 n1 n0)  [1.000]
+16.001: (board p1 fast0 n3 n0 n1)  [1.000]
+17.001: (move-down-fast fast0 n3 n1)  [10.000]
+26.001: (move-up-slow slow0-0 n0 n1)  [10.000]
+27.001: (board p2 fast0 n1 n1 n2)  [1.000]
+28.001: (move-up-fast fast0 n1 n2)  [6.000]
+34.001: (leave p2 fast0 n2 n2 n1)  [1.000]
+35.001: (move-down-fast fast0 n2 n0)  [10.000]
+45.001: (leave p1 fast0 n0 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 46.001
+Running: ./optic-clp domain_constrained_temp.pddl problem_constrained_temp.pddl
+Warnings encountered when parsing Domain/Problem File
+-----------------------------------------------------
+
+The supplied domain/problem file appear to violate part of the PDDL
+language specification.  Specifically:
+
+Errors: 0, warnings: 17
+domain_constrained_temp.pddl: line: 27: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 33: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 39: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 45: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 33: Warning: Undeclared requirement :timed-initial-literals 
+
+The planner will continue, but you may wish to fix your files accordingly
+Number of literals: 39
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (passenger-at p0 n3), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (passenger-at p1 n0), is static or a precondition[00m
+[01;34mFor limits: literal goal index 2, fact (passenger-at p2 n2), is static or a precondition[00m
+Pruning (move-up-fast fast0 n0 n3) - temporal contradiction: start min/max = 2147483.647/0.000; end min/max = 14.000/14.000; duration min/max = 14.000/14.000
+Pruning (move-up-fast fast0 n1 n3) - temporal contradiction: start min/max = 2147483.647/0.000; end min/max = 10.000/10.000; duration min/max = 10.000/10.000
+Pruning (move-up-fast fast0 n2 n3) - temporal contradiction: start min/max = 2147483.647/0.000; end min/max = 6.000/6.000; duration min/max = 6.000/6.000
+All the ground actions in this problem are compression-safe
+Initial heuristic = 13.000, admissible cost estimate 13.004
+b (12.000 | 11.000)b (11.000 | 12.000)b (10.000 | 12.000)b (9.000 | 22.000)b (8.000 | 31.000)b (7.000 | 57.002)b (6.000 | 58.002)b (5.000 | 58.002)b (3.000 | 58.002)b (2.000 | 58.002)b (1.000 | 58.002)(G)
+; LP calculated the cost
+
+; Plan found with metric 58.002
+; Theoretical reachable cost 58.004
+; States evaluated so far: 61
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.07
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n2)  [10.000]
+1.000: (move-up-fast fast0 n0 n2)  [10.000]
+11.000: (leave p1 slow0-0 n2 n1 n0)  [1.000]
+11.000: (leave p0 fast0 n2 n1 n0)  [1.000]
+12.000: (move-down-fast fast0 n2 n0)  [10.000]
+12.001: (board p0 slow0-0 n2 n0 n1)  [1.000]
+13.001: (move-down-slow slow0-0 n2 n0)  [18.000]
+22.001: (move-up-fast fast0 n0 n2)  [10.000]
+31.002: (move-up-slow slow0-0 n0 n3)  [26.000]
+32.001: (board p1 fast0 n2 n0 n1)  [1.000]
+33.001: (move-down-fast fast0 n2 n1)  [6.000]
+39.001: (board p2 fast0 n1 n1 n2)  [1.000]
+40.001: (move-down-fast fast0 n1 n0)  [6.000]
+46.001: (leave p1 fast0 n0 n2 n1)  [1.000]
+47.001: (move-up-fast fast0 n0 n2)  [10.000]
+57.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+57.002: (leave p0 slow0-0 n3 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 58.002
+
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (10.000 | 26.000)b (8.000 | 26.000)b (7.000 | 26.000)b (6.000 | 26.000)b (5.000 | 26.000)b (4.000 | 55.001)b (3.000 | 56.001)b (2.000 | 56.001)b (1.000 | 56.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 56.001
+; Theoretical reachable cost 56.002
+; States evaluated so far: 1705
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 2.28
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+0.000: (move-up-fast fast0 n0 n2)  [10.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+10.001: (move-down-fast fast0 n2 n1)  [6.000]
+16.001: (board p2 fast0 n1 n0 n1)  [1.000]
+17.001: (move-up-fast fast0 n1 n2)  [6.000]
+23.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+27.000: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+28.001: (board p0 slow0-0 n0 n0 n1)  [1.000]
+29.001: (move-up-slow slow0-0 n0 n3)  [26.000]
+55.001: (leave p0 slow0-0 n3 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 56.001
+
+
+ Constraint: What if the fast elevator could never reach floor 3?
+
+Plan comparison:
+Step | Original Plan                   | Constrained Plan               
+Cost | 46.00                           | 56.00                          
+------------------------------------------------------------------------
+   0 | [32mmove-down-slow(slow0-0, n3, n0)[0m | [33mboard(p1, slow0-0, n3, n0, n1) [0m
+   1 | [31mboard(p0, fast0, n0, n0, n1)   [0m | [33mmove-up-fast(fast0, n0, n2)    [0m
+   2 | [31mmove-up-fast(fast0, n0, n3)    [0m | [32mmove-down-slow(slow0-0, n3, n0)[0m
+   3 | [31mleave(p0, fast0, n3, n1, n0)   [0m | [33mmove-down-fast(fast0, n2, n1)  [0m
+   4 | [31mboard(p1, fast0, n3, n0, n1)   [0m | [33mboard(p2, fast0, n1, n0, n1)   [0m
+   5 | [31mmove-down-fast(fast0, n3, n1)  [0m | [32mmove-up-fast(fast0, n1, n2)    [0m
+   6 | [31mmove-up-slow(slow0-0, n0, n1)  [0m | [33mleave(p2, fast0, n2, n1, n0)   [0m
+   7 | [31mboard(p2, fast0, n1, n1, n2)   [0m | [33mleave(p1, slow0-0, n0, n1, n0) [0m
+   8 | [32mmove-up-fast(fast0, n1, n2)    [0m | [33mboard(p0, slow0-0, n0, n0, n1) [0m
+   9 | [31mleave(p2, fast0, n2, n2, n1)   [0m | [33mmove-up-slow(slow0-0, n0, n3)  [0m
+  10 | [31mmove-down-fast(fast0, n2, n0)  [0m | [33mleave(p0, slow0-0, n3, n1, n0) [0m
+  11 | [31mleave(p1, fast0, n0, n1, n0)   [0m |                                
+
+Legend:
+[34m  Blue       : matching action in both plans[0m
+[33m  Yellow     : action added relative to the other plan[0m
+[31m  Red        : action removed relative to the other plan[0m
+[32m  Green      : action exists in both plans but moved[0m
+
+[Test 7/8] ActionCountLimit: board limited to 2 uses (unsolvable)
+-----------------------------------------------------------------
+INFO: Limited action 'board' to 2 use(s)
+Running: ./optic-clp benchmarks/elevators/domain.pddl benchmarks/elevators/instances/instance-1.pddl
+Warnings encountered when parsing Domain/Problem File
+-----------------------------------------------------
+
+The supplied domain/problem file appear to violate part of the PDDL
+language specification.  Specifically:
+
+Errors: 0, warnings: 16
+benchmarks/elevators/domain.pddl: line: 27: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 33: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 39: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 45: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+
+The planner will continue, but you may wish to fix your files accordingly
+Number of literals: 31
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (passenger-at p0 n3), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (passenger-at p1 n0), is static or a precondition[00m
+[01;34mFor limits: literal goal index 2, fact (passenger-at p2 n2), is static or a precondition[00m
+All the ground actions in this problem are compression-safe
+Initial heuristic = 13.000, admissible cost estimate 13.004
+b (12.000 | 10.000)b (11.000 | 10.000)b (10.000 | 11.000)b (9.000 | 16.001)b (8.000 | 29.000)b (7.000 | 30.000)b (5.000 | 33.002)b (3.000 | 48.002)b (2.000 | 49.002)b (1.000 | 55.002)(G)
+; LP calculated the cost
+
+; Plan found with metric 56.002
+; Theoretical reachable cost 56.004
+; States evaluated so far: 29
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.03
+0.000: (move-up-fast fast0 n0 n2)  [10.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n2)  [10.000]
+10.001: (move-up-fast fast0 n2 n3)  [6.000]
+11.001: (move-down-slow slow0-0 n2 n0)  [18.000]
+16.002: (move-down-fast fast0 n3 n1)  [10.000]
+26.002: (board p2 fast0 n1 n0 n1)  [1.000]
+27.002: (move-down-fast fast0 n1 n0)  [6.000]
+29.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+33.002: (board p0 fast0 n0 n1 n2)  [1.000]
+34.002: (move-up-fast fast0 n0 n3)  [14.000]
+48.002: (leave p0 fast0 n3 n2 n1)  [1.000]
+49.002: (move-down-fast fast0 n3 n2)  [6.000]
+55.002: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 56.002
+
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (12.000 | 10.000)b (9.000 | 14.000)b (9.000 | 10.000)b (8.000 | 27.000)b (7.000 | 28.000)b (5.000 | 31.001)b (3.000 | 46.001)b (2.000 | 47.001)b (1.000 | 53.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 54.001
+; Theoretical reachable cost 54.002
+; States evaluated so far: 192
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.22
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n3)  [14.000]
+46.001: (leave p0 fast0 n3 n2 n1)  [1.000]
+47.001: (move-down-fast fast0 n3 n2)  [6.000]
+53.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+53.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 54.001
+b (1.000 | 49.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 50.001
+; Theoretical reachable cost 50.002
+; States evaluated so far: 239
+; States pruned based on pre-heuristic cost lower bound: 7
+; Time 0.33
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n2)  [10.000]
+42.001: (leave p2 fast0 n2 n2 n1)  [1.000]
+43.001: (move-up-fast fast0 n2 n3)  [6.000]
+49.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+49.001: (leave p0 fast0 n3 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 50.001
+b (1.000 | 47.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 48.001
+; Theoretical reachable cost 48.002
+; States evaluated so far: 942
+; States pruned based on pre-heuristic cost lower bound: 14
+; Time 1.65
+0.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-up-fast fast0 n0 n3)  [14.000]
+15.000: (leave p0 fast0 n3 n1 n0)  [1.000]
+16.001: (board p1 fast0 n3 n0 n1)  [1.000]
+17.001: (move-down-fast fast0 n3 n1)  [10.000]
+26.001: (move-up-slow slow0-0 n0 n1)  [10.000]
+27.001: (board p2 fast0 n1 n1 n2)  [1.000]
+28.002: (leave p1 fast0 n1 n2 n1)  [1.000]
+35.001: (move-up-fast fast0 n1 n2)  [6.000]
+36.001: (board p1 slow0-0 n1 n0 n1)  [1.000]
+37.001: (move-down-slow slow0-0 n1 n0)  [10.000]
+41.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+42.001: (move-up-fast fast0 n2 n3)  [6.000]
+47.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 48.001
+b (1.000 | 45.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 46.001
+; Theoretical reachable cost 46.002
+; States evaluated so far: 988
+; States pruned based on pre-heuristic cost lower bound: 21
+; Time 1.75
+0.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-up-fast fast0 n0 n3)  [14.000]
+15.000: (leave p0 fast0 n3 n1 n0)  [1.000]
+16.001: (board p1 fast0 n3 n0 n1)  [1.000]
+17.001: (move-down-fast fast0 n3 n1)  [10.000]
+26.001: (move-up-slow slow0-0 n0 n1)  [10.000]
+27.001: (board p2 fast0 n1 n1 n2)  [1.000]
+28.001: (move-up-fast fast0 n1 n2)  [6.000]
+34.001: (leave p2 fast0 n2 n2 n1)  [1.000]
+35.001: (move-down-fast fast0 n2 n0)  [10.000]
+45.001: (leave p1 fast0 n0 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 46.001
+Running: ./optic-clp domain_constrained_temp.pddl problem_constrained_temp.pddl
+Number of literals: 31
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+No semaphore facts found, returning
+(uses_left_board) has a finite upper bound: [-inf,2.000]
+Have identified that bigger values of (uses_left_board) are preferable
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (passenger-at p0 n3), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (passenger-at p1 n0), is static or a precondition[00m
+[01;34mFor limits: literal goal index 2, fact (passenger-at p2 n2), is static or a precondition[00m
+All the ground actions in this problem are compression-safe
+Initial heuristic = 13.000, admissible cost estimate 13.004
+b (12.000 | 10.000)b (11.000 | 10.000)b (10.000 | 11.000)b (9.000 | 16.001)b (8.000 | 29.000)b (7.000 | 30.000)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (12.000 | 10.000)b (9.000 | 14.000)b (9.000 | 10.000)b (8.000 | 27.000)b (7.000 | 28.000)b (7.000 | 26.000)b (5.000 | 26.000)Could not obtain both plans.
+Original status: PlanGenerationResultStatus.SOLVED_OPTIMALLY
+Constrained status: PlanGenerationResultStatus.TIMEOUT
+
+[Test 8/8] Preference: sometime-before — p2 boarded before p0 (penalty 100)
+---------------------------------------------------------------------------
+INFO: Added preference 'pref_p2_before_p0' (sometime-before) with penalty 100
+Running: ./optic-clp benchmarks/elevators/domain.pddl benchmarks/elevators/instances/instance-1.pddl
+Warnings encountered when parsing Domain/Problem File
+-----------------------------------------------------
+
+The supplied domain/problem file appear to violate part of the PDDL
+language specification.  Specifically:
+
+Errors: 0, warnings: 16
+benchmarks/elevators/domain.pddl: line: 27: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 33: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 39: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/domain.pddl: line: 45: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+benchmarks/elevators/instances/instance-1.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+
+The planner will continue, but you may wish to fix your files accordingly
+Number of literals: 31
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (passenger-at p0 n3), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (passenger-at p1 n0), is static or a precondition[00m
+[01;34mFor limits: literal goal index 2, fact (passenger-at p2 n2), is static or a precondition[00m
+All the ground actions in this problem are compression-safe
+Initial heuristic = 13.000, admissible cost estimate 13.004
+b (12.000 | 10.000)b (11.000 | 10.000)b (10.000 | 11.000)b (9.000 | 16.001)b (8.000 | 29.000)b (7.000 | 30.000)b (5.000 | 33.002)b (3.000 | 48.002)b (2.000 | 49.002)b (1.000 | 55.002)(G)
+; LP calculated the cost
+
+; Plan found with metric 56.002
+; Theoretical reachable cost 56.004
+; States evaluated so far: 29
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.03
+0.000: (move-up-fast fast0 n0 n2)  [10.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n2)  [10.000]
+10.001: (move-up-fast fast0 n2 n3)  [6.000]
+11.001: (move-down-slow slow0-0 n2 n0)  [18.000]
+16.002: (move-down-fast fast0 n3 n1)  [10.000]
+26.002: (board p2 fast0 n1 n0 n1)  [1.000]
+27.002: (move-down-fast fast0 n1 n0)  [6.000]
+29.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+33.002: (board p0 fast0 n0 n1 n2)  [1.000]
+34.002: (move-up-fast fast0 n0 n3)  [14.000]
+48.002: (leave p0 fast0 n3 n2 n1)  [1.000]
+49.002: (move-down-fast fast0 n3 n2)  [6.000]
+55.002: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 56.002
+
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (12.000 | 10.000)b (9.000 | 14.000)b (9.000 | 10.000)b (8.000 | 27.000)b (7.000 | 28.000)b (5.000 | 31.001)b (3.000 | 46.001)b (2.000 | 47.001)b (1.000 | 53.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 54.001
+; Theoretical reachable cost 54.002
+; States evaluated so far: 192
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.21
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n3)  [14.000]
+46.001: (leave p0 fast0 n3 n2 n1)  [1.000]
+47.001: (move-down-fast fast0 n3 n2)  [6.000]
+53.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+53.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 54.001
+b (1.000 | 49.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 50.001
+; Theoretical reachable cost 50.002
+; States evaluated so far: 239
+; States pruned based on pre-heuristic cost lower bound: 7
+; Time 0.33
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n2)  [10.000]
+42.001: (leave p2 fast0 n2 n2 n1)  [1.000]
+43.001: (move-up-fast fast0 n2 n3)  [6.000]
+49.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+49.001: (leave p0 fast0 n3 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 50.001
+b (1.000 | 47.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 48.001
+; Theoretical reachable cost 48.002
+; States evaluated so far: 942
+; States pruned based on pre-heuristic cost lower bound: 14
+; Time 1.59
+0.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-up-fast fast0 n0 n3)  [14.000]
+15.000: (leave p0 fast0 n3 n1 n0)  [1.000]
+16.001: (board p1 fast0 n3 n0 n1)  [1.000]
+17.001: (move-down-fast fast0 n3 n1)  [10.000]
+26.001: (move-up-slow slow0-0 n0 n1)  [10.000]
+27.001: (board p2 fast0 n1 n1 n2)  [1.000]
+28.002: (leave p1 fast0 n1 n2 n1)  [1.000]
+35.001: (move-up-fast fast0 n1 n2)  [6.000]
+36.001: (board p1 slow0-0 n1 n0 n1)  [1.000]
+37.001: (move-down-slow slow0-0 n1 n0)  [10.000]
+41.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+42.001: (move-up-fast fast0 n2 n3)  [6.000]
+47.001: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 48.001
+b (1.000 | 45.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 46.001
+; Theoretical reachable cost 46.002
+; States evaluated so far: 988
+; States pruned based on pre-heuristic cost lower bound: 21
+; Time 1.69
+0.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+1.000: (move-up-fast fast0 n0 n3)  [14.000]
+15.000: (leave p0 fast0 n3 n1 n0)  [1.000]
+16.001: (board p1 fast0 n3 n0 n1)  [1.000]
+17.001: (move-down-fast fast0 n3 n1)  [10.000]
+26.001: (move-up-slow slow0-0 n0 n1)  [10.000]
+27.001: (board p2 fast0 n1 n1 n2)  [1.000]
+28.001: (move-up-fast fast0 n1 n2)  [6.000]
+34.001: (leave p2 fast0 n2 n2 n1)  [1.000]
+35.001: (move-down-fast fast0 n2 n0)  [10.000]
+45.001: (leave p1 fast0 n0 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 46.001
+Running: ./optic-clp domain_constrained_temp.pddl problem_constrained_temp.pddl
+Warnings encountered when parsing Domain/Problem File
+-----------------------------------------------------
+
+The supplied domain/problem file appear to violate part of the PDDL
+language specification.  Specifically:
+
+Errors: 0, warnings: 16
+domain_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 35: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 41: Warning: Undeclared requirement :number-fluents 
+domain_constrained_temp.pddl: line: 47: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 28: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 29: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 30: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+problem_constrained_temp.pddl: line: 31: Warning: Undeclared requirement :number-fluents 
+
+The planner will continue, but you may wish to fix your files accordingly
+Number of literals: 31
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (passenger-at p0 n3), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (passenger-at p1 n0), is static or a precondition[00m
+[01;34mFor limits: literal goal index 2, fact (passenger-at p2 n2), is static or a precondition[00m
+All the ground actions in this problem are compression-safe
+Initial heuristic = 17.000, admissible cost estimate 13.004
+b (13.000 | 1.000)b (12.000 | 11.000)b (9.000 | 11.000)b (8.000 | 28.001)b (7.000 | 28.001)b (6.000 | 28.001)b (5.000 | 31.003)b (4.000 | 38.004)b (3.000 | 48.004)b (2.000 | 48.004)b (1.000 | 49.002)(G)
+; LP calculated the cost
+
+; Plan found with metric 150.002
+; Theoretical reachable cost 150.004
+; States evaluated so far: 42
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.04
+0.000: (board p0 fast0 n0 n0 n1)  [1.000]
+0.000: (move-down-slow slow0-0 n3 n2)  [10.000]
+1.000: (move-up-fast fast0 n0 n2)  [10.000]
+10.001: (move-down-slow slow0-0 n2 n0)  [18.000]
+11.001: (move-up-fast fast0 n2 n3)  [6.000]
+17.001: (leave p0 fast0 n3 n1 n0)  [1.000]
+18.002: (board p1 fast0 n3 n0 n1)  [1.000]
+19.002: (move-down-fast fast0 n3 n2)  [6.000]
+25.003: (move-down-fast fast0 n2 n1)  [6.000]
+28.002: (move-up-slow slow0-0 n0 n1)  [10.000]
+31.004: (move-down-fast fast0 n1 n0)  [6.000]
+37.004: (leave p1 fast0 n0 n1 n0)  [1.000]
+38.002: (board p2 slow0-0 n1 n0 n1)  [1.000]
+38.004: (move-up-fast fast0 n0 n2)  [10.000]
+39.002: (move-up-slow slow0-0 n1 n2)  [10.000]
+49.002: (leave p2 slow0-0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 150.002
+
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (13.000 | 6.000)b (12.000 | 10.000)b (9.000 | 14.000)b (8.000 | 27.000)b (7.000 | 28.000)b (5.000 | 31.001)b (3.000 | 46.001)b (2.000 | 47.001)b (1.000 | 53.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 54.001
+; Theoretical reachable cost 54.002
+; States evaluated so far: 232
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.71
+; Dummy steps: 4
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+27.000: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n3)  [14.000]
+46.001: (leave p0 fast0 n3 n2 n1)  [1.000]
+47.001: (move-down-fast fast0 n3 n2)  [6.000]
+53.001: (leave p2 fast0 n2 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 54.001
+b (1.000 | 49.001)(G)
+; LP calculated the cost
+
+; Plan found with metric 50.001
+; Theoretical reachable cost 50.002
+; States evaluated so far: 279
+; States pruned based on pre-heuristic cost lower bound: 7
+; Time 1.29
+; Dummy steps: 4
+0.000: (move-up-fast fast0 n0 n3)  [14.000]
+0.000: (board p1 slow0-0 n3 n0 n1)  [1.000]
+1.000: (move-down-slow slow0-0 n3 n0)  [26.000]
+14.001: (move-down-fast fast0 n3 n1)  [10.000]
+24.001: (board p2 fast0 n1 n0 n1)  [1.000]
+25.001: (move-down-fast fast0 n1 n0)  [6.000]
+27.000: (leave p1 slow0-0 n0 n1 n0)  [1.000]
+31.001: (board p0 fast0 n0 n1 n2)  [1.000]
+32.001: (move-up-fast fast0 n0 n2)  [10.000]
+42.001: (leave p2 fast0 n2 n2 n1)  [1.000]
+43.001: (move-up-fast fast0 n2 n3)  [6.000]
+49.001: (leave p0 fast0 n3 n1 n0)  [1.000]
+
+ * All goal deadlines now no later than 50.001
+
+
+ Constraint: Why was p0 boarded before p2?
+
+Plan comparison:
+Step | Original Plan                   | Constrained Plan               
+Cost | 46.00                           | 50.00                          
+------------------------------------------------------------------------
+   0 | [32mmove-down-slow(slow0-0, n3, n0)[0m | [32mmove-up-fast(fast0, n0, n3)    [0m
+   1 | [31mboard(p0, fast0, n0, n0, n1)   [0m | [33mboard(p1, slow0-0, n3, n0, n1) [0m
+   2 | [32mmove-up-fast(fast0, n0, n3)    [0m | [32mmove-down-slow(slow0-0, n3, n0)[0m
+   3 | [32mleave(p0, fast0, n3, n1, n0)   [0m | [32mmove-down-fast(fast0, n3, n1)  [0m
+   4 | [31mboard(p1, fast0, n3, n0, n1)   [0m | [33mboard(p2, fast0, n1, n0, n1)   [0m
+   5 | [32mmove-down-fast(fast0, n3, n1)  [0m | [33mmove-down-fast(fast0, n1, n0)  [0m
+   6 | [31mmove-up-slow(slow0-0, n0, n1)  [0m | [33mleave(p1, slow0-0, n0, n1, n0) [0m
+   7 | [31mboard(p2, fast0, n1, n1, n2)   [0m | [33mboard(p0, fast0, n0, n1, n2)   [0m
+   8 | [31mmove-up-fast(fast0, n1, n2)    [0m | [33mmove-up-fast(fast0, n0, n2)    [0m
+   9 | [34mleave(p2, fast0, n2, n2, n1)   [0m | [34mleave(p2, fast0, n2, n2, n1)   [0m
+  10 | [31mmove-down-fast(fast0, n2, n0)  [0m | [33mmove-up-fast(fast0, n2, n3)    [0m
+  11 | [31mleave(p1, fast0, n0, n1, n0)   [0m | [32mleave(p0, fast0, n3, n1, n0)   [0m
+
+Legend:
+[34m  Blue       : matching action in both plans[0m
+[33m  Yellow     : action added relative to the other plan[0m
+[31m  Red        : action removed relative to the other plan[0m
+[32m  Green      : action exists in both plans but moved[0m
+
+======================================================================
+ALL TESTS COMPLETE
+======================================================================

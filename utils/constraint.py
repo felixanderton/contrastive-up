@@ -46,9 +46,10 @@ def _add_to_action_section_and(
     section_idx = domain_text.find(section_keyword, action_open, action_close)
     if section_idx == -1:
         return domain_text
-    and_idx = domain_text.find('(and', section_idx, action_close)
-    if and_idx == -1:
+    and_match = re.search(r'\(\s*and\b', domain_text[section_idx:action_close])
+    if and_match is None:
         return domain_text
+    and_idx = section_idx + and_match.start()
     and_close = _find_matching_close(domain_text, and_idx)
     return domain_text[:and_close] + f'\n                  {addition}' + domain_text[and_close:]
 
@@ -96,7 +97,19 @@ def _get_ground_at_end_positive_effects(
                 i += 1
                 continue
             content = effect_section[i + 8:close].strip()
-            if not content.startswith('(not') and not content.startswith('(when'):
+            # Skip negations, conditional effects, and numeric effects
+            # (increase/decrease/assign/scale-up/scale-down): these aren't
+            # propositional atoms and would break preconditions if treated as
+            # such.
+            head = content.lstrip('(').split(None, 1)[0] if content.startswith('(') else ''
+            if (
+                not content.startswith('(not')
+                and not content.startswith('(when')
+                and head not in {
+                    'increase', 'decrease', 'assign',
+                    'scale-up', 'scale-down',
+                }
+            ):
                 grounded = content
                 for param, obj in param_to_obj.items():
                     grounded = re.sub(re.escape(param) + r'\b', obj, grounded)
@@ -120,9 +133,19 @@ def _insert_action(domain_text: str, action_text: str) -> str:
 # ---------------------------------------------------------------------------
 
 class ProhibitedAction:
-    def __init__(self, action_name: str, param_object_names: list[str]):
+    def __init__(
+        self,
+        action_name: str,
+        param_object_names: list[str],
+        allowed_after: float | None = None,
+    ):
         self.action_name = action_name
         self.param_object_names = param_object_names
+        # If set, the prohibited instance is allowed to start at t >= allowed_after
+        # (a TIL restores the permit at that time).  This turns the all-time ban
+        # into a time-windowed ban, which can force a schedule shift rather than
+        # outright infeasibility when the action is goal-critical.
+        self.allowed_after = allowed_after
 
     def apply_to_pddl(
         self,
@@ -132,9 +155,9 @@ class ProhibitedAction:
     ) -> tuple[str, str]:
         """
         Prohibit a specific action instance using a positive permit predicate.
-        All instances are permitted in the init except the prohibited one.
-        Positive preconditions are handled cleanly by OPTIC's LP heuristic;
-        negative preconditions on static fluents can cause the LP to loop.
+        All instances are permitted in init except the prohibited one (blocked
+        via a TIL at 0.001 s).  If allowed_after is set, a second TIL restores
+        the permit at that time, producing a time-windowed ban.
         """
         action = problem.action(self.action_name)
         permit_pred = f"permit_{self.action_name}"
@@ -168,6 +191,16 @@ class ProhibitedAction:
         problem_text = _insert_before_section_close(
             problem_text, ':init', f"(at 0.001 (not ({permit_pred} {args})))"
         )
+        if self.allowed_after is not None:
+            problem_text = _insert_before_section_close(
+                problem_text, ':init',
+                f"(at {self.allowed_after} ({permit_pred} {args}))"
+            )
+            print(
+                f"INFO: Prohibited '{self.action_name}"
+                f"({', '.join(self.param_object_names)})' until t={self.allowed_after}"
+            )
+            return domain_text, problem_text
 
         print(f"INFO: Prohibited action '{self.action_name}({', '.join(self.param_object_names)})'")
         return domain_text, problem_text
@@ -407,11 +440,21 @@ class FluentChange:
 
 
 class TimedLiteral:
-    def __init__(self, time: float | int, predicate: str, args: list[str], holds: bool = True):
+    def __init__(
+        self,
+        time: float | int,
+        predicate: str,
+        args: list[str],
+        holds: bool = True,
+        end_time: float | int | None = None,
+    ):
         self.time = time
         self.predicate = predicate
         self.args = args
         self.holds = holds
+        # When set, emit a paired TIL at end_time that flips the literal back
+        # to the opposite polarity, producing a two-point window block/restore.
+        self.end_time = end_time
 
     def apply_to_pddl(
         self,
@@ -419,18 +462,36 @@ class TimedLiteral:
         problem_text: str,
         problem: Problem,
     ) -> tuple[str, str]:
-        """Add a timed initial literal to :init."""
+        """Add a timed initial literal to :init (optionally a paired window)."""
         atom = f"({self.predicate} {' '.join(self.args)})" if self.args else f"({self.predicate})"
         til = f"(at {self.time} {atom})" if self.holds else f"(at {self.time} (not {atom}))"
         problem_text = _insert_before_section_close(problem_text, ':init', til)
         print(f"INFO: Added timed literal '{til}'")
+        if self.end_time is not None:
+            til2 = (
+                f"(at {self.end_time} (not {atom}))"
+                if self.holds
+                else f"(at {self.end_time} {atom})"
+            )
+            problem_text = _insert_before_section_close(problem_text, ':init', til2)
+            print(f"INFO: Added paired timed literal '{til2}'")
         return domain_text, problem_text
 
 
 class ActionCountLimit:
-    def __init__(self, action_name: str, max_uses: int):
+    def __init__(
+        self,
+        action_name: str,
+        max_uses: int,
+        aux_goal: tuple[str, list[str]] | None = None,
+    ):
         self.action_name = action_name
         self.max_uses = max_uses
+        # Optional auxiliary ground atom appended to (:goal (and ...)) so the
+        # cap is exercised against a chain that would normally need >max_uses
+        # firings. Used to demonstrate binding behaviour in domains where every
+        # baseline action is exactly-once (e.g. CrewPlanning).
+        self.aux_goal = aux_goal
 
     def apply_to_pddl(
         self,
@@ -440,7 +501,7 @@ class ActionCountLimit:
     ) -> tuple[str, str]:
         """Limit the number of times an action can fire using a countdown fluent."""
         counter = f"uses_left_{self.action_name}"
-        domain_text = _add_requirement(domain_text, ':numeric-fluents')
+        domain_text = _add_requirement(domain_text, ':numeric-fluents :fluents')
         if ':functions' in domain_text:
             domain_text = _insert_before_section_close(
                 domain_text, ':functions', f"({counter})"
@@ -460,5 +521,113 @@ class ActionCountLimit:
         problem_text = _insert_before_section_close(
             problem_text, ':init', f"(= ({counter}) {self.max_uses})"
         )
+        if self.aux_goal is not None:
+            pred, args = self.aux_goal
+            atom = f"({pred} {' '.join(args)})" if args else f"({pred})"
+            problem_text = _add_to_goal_and(problem_text, atom)
+            print(f"INFO: Added aux goal '{atom}' for ActionCountLimit")
         print(f"INFO: Limited action '{self.action_name}' to {self.max_uses} use(s)")
+        return domain_text, problem_text
+
+
+def _rewrite_metric(problem_text: str, penalty_term: str) -> str:
+    """Append a penalty term to the problem's :metric expression.
+
+    Handles three cases:
+    - No :metric section: inserts (:metric minimize (+ (total-time) penalty)).
+    - Simple metric expression e.g. (total-time): wraps as (+ expr penalty).
+    - Compound (+ ...) metric from a prior Preference: appends penalty inside
+      the existing + expression, producing a flat multi-argument (+...).
+    """
+    metric_kw_idx = problem_text.find(':metric')
+    if metric_kw_idx == -1:
+        close_idx = _find_matching_close(problem_text, 0)
+        new_section = f"\n(:metric minimize (+ (total-time)\n    {penalty_term}))\n"
+        return problem_text[:close_idx] + new_section + problem_text[close_idx:]
+
+    metric_section_open = problem_text.rfind('(', 0, metric_kw_idx)
+    metric_section_close = _find_matching_close(problem_text, metric_section_open)
+    minimize_idx = problem_text.find('minimize', metric_section_open, metric_section_close)
+    expr_open = problem_text.find('(', minimize_idx, metric_section_close)
+    expr_close = _find_matching_close(problem_text, expr_open)
+    expr = problem_text[expr_open:expr_close + 1]
+
+    if expr.startswith('(+'):
+        new_expr = expr[:-1] + f'\n    {penalty_term})'
+    else:
+        new_expr = f'(+ {expr}\n    {penalty_term})'
+
+    return problem_text[:expr_open] + new_expr + problem_text[expr_close + 1:]
+
+
+_PREFERENCE_FORMULA_TYPES: frozenset[str] = frozenset({
+    'always', 'sometime', 'at-most-once', 'sometime-before', 'sometime-after',
+})
+
+
+class Preference:
+    def __init__(
+        self,
+        name: str,
+        formula_type: str,
+        args: list[list[str]],
+        penalty: int | float = 100,
+    ):
+        if formula_type not in _PREFERENCE_FORMULA_TYPES:
+            raise ValueError(
+                f"Unsupported formula_type '{formula_type}'. "
+                f"Must be one of: {sorted(_PREFERENCE_FORMULA_TYPES)}. "
+                f"Note: 'always-within' crashes OPTIC and is excluded."
+            )
+        self.name = name
+        self.formula_type = formula_type
+        self.args = args
+        self.penalty = penalty
+
+    def apply_to_pddl(
+        self,
+        domain_text: str,
+        problem_text: str,
+        problem: Problem,
+    ) -> tuple[str, str]:
+        """
+        Add a soft PDDL 3.0 preference using OPTIC's working syntax.
+
+        Injects (:constraints (preference name (formula ...))) into the problem
+        file and appends (* penalty (is-violated name)) to the :metric.
+
+        OPTIC accepts (:constraints ...) in the problem file for preferences —
+        the standard (:preferences ...) section syntax is rejected by its parser.
+        Supported formula types: always, sometime, at-most-once, sometime-before,
+        sometime-after. Do NOT use always-within: it crashes OPTIC.
+        """
+        atom_strs = [f"({' '.join(atom)})" for atom in self.args]
+        if self.formula_type in {'sometime-before', 'sometime-after'}:
+            formula = f"({self.formula_type} {atom_strs[0]} {atom_strs[1]})"
+        else:
+            formula = f"({self.formula_type} {atom_strs[0]})"
+
+        pref_decl = f"(preference {self.name} {formula})"
+        penalty_term = f"(* {self.penalty} (is-violated {self.name}))"
+
+        # Inject preference declaration into (:constraints ...) in problem file
+        if ':constraints' in problem_text:
+            problem_text = _insert_before_section_close(
+                problem_text, ':constraints', pref_decl
+            )
+        else:
+            close_idx = _find_matching_close(problem_text, 0)
+            constraints_block = f"\n(:constraints\n  {pref_decl}\n)\n"
+            problem_text = problem_text[:close_idx] + constraints_block + problem_text[close_idx:]
+
+        # Append penalty to :metric
+        problem_text = _rewrite_metric(problem_text, penalty_term)
+
+        # Add :preferences and :constraints requirements to domain
+        if ':preferences' not in domain_text:
+            domain_text = _add_requirement(domain_text, ':preferences')
+        if ':constraints' not in domain_text:
+            domain_text = _add_requirement(domain_text, ':constraints')
+
+        print(f"INFO: Added preference '{self.name}' ({self.formula_type}) with penalty {self.penalty}")
         return domain_text, problem_text

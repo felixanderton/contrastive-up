@@ -1,0 +1,48 @@
+; Medium elevator problem: 5 floors, 5 passengers, 1 fast + 1 slow elevator.
+(define (problem elevators-time-custom-medium)
+(:domain elevators-time)
+(:objects
+  n0 n1 n2 n3 n4 n5  - count
+  p0 p1 p2 p3 p4     - passenger
+  fast0              - fast-elevator
+  slow0-0            - slow-elevator
+)
+(:init
+  (next n0 n1) (next n1 n2) (next n2 n3) (next n3 n4) (next n4 n5)
+  (above n0 n1) (above n0 n2) (above n0 n3) (above n0 n4) (above n0 n5)
+  (above n1 n2) (above n1 n3) (above n1 n4) (above n1 n5)
+  (above n2 n3) (above n2 n4) (above n2 n5)
+  (above n3 n4) (above n3 n5)
+  (above n4 n5)
+  (lift-at fast0 n0)
+  (reachable-floor fast0 n0) (reachable-floor fast0 n2)
+  (reachable-floor fast0 n4)
+  (passengers fast0 n0)
+  (can-hold fast0 n1) (can-hold fast0 n2)
+  (lift-at slow0-0 n5)
+  (reachable-floor slow0-0 n0) (reachable-floor slow0-0 n1)
+  (reachable-floor slow0-0 n2) (reachable-floor slow0-0 n3)
+  (reachable-floor slow0-0 n4) (reachable-floor slow0-0 n5)
+  (passengers slow0-0 n0)
+  (can-hold slow0-0 n1) (can-hold slow0-0 n2)
+  (passenger-at p0 n0) (passenger-at p1 n4) (passenger-at p2 n2)
+  (passenger-at p3 n0) (passenger-at p4 n3)
+  (= (travel-slow n0 n1) 10) (= (travel-slow n0 n2) 18) (= (travel-slow n0 n3) 26)
+  (= (travel-slow n0 n4) 34) (= (travel-slow n0 n5) 42)
+  (= (travel-slow n1 n2) 10) (= (travel-slow n1 n3) 18) (= (travel-slow n1 n4) 26)
+  (= (travel-slow n1 n5) 34)
+  (= (travel-slow n2 n3) 10) (= (travel-slow n2 n4) 18) (= (travel-slow n2 n5) 26)
+  (= (travel-slow n3 n4) 10) (= (travel-slow n3 n5) 18)
+  (= (travel-slow n4 n5) 10)
+  (= (travel-fast n0 n2) 8) (= (travel-fast n0 n4) 14)
+  (= (travel-fast n2 n4) 8)
+)
+(:goal (and
+  (passenger-at p0 n4)
+  (passenger-at p1 n0)
+  (passenger-at p2 n5)
+  (passenger-at p3 n2)
+  (passenger-at p4 n1)
+))
+(:metric minimize (total-time))
+)

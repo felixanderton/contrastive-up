@@ -6,6 +6,7 @@ from utils.plan_diff import diff_plans, _plan_cost
 from utils.constraint import (
     ProhibitedAction, EnforcedAction,
     ActionOrdering, AtomGoal, FluentChange, TimedLiteral, ActionCountLimit,
+    Preference,
 )
 from utils.optic import OpticImpl
 
@@ -73,8 +74,8 @@ def contrastive_plan_comparison(
 
 def main():
     contrastive_plan_comparison(
-        domain_path='refrigerated_delivery_domain.pddl',
-        problem_path='refrigerated_delivery_problem.pddl',
+        domain_path='pddl/correctness_tests/refrigerated_delivery_domain.pddl',
+        problem_path='pddl/correctness_tests/refrigerated_delivery_problem.pddl',
         constraint_question='Why did the driver use truck t2 to drive from a to c?',
         constraints=[
             ProhibitedAction('drive_truck', ['d1', 't2', 'a', 'c']),

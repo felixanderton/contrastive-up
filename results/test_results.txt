@@ -1,0 +1,873 @@
+======================================================================
+CONTRASTIVE PLANNING — CONSTRAINT TEST RESULTS
+======================================================================
+
+[Test 1/8] ProhibitedAction: ban drive_truck(d1, t2, a, c)
+----------------------------------------------------------
+INFO: Prohibited action 'drive_truck(d1, t2, a, c)'
+Running: ./optic-clp refrigerated_delivery_domain.pddl refrigerated_delivery_problem.pddl
+Number of literals: 21
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (at m b), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (at ce c), is static or a precondition[00m
+Action 12 - (board_truck d1 t1 a) is uninteresting once we have fact (boarded d1 t1)
+Action 13 - (board_truck d1 t2 a) is uninteresting once we have fact (boarded d1 t2)
+All the ground actions in this problem are compression-safe
+Initial heuristic = 7.000, admissible cost estimate 20.023
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)(G)
+; LP calculated the cost
+
+; Plan found with metric 35.032
+; Theoretical reachable cost 35.033
+; States evaluated so far: 60
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.21
+0.000: (board_truck d1 t1 a)  [0.010]
+0.000: (load_truck m t1 a)  [0.010]
+0.000: (load_truck ce t1 a)  [0.010]
+0.010: (drive_truck d1 t1 a b)  [20.000]
+20.012: (deliver_produce m t1 b)  [0.010]
+20.022: (drive_truck d1 t1 b c)  [15.000]
+35.022: (deliver_produce ce t1 c)  [0.010]
+
+ * All goal deadlines now no later than 35.032
+(G)
+; LP calculated the cost
+
+; Plan found with metric 25.032
+; Theoretical reachable cost 25.033
+; States evaluated so far: 150
+; States pruned based on pre-heuristic cost lower bound: 3
+; Time 0.43
+0.000: (board_truck d1 t2 a)  [0.010]
+0.000: (load_truck m t2 a)  [0.010]
+0.000: (load_truck ce t2 a)  [0.010]
+0.010: (drive_truck d1 t2 a c)  [10.000]
+10.012: (deliver_produce ce t2 c)  [0.010]
+10.022: (drive_truck d1 t2 c b)  [15.000]
+21.991: (extend_meat_life m t2)  [0.010]
+25.022: (deliver_produce m t2 b)  [0.010]
+
+ * All goal deadlines now no later than 25.032
+Running: ./optic-clp domain_constrained_temp.pddl problem_constrained_temp.pddl
+Number of literals: 39
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (at m b), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (at ce c), is static or a precondition[00m
+Action 12 - (board_truck d1 t1 a) is uninteresting once we have fact (boarded d1 t1)
+Action 13 - (board_truck d1 t2 a) is uninteresting once we have fact (boarded d1 t2)
+Pruning (drive_truck d1 t2 a c) - temporal contradiction: start min/max = 2147483.647/0.000; end min/max = 10.000/10.000; duration min/max = 10.000/10.000
+All the ground actions in this problem are compression-safe
+Initial heuristic = 7.000, admissible cost estimate 20.023
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)(G)
+; LP calculated the cost
+
+; Plan found with metric 35.032
+; Theoretical reachable cost 35.033
+; States evaluated so far: 71
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.23
+0.000: (board_truck d1 t1 a)  [0.010]
+0.000: (load_truck m t1 a)  [0.010]
+0.000: (load_truck ce t1 a)  [0.010]
+0.010: (drive_truck d1 t1 a b)  [20.000]
+20.012: (deliver_produce m t1 b)  [0.010]
+20.022: (drive_truck d1 t1 b c)  [15.000]
+35.022: (deliver_produce ce t1 c)  [0.010]
+
+ * All goal deadlines now no later than 35.032
+
+
+ Constraint: Why did the driver take truck t2 directly from a to c?
+
+Plan comparison:
+Step | Original Plan              | Constrained Plan          
+Cost | 25.03                      | 35.03                     
+--------------------------------------------------------------
+   0 | [31mboard_truck(d1, t2, a)    [0m | [33mboard_truck(d1, t1, a)    [0m
+   1 | [31mload_truck(m, t2, a)      [0m | [33mload_truck(m, t1, a)      [0m
+   2 | [31mload_truck(ce, t2, a)     [0m | [33mload_truck(ce, t1, a)     [0m
+   3 | [31mdrive_truck(d1, t2, a, c) [0m | [33mdrive_truck(d1, t1, a, b) [0m
+   4 | [31mdeliver_produce(ce, t2, c)[0m | [33mdeliver_produce(m, t1, b) [0m
+   5 | [31mdrive_truck(d1, t2, c, b) [0m | [33mdrive_truck(d1, t1, b, c) [0m
+   6 | [31mextend_meat_life(m, t2)   [0m | [33mdeliver_produce(ce, t1, c)[0m
+   7 | [31mdeliver_produce(m, t2, b) [0m |                           
+
+Legend:
+[34m  Blue       : matching action in both plans[0m
+[33m  Yellow     : action added relative to the other plan[0m
+[31m  Red        : action removed relative to the other plan[0m
+[32m  Green      : action exists in both plans but moved[0m
+
+[Test 2/8] EnforcedAction: enforce board_truck(d1, t1, a)
+---------------------------------------------------------
+INFO: Enforced action 'board_truck(d1, t1, a)'
+Running: ./optic-clp refrigerated_delivery_domain.pddl refrigerated_delivery_problem.pddl
+Number of literals: 21
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (at m b), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (at ce c), is static or a precondition[00m
+Action 12 - (board_truck d1 t1 a) is uninteresting once we have fact (boarded d1 t1)
+Action 13 - (board_truck d1 t2 a) is uninteresting once we have fact (boarded d1 t2)
+All the ground actions in this problem are compression-safe
+Initial heuristic = 7.000, admissible cost estimate 20.023
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)(G)
+; LP calculated the cost
+
+; Plan found with metric 35.032
+; Theoretical reachable cost 35.033
+; States evaluated so far: 60
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.20
+0.000: (board_truck d1 t1 a)  [0.010]
+0.000: (load_truck m t1 a)  [0.010]
+0.000: (load_truck ce t1 a)  [0.010]
+0.010: (drive_truck d1 t1 a b)  [20.000]
+20.012: (deliver_produce m t1 b)  [0.010]
+20.022: (drive_truck d1 t1 b c)  [15.000]
+35.022: (deliver_produce ce t1 c)  [0.010]
+
+ * All goal deadlines now no later than 35.032
+(G)
+; LP calculated the cost
+
+; Plan found with metric 25.032
+; Theoretical reachable cost 25.033
+; States evaluated so far: 150
+; States pruned based on pre-heuristic cost lower bound: 3
+; Time 0.43
+0.000: (board_truck d1 t2 a)  [0.010]
+0.000: (load_truck m t2 a)  [0.010]
+0.000: (load_truck ce t2 a)  [0.010]
+0.010: (drive_truck d1 t2 a c)  [10.000]
+10.012: (deliver_produce ce t2 c)  [0.010]
+10.022: (drive_truck d1 t2 c b)  [15.000]
+21.991: (extend_meat_life m t2)  [0.010]
+25.022: (deliver_produce m t2 b)  [0.010]
+
+ * All goal deadlines now no later than 25.032
+Running: ./optic-clp domain_constrained_temp.pddl problem_constrained_temp.pddl
+Number of literals: 22
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (at m b), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (at ce c), is static or a precondition[00m
+[01;31mLooking for achievers for goal index 2, fact (did_board_truck_d1_t1_a) with fID 21[00m
+ (mark_board_truck_d1_t1_a d1 t1 a)
+  Looking at numeric effects of (mark_board_truck_d1_t1_a d1 t1 a): 0 and 0
+  No troublesome numerics - looking at conditional effects on (mark_board_truck_d1_t1_a d1 t1 a), of which there are 0
+Action 12 - (board_truck d1 t1 a) is uninteresting once we have fact (boarded d1 t1)
+Action 13 - (board_truck d1 t2 a) is uninteresting once we have fact (boarded d1 t2)
+Action 45 - (mark_board_truck_d1_t1_a d1 t1 a) is uninteresting once we have fact (did_board_truck_d1_t1_a)
+All the ground actions in this problem are compression-safe
+Initial heuristic = 8.000, admissible cost estimate 20.023
+b (7.000 | 0.010)b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.021)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (7.000 | 0.010)b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.021)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)(G)
+; LP calculated the cost
+
+; Plan found with metric 35.032
+; Theoretical reachable cost 35.033
+; States evaluated so far: 69
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.22
+0.000: (board_truck d1 t1 a)  [0.010]
+0.000: (load_truck m t1 a)  [0.010]
+0.000: (load_truck ce t1 a)  [0.010]
+0.010: (drive_truck d1 t1 a b)  [20.000]
+0.011: (mark_board_truck_d1_t1_a d1 t1 a)  [0.010]
+20.012: (deliver_produce m t1 b)  [0.010]
+20.022: (drive_truck d1 t1 b c)  [15.000]
+35.022: (deliver_produce ce t1 c)  [0.010]
+
+ * All goal deadlines now no later than 35.032
+
+
+ Constraint: What if the driver had to use truck t1 (non-refrigerated)?
+
+Plan comparison:
+Step | Original Plan              | Constrained Plan          
+Cost | 25.03                      | 35.03                     
+--------------------------------------------------------------
+   0 | [31mboard_truck(d1, t2, a)    [0m | [33mboard_truck(d1, t1, a)    [0m
+   1 | [31mload_truck(m, t2, a)      [0m | [33mload_truck(m, t1, a)      [0m
+   2 | [31mload_truck(ce, t2, a)     [0m | [33mload_truck(ce, t1, a)     [0m
+   3 | [31mdrive_truck(d1, t2, a, c) [0m | [33mdrive_truck(d1, t1, a, b) [0m
+   4 | [31mdeliver_produce(ce, t2, c)[0m | [33mdeliver_produce(m, t1, b) [0m
+   5 | [31mdrive_truck(d1, t2, c, b) [0m | [33mdrive_truck(d1, t1, b, c) [0m
+   6 | [31mextend_meat_life(m, t2)   [0m | [33mdeliver_produce(ce, t1, c)[0m
+   7 | [31mdeliver_produce(m, t2, b) [0m |                           
+
+Legend:
+[34m  Blue       : matching action in both plans[0m
+[33m  Yellow     : action added relative to the other plan[0m
+[31m  Red        : action removed relative to the other plan[0m
+[32m  Green      : action exists in both plans but moved[0m
+
+[Test 3/8] ActionOrdering: extend_meat_life only after deliver_produce(m, t2, b)
+--------------------------------------------------------------------------------
+INFO: Ordered 'extend_meat_life(m, t2)' to start after 'deliver_produce(m, t2, b)' completes
+Running: ./optic-clp refrigerated_delivery_domain.pddl refrigerated_delivery_problem.pddl
+Number of literals: 21
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (at m b), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (at ce c), is static or a precondition[00m
+Action 12 - (board_truck d1 t1 a) is uninteresting once we have fact (boarded d1 t1)
+Action 13 - (board_truck d1 t2 a) is uninteresting once we have fact (boarded d1 t2)
+All the ground actions in this problem are compression-safe
+Initial heuristic = 7.000, admissible cost estimate 20.023
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)(G)
+; LP calculated the cost
+
+; Plan found with metric 35.032
+; Theoretical reachable cost 35.033
+; States evaluated so far: 60
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.21
+0.000: (board_truck d1 t1 a)  [0.010]
+0.000: (load_truck m t1 a)  [0.010]
+0.000: (load_truck ce t1 a)  [0.010]
+0.010: (drive_truck d1 t1 a b)  [20.000]
+20.012: (deliver_produce m t1 b)  [0.010]
+20.022: (drive_truck d1 t1 b c)  [15.000]
+35.022: (deliver_produce ce t1 c)  [0.010]
+
+ * All goal deadlines now no later than 35.032
+(G)
+; LP calculated the cost
+
+; Plan found with metric 25.032
+; Theoretical reachable cost 25.033
+; States evaluated so far: 150
+; States pruned based on pre-heuristic cost lower bound: 3
+; Time 0.44
+0.000: (board_truck d1 t2 a)  [0.010]
+0.000: (load_truck m t2 a)  [0.010]
+0.000: (load_truck ce t2 a)  [0.010]
+0.010: (drive_truck d1 t2 a c)  [10.000]
+10.012: (deliver_produce ce t2 c)  [0.010]
+10.022: (drive_truck d1 t2 c b)  [15.000]
+21.991: (extend_meat_life m t2)  [0.010]
+25.022: (deliver_produce m t2 b)  [0.010]
+
+ * All goal deadlines now no later than 25.032
+Running: ./optic-clp domain_constrained_temp.pddl problem_constrained_temp.pddl
+Number of literals: 24
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (at m b), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (at ce c), is static or a precondition[00m
+Action 12 - (board_truck d1 t1 a) is uninteresting once we have fact (boarded d1 t1)
+Action 13 - (board_truck d1 t2 a) is uninteresting once we have fact (boarded d1 t2)
+Action 45 - (set_done_deliver_produce_m_t2_b m t2 b) is uninteresting once we have fact (done_deliver_produce_m_t2_b)
+All the ground actions in this problem are compression-safe
+Initial heuristic = 7.000, admissible cost estimate 20.023
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)(G)
+; LP calculated the cost
+
+; Plan found with metric 35.032
+; Theoretical reachable cost 35.033
+; States evaluated so far: 72
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.23
+0.000: (board_truck d1 t1 a)  [0.010]
+0.000: (load_truck m t1 a)  [0.010]
+0.000: (load_truck ce t1 a)  [0.010]
+0.010: (drive_truck d1 t1 a b)  [20.000]
+20.012: (deliver_produce m t1 b)  [0.010]
+20.022: (drive_truck d1 t1 b c)  [15.000]
+35.022: (deliver_produce ce t1 c)  [0.010]
+
+ * All goal deadlines now no later than 35.032
+
+
+ Constraint: Why did the driver extend meat life before delivering it?
+
+Plan comparison:
+Step | Original Plan              | Constrained Plan          
+Cost | 25.03                      | 35.03                     
+--------------------------------------------------------------
+   0 | [31mboard_truck(d1, t2, a)    [0m | [33mboard_truck(d1, t1, a)    [0m
+   1 | [31mload_truck(m, t2, a)      [0m | [33mload_truck(m, t1, a)      [0m
+   2 | [31mload_truck(ce, t2, a)     [0m | [33mload_truck(ce, t1, a)     [0m
+   3 | [31mdrive_truck(d1, t2, a, c) [0m | [33mdrive_truck(d1, t1, a, b) [0m
+   4 | [31mdeliver_produce(ce, t2, c)[0m | [33mdeliver_produce(m, t1, b) [0m
+   5 | [31mdrive_truck(d1, t2, c, b) [0m | [33mdrive_truck(d1, t1, b, c) [0m
+   6 | [31mextend_meat_life(m, t2)   [0m | [33mdeliver_produce(ce, t1, c)[0m
+   7 | [31mdeliver_produce(m, t2, b) [0m |                           
+
+Legend:
+[34m  Blue       : matching action in both plans[0m
+[33m  Yellow     : action added relative to the other plan[0m
+[31m  Red        : action removed relative to the other plan[0m
+[32m  Green      : action exists in both plans but moved[0m
+
+[Test 4/8] AtomGoal: truck t2 must also end at location c
+---------------------------------------------------------
+INFO: Added goal atom '(at t2 c)'
+Running: ./optic-clp refrigerated_delivery_domain.pddl refrigerated_delivery_problem.pddl
+Number of literals: 21
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (at m b), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (at ce c), is static or a precondition[00m
+Action 12 - (board_truck d1 t1 a) is uninteresting once we have fact (boarded d1 t1)
+Action 13 - (board_truck d1 t2 a) is uninteresting once we have fact (boarded d1 t2)
+All the ground actions in this problem are compression-safe
+Initial heuristic = 7.000, admissible cost estimate 20.023
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)(G)
+; LP calculated the cost
+
+; Plan found with metric 35.032
+; Theoretical reachable cost 35.033
+; States evaluated so far: 60
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.21
+0.000: (board_truck d1 t1 a)  [0.010]
+0.000: (load_truck m t1 a)  [0.010]
+0.000: (load_truck ce t1 a)  [0.010]
+0.010: (drive_truck d1 t1 a b)  [20.000]
+20.012: (deliver_produce m t1 b)  [0.010]
+20.022: (drive_truck d1 t1 b c)  [15.000]
+35.022: (deliver_produce ce t1 c)  [0.010]
+
+ * All goal deadlines now no later than 35.032
+(G)
+; LP calculated the cost
+
+; Plan found with metric 25.032
+; Theoretical reachable cost 25.033
+; States evaluated so far: 150
+; States pruned based on pre-heuristic cost lower bound: 3
+; Time 0.44
+0.000: (board_truck d1 t2 a)  [0.010]
+0.000: (load_truck m t2 a)  [0.010]
+0.000: (load_truck ce t2 a)  [0.010]
+0.010: (drive_truck d1 t2 a c)  [10.000]
+10.012: (deliver_produce ce t2 c)  [0.010]
+10.022: (drive_truck d1 t2 c b)  [15.000]
+21.991: (extend_meat_life m t2)  [0.010]
+25.022: (deliver_produce m t2 b)  [0.010]
+
+ * All goal deadlines now no later than 25.032
+Running: ./optic-clp domain_constrained_temp.pddl problem_constrained_temp.pddl
+Number of literals: 21
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (at m b), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (at ce c), is static or a precondition[00m
+[01;34mFor limits: literal goal index 2, fact (at t2 c), is static or a precondition[00m
+Action 12 - (board_truck d1 t1 a) is uninteresting once we have fact (boarded d1 t1)
+Action 13 - (board_truck d1 t2 a) is uninteresting once we have fact (boarded d1 t2)
+All the ground actions in this problem are compression-safe
+Initial heuristic = 9.000, admissible cost estimate 20.023
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 35.022)(G)
+; LP calculated the cost
+
+; Plan found with metric 35.032
+; Theoretical reachable cost 35.033
+; States evaluated so far: 62
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.20
+0.000: (board_truck d1 t2 a)  [0.010]
+0.000: (load_truck m t2 a)  [0.010]
+0.000: (load_truck ce t2 a)  [0.010]
+0.010: (drive_truck d1 t2 a b)  [20.000]
+20.012: (deliver_produce m t2 b)  [0.010]
+20.022: (drive_truck d1 t2 b c)  [15.000]
+35.022: (deliver_produce ce t2 c)  [0.010]
+
+ * All goal deadlines now no later than 35.032
+
+
+ Constraint: What if truck t2 also needed to return to location c?
+
+Plan comparison:
+Step | Original Plan              | Constrained Plan          
+Cost | 25.03                      | 35.03                     
+--------------------------------------------------------------
+   0 | [34mboard_truck(d1, t2, a)    [0m | [34mboard_truck(d1, t2, a)    [0m
+   1 | [34mload_truck(m, t2, a)      [0m | [34mload_truck(m, t2, a)      [0m
+   2 | [34mload_truck(ce, t2, a)     [0m | [34mload_truck(ce, t2, a)     [0m
+   3 | [31mdrive_truck(d1, t2, a, c) [0m | [33mdrive_truck(d1, t2, a, b) [0m
+   4 | [32mdeliver_produce(ce, t2, c)[0m | [32mdeliver_produce(m, t2, b) [0m
+   5 | [31mdrive_truck(d1, t2, c, b) [0m | [33mdrive_truck(d1, t2, b, c) [0m
+   6 | [31mextend_meat_life(m, t2)   [0m | [32mdeliver_produce(ce, t2, c)[0m
+   7 | [32mdeliver_produce(m, t2, b) [0m |                           
+
+Legend:
+[34m  Blue       : matching action in both plans[0m
+[33m  Yellow     : action added relative to the other plan[0m
+[31m  Red        : action removed relative to the other plan[0m
+[32m  Green      : action exists in both plans but moved[0m
+
+[Test 5/8] FluentChange: time_to_drive(a, b) changed from 20 to 5
+-----------------------------------------------------------------
+INFO: Set fluent '(time_to_drive a b)' to 5
+INFO: Set fluent '(time_to_drive b a)' to 5
+Running: ./optic-clp refrigerated_delivery_domain.pddl refrigerated_delivery_problem.pddl
+Number of literals: 21
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (at m b), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (at ce c), is static or a precondition[00m
+Action 12 - (board_truck d1 t1 a) is uninteresting once we have fact (boarded d1 t1)
+Action 13 - (board_truck d1 t2 a) is uninteresting once we have fact (boarded d1 t2)
+All the ground actions in this problem are compression-safe
+Initial heuristic = 7.000, admissible cost estimate 20.023
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)(G)
+; LP calculated the cost
+
+; Plan found with metric 35.032
+; Theoretical reachable cost 35.033
+; States evaluated so far: 60
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.20
+0.000: (board_truck d1 t1 a)  [0.010]
+0.000: (load_truck m t1 a)  [0.010]
+0.000: (load_truck ce t1 a)  [0.010]
+0.010: (drive_truck d1 t1 a b)  [20.000]
+20.012: (deliver_produce m t1 b)  [0.010]
+20.022: (drive_truck d1 t1 b c)  [15.000]
+35.022: (deliver_produce ce t1 c)  [0.010]
+
+ * All goal deadlines now no later than 35.032
+(G)
+; LP calculated the cost
+
+; Plan found with metric 25.032
+; Theoretical reachable cost 25.033
+; States evaluated so far: 150
+; States pruned based on pre-heuristic cost lower bound: 3
+; Time 0.44
+0.000: (board_truck d1 t2 a)  [0.010]
+0.000: (load_truck m t2 a)  [0.010]
+0.000: (load_truck ce t2 a)  [0.010]
+0.010: (drive_truck d1 t2 a c)  [10.000]
+10.012: (deliver_produce ce t2 c)  [0.010]
+10.022: (drive_truck d1 t2 c b)  [15.000]
+21.991: (extend_meat_life m t2)  [0.010]
+25.022: (deliver_produce m t2 b)  [0.010]
+
+ * All goal deadlines now no later than 25.032
+Running: ./optic-clp domain_constrained_temp.pddl problem_constrained_temp.pddl
+Number of literals: 21
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (at m b), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (at ce c), is static or a precondition[00m
+Action 12 - (board_truck d1 t1 a) is uninteresting once we have fact (boarded d1 t1)
+Action 13 - (board_truck d1 t2 a) is uninteresting once we have fact (boarded d1 t2)
+All the ground actions in this problem are compression-safe
+Initial heuristic = 7.000, admissible cost estimate 10.023
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (3.000 | 5.011)b (2.000 | 10.022)b (1.000 | 25.021)b (1.000 | 20.021)(G)
+; LP calculated the cost
+
+; Plan found with metric 20.032
+; Theoretical reachable cost 20.033
+; States evaluated so far: 60
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.20
+0.000: (board_truck d1 t1 a)  [0.010]
+0.000: (load_truck m t1 a)  [0.010]
+0.000: (load_truck ce t1 a)  [0.010]
+0.011: (drive_truck d1 t1 a b)  [5.000]
+5.012: (deliver_produce m t1 b)  [0.010]
+5.022: (drive_truck d1 t1 b c)  [15.000]
+20.022: (deliver_produce ce t1 c)  [0.010]
+
+ * All goal deadlines now no later than 20.032
+Error: contrastive comparison is invalid — the constrained plan (cost 20.03) is cheaper than the original plan (cost 25.03). The planner did not find an optimal solution for the original problem, so no meaningful explanation can be produced.
+
+[Test 6/8] TimedLiteral: t2's refrigeration fails at t=11
+---------------------------------------------------------
+INFO: Added timed literal '(at 11 (not (refrigerated t2)))'
+Running: ./optic-clp refrigerated_delivery_domain.pddl refrigerated_delivery_problem.pddl
+Number of literals: 21
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (at m b), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (at ce c), is static or a precondition[00m
+Action 12 - (board_truck d1 t1 a) is uninteresting once we have fact (boarded d1 t1)
+Action 13 - (board_truck d1 t2 a) is uninteresting once we have fact (boarded d1 t2)
+All the ground actions in this problem are compression-safe
+Initial heuristic = 7.000, admissible cost estimate 20.023
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)(G)
+; LP calculated the cost
+
+; Plan found with metric 35.032
+; Theoretical reachable cost 35.033
+; States evaluated so far: 60
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.20
+0.000: (board_truck d1 t1 a)  [0.010]
+0.000: (load_truck m t1 a)  [0.010]
+0.000: (load_truck ce t1 a)  [0.010]
+0.010: (drive_truck d1 t1 a b)  [20.000]
+20.012: (deliver_produce m t1 b)  [0.010]
+20.022: (drive_truck d1 t1 b c)  [15.000]
+35.022: (deliver_produce ce t1 c)  [0.010]
+
+ * All goal deadlines now no later than 35.032
+(G)
+; LP calculated the cost
+
+; Plan found with metric 25.032
+; Theoretical reachable cost 25.033
+; States evaluated so far: 150
+; States pruned based on pre-heuristic cost lower bound: 3
+; Time 0.43
+0.000: (board_truck d1 t2 a)  [0.010]
+0.000: (load_truck m t2 a)  [0.010]
+0.000: (load_truck ce t2 a)  [0.010]
+0.010: (drive_truck d1 t2 a c)  [10.000]
+10.012: (deliver_produce ce t2 c)  [0.010]
+10.022: (drive_truck d1 t2 c b)  [15.000]
+21.991: (extend_meat_life m t2)  [0.010]
+25.022: (deliver_produce m t2 b)  [0.010]
+
+ * All goal deadlines now no later than 25.032
+Running: ./optic-clp domain_constrained_temp.pddl problem_constrained_temp.pddl
+Number of literals: 22
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (at m b), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (at ce c), is static or a precondition[00m
+Action 12 - (board_truck d1 t1 a) is uninteresting once we have fact (boarded d1 t1)
+Action 13 - (board_truck d1 t2 a) is uninteresting once we have fact (boarded d1 t2)
+All the ground actions in this problem are compression-safe
+Initial heuristic = 7.000, admissible cost estimate 20.023
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)(G)
+; LP calculated the cost
+
+; Plan found with metric 35.032
+; Theoretical reachable cost 35.033
+; States evaluated so far: 71
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.22
+0.000: (board_truck d1 t1 a)  [0.010]
+0.000: (load_truck m t1 a)  [0.010]
+0.000: (load_truck ce t1 a)  [0.010]
+0.010: (drive_truck d1 t1 a b)  [20.000]
+20.012: (deliver_produce m t1 b)  [0.010]
+20.022: (drive_truck d1 t1 b c)  [15.000]
+35.022: (deliver_produce ce t1 c)  [0.010]
+
+ * All goal deadlines now no later than 35.032
+
+
+ Constraint: What if truck t2's refrigeration unit broke down 11 minutes into the journey?
+
+Plan comparison:
+Step | Original Plan              | Constrained Plan          
+Cost | 25.03                      | 35.03                     
+--------------------------------------------------------------
+   0 | [31mboard_truck(d1, t2, a)    [0m | [33mboard_truck(d1, t1, a)    [0m
+   1 | [31mload_truck(m, t2, a)      [0m | [33mload_truck(m, t1, a)      [0m
+   2 | [31mload_truck(ce, t2, a)     [0m | [33mload_truck(ce, t1, a)     [0m
+   3 | [31mdrive_truck(d1, t2, a, c) [0m | [33mdrive_truck(d1, t1, a, b) [0m
+   4 | [31mdeliver_produce(ce, t2, c)[0m | [33mdeliver_produce(m, t1, b) [0m
+   5 | [31mdrive_truck(d1, t2, c, b) [0m | [33mdrive_truck(d1, t1, b, c) [0m
+   6 | [31mextend_meat_life(m, t2)   [0m | [33mdeliver_produce(ce, t1, c)[0m
+   7 | [31mdeliver_produce(m, t2, b) [0m |                           
+
+Legend:
+[34m  Blue       : matching action in both plans[0m
+[33m  Yellow     : action added relative to the other plan[0m
+[31m  Red        : action removed relative to the other plan[0m
+[32m  Green      : action exists in both plans but moved[0m
+
+[Test 7/8] ActionCountLimit: drive_truck limited to 1 use (unsolvable)
+----------------------------------------------------------------------
+INFO: Limited action 'drive_truck' to 1 use(s)
+Running: ./optic-clp refrigerated_delivery_domain.pddl refrigerated_delivery_problem.pddl
+Number of literals: 21
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (at m b), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (at ce c), is static or a precondition[00m
+Action 12 - (board_truck d1 t1 a) is uninteresting once we have fact (boarded d1 t1)
+Action 13 - (board_truck d1 t2 a) is uninteresting once we have fact (boarded d1 t2)
+All the ground actions in this problem are compression-safe
+Initial heuristic = 7.000, admissible cost estimate 20.023
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)(G)
+; LP calculated the cost
+
+; Plan found with metric 35.032
+; Theoretical reachable cost 35.033
+; States evaluated so far: 60
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.20
+0.000: (board_truck d1 t1 a)  [0.010]
+0.000: (load_truck m t1 a)  [0.010]
+0.000: (load_truck ce t1 a)  [0.010]
+0.010: (drive_truck d1 t1 a b)  [20.000]
+20.012: (deliver_produce m t1 b)  [0.010]
+20.022: (drive_truck d1 t1 b c)  [15.000]
+35.022: (deliver_produce ce t1 c)  [0.010]
+
+ * All goal deadlines now no later than 35.032
+(G)
+; LP calculated the cost
+
+; Plan found with metric 25.032
+; Theoretical reachable cost 25.033
+; States evaluated so far: 150
+; States pruned based on pre-heuristic cost lower bound: 3
+; Time 0.44
+0.000: (board_truck d1 t2 a)  [0.010]
+0.000: (load_truck m t2 a)  [0.010]
+0.000: (load_truck ce t2 a)  [0.010]
+0.010: (drive_truck d1 t2 a c)  [10.000]
+10.012: (deliver_produce ce t2 c)  [0.010]
+10.022: (drive_truck d1 t2 c b)  [15.000]
+21.991: (extend_meat_life m t2)  [0.010]
+25.022: (deliver_produce m t2 b)  [0.010]
+
+ * All goal deadlines now no later than 25.032
+Running: ./optic-clp domain_constrained_temp.pddl problem_constrained_temp.pddl
+Number of literals: 21
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+No semaphore facts found, returning
+(uses_left_drive_truck) has a finite upper bound: [-inf,1.000]
+Have identified that bigger values of (uses_left_drive_truck) are preferable
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (at m b), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (at ce c), is static or a precondition[00m
+Action 12 - (board_truck d1 t1 a) is uninteresting once we have fact (boarded d1 t1)
+Action 13 - (board_truck d1 t2 a) is uninteresting once we have fact (boarded d1 t2)
+All the ground actions in this problem are compression-safe
+Initial heuristic = 7.000, admissible cost estimate 20.023
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)Could not obtain both plans.
+Original status: PlanGenerationResultStatus.SOLVED_OPTIMALLY
+Constrained status: PlanGenerationResultStatus.TIMEOUT
+
+[Test 8/8] Preference: sometime-before — meat at b before cereal at c
+---------------------------------------------------------------------
+INFO: Added preference 'pref_m_before_ce' (sometime-before) with penalty 100
+Running: ./optic-clp refrigerated_delivery_domain.pddl refrigerated_delivery_problem.pddl
+Number of literals: 21
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (at m b), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (at ce c), is static or a precondition[00m
+Action 12 - (board_truck d1 t1 a) is uninteresting once we have fact (boarded d1 t1)
+Action 13 - (board_truck d1 t2 a) is uninteresting once we have fact (boarded d1 t2)
+All the ground actions in this problem are compression-safe
+Initial heuristic = 7.000, admissible cost estimate 20.023
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)(G)
+; LP calculated the cost
+
+; Plan found with metric 35.032
+; Theoretical reachable cost 35.033
+; States evaluated so far: 60
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.21
+0.000: (board_truck d1 t1 a)  [0.010]
+0.000: (load_truck m t1 a)  [0.010]
+0.000: (load_truck ce t1 a)  [0.010]
+0.010: (drive_truck d1 t1 a b)  [20.000]
+20.012: (deliver_produce m t1 b)  [0.010]
+20.022: (drive_truck d1 t1 b c)  [15.000]
+35.022: (deliver_produce ce t1 c)  [0.010]
+
+ * All goal deadlines now no later than 35.032
+(G)
+; LP calculated the cost
+
+; Plan found with metric 25.032
+; Theoretical reachable cost 25.033
+; States evaluated so far: 150
+; States pruned based on pre-heuristic cost lower bound: 3
+; Time 0.44
+0.000: (board_truck d1 t2 a)  [0.010]
+0.000: (load_truck m t2 a)  [0.010]
+0.000: (load_truck ce t2 a)  [0.010]
+0.010: (drive_truck d1 t2 a c)  [10.000]
+10.012: (deliver_produce ce t2 c)  [0.010]
+10.022: (drive_truck d1 t2 c b)  [15.000]
+21.991: (extend_meat_life m t2)  [0.010]
+25.022: (deliver_produce m t2 b)  [0.010]
+
+ * All goal deadlines now no later than 25.032
+Running: ./optic-clp domain_constrained_temp.pddl problem_constrained_temp.pddl
+Number of literals: 21
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%]
+No semaphore facts found, returning
+Seeing if metric is defined in terms of task vars or a minimal value of makespan
+- Yes it is
+Recognised a monotonic-change-induced limit on -1.000*<special>
+- Must be >=  the metric
+[01;34mFor limits: literal goal index 0, fact (at m b), is static or a precondition[00m
+[01;34mFor limits: literal goal index 1, fact (at ce c), is static or a precondition[00m
+Action 12 - (board_truck d1 t1 a) is uninteresting once we have fact (boarded d1 t1)
+Action 13 - (board_truck d1 t2 a) is uninteresting once we have fact (boarded d1 t2)
+All the ground actions in this problem are compression-safe
+Initial heuristic = 7.000, admissible cost estimate 20.023
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (6.000 | 0.010)b (5.000 | 0.010)b (4.000 | 0.010)b (3.000 | 10.009)b (2.000 | 10.022)b (1.000 | 25.021)(G)
+; LP calculated the cost
+
+; Plan found with metric 35.032
+; Theoretical reachable cost 35.033
+; States evaluated so far: 60
+; States pruned based on pre-heuristic cost lower bound: 0
+; Time 0.39
+; Dummy steps: 2
+0.000: (board_truck d1 t1 a)  [0.010]
+0.000: (load_truck m t1 a)  [0.010]
+0.000: (load_truck ce t1 a)  [0.010]
+0.010: (drive_truck d1 t1 a b)  [20.000]
+20.012: (deliver_produce m t1 b)  [0.010]
+20.022: (drive_truck d1 t1 b c)  [15.000]
+35.022: (deliver_produce ce t1 c)  [0.010]
+
+ * All goal deadlines now no later than 35.032
+
+
+ Constraint: Why did the planner not deliver meat to b before delivering cereal to c?
+
+Plan comparison:
+Step | Original Plan              | Constrained Plan          
+Cost | 25.03                      | 35.03                     
+--------------------------------------------------------------
+   0 | [31mboard_truck(d1, t2, a)    [0m | [33mboard_truck(d1, t1, a)    [0m
+   1 | [31mload_truck(m, t2, a)      [0m | [33mload_truck(m, t1, a)      [0m
+   2 | [31mload_truck(ce, t2, a)     [0m | [33mload_truck(ce, t1, a)     [0m
+   3 | [31mdrive_truck(d1, t2, a, c) [0m | [33mdrive_truck(d1, t1, a, b) [0m
+   4 | [31mdeliver_produce(ce, t2, c)[0m | [33mdeliver_produce(m, t1, b) [0m
+   5 | [31mdrive_truck(d1, t2, c, b) [0m | [33mdrive_truck(d1, t1, b, c) [0m
+   6 | [31mextend_meat_life(m, t2)   [0m | [33mdeliver_produce(ce, t1, c)[0m
+   7 | [31mdeliver_produce(m, t2, b) [0m |                           
+
+Legend:
+[34m  Blue       : matching action in both plans[0m
+[33m  Yellow     : action added relative to the other plan[0m
+[31m  Red        : action removed relative to the other plan[0m
+[32m  Green      : action exists in both plans but moved[0m
+
+======================================================================
+ALL TESTS COMPLETE
+======================================================================

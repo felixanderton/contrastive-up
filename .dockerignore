@@ -3,3 +3,10 @@ __pycache__
 *.pyc
 *.pyo
 .git
+.venv
+.mypy_cache
+.ruff_cache
+.DS_Store
+**/.DS_Store
+_to_delete
+optic-clp-release
