@@ -16,6 +16,20 @@ Given a planning problem and a constraint question (e.g. *"Why did the driver dr
 > - any Linux host with Docker and `linux/amd64` support enabled.
 >
 > On non-Linux hosts, Docker must emulate `linux/amd64` via QEMU, which produces significantly slower runs and has not been validated for this submission.
+>
+> ### Validated environment
+>
+> `./build.sh` was verified end-to-end on a Google Cloud VM with the following spec:
+>
+> | Field | Value |
+> |---|---|
+> | Project | `scenic-bolt-469812-m3` |
+> | Instance | `planning-vm` |
+> | Zone | `us-west1-a` |
+> | Machine type | `e2-standard-4` (4 vCPU, 16 GB RAM) |
+> | Architecture | `x86_64` |
+> | OS | Ubuntu 22.04.5 LTS |
+> | Docker | 29.1.3 |
 
 ---
 
